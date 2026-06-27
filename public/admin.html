@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Documentos 3.1</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="header">
+    <div class="header-logo">📋 DOCUMENTOS — ADMIN</div>
+    <div class="header-user">
+        <div><div style="font-weight: 600; font-size: 13px;">🔐 Administrador</div><small style="color: #666;">Panel de Control</small></div>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div style="padding: 40px; max-width: 1200px; margin: 0 auto;">
+    <h1 style="margin-bottom: 30px;">🔧 Panel de Administración</h1>
+    
+    <div style="display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #ddd; padding-bottom: 10px;">
+        <button class="admin-tab active" onclick="switchTab('users', this)" style="padding: 12px 16px; border: none; background: transparent; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; margin-bottom: -2px;">👥 Usuarios</button>
+        <button class="admin-tab" onclick="switchTab('templates', this)" style="padding: 12px 16px; border: none; background: transparent; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; margin-bottom: -2px;">📋 Templates</button>
+        <button class="admin-tab" onclick="switchTab('clauses', this)" style="padding: 12px 16px; border: none; background: transparent; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; margin-bottom: -2px;">📄 Cláusulas</button>
+    </div>
+    
+    <div id="tab-users" style="background: white; padding: 20px; border-radius: 8px;">
+        <h2>👥 Gestión de Usuarios</h2>
+        <p style="margin-top: 20px; color: #666;">Panel para habilitar/deshabilitar usuarios y ver solicitudes pendientes.</p>
+    </div>
+    
+    <div id="tab-templates" style="background: white; padding: 20px; border-radius: 8px; display: none;">
+        <h2>📋 Gestión de Templates</h2>
+        <p style="margin-top: 20px; color: #666;">Panel para crear, editar y eliminar templates de documentos.</p>
+    </div>
+    
+    <div id="tab-clauses" style="background: white; padding: 20px; border-radius: 8px; display: none;">
+        <h2>📄 Gestión de Cláusulas</h2>
+        <p style="margin-top: 20px; color: #666;">Panel para crear, editar y eliminar cláusulas dinámicas.</p>
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/api.js"></script>
+<script>
+    if (!isAdmin()) { alert('No tienes permisos'); window.location.href = 'dashboard.html'; }
+    
+    function switchTab(tab, btn) {
+        document.querySelectorAll('.admin-tab').forEach(b => { b.style.borderBottomColor = 'transparent'; b.style.color = '#666'; });
+        btn.style.borderBottomColor = '#CC0000';
+        btn.style.color = '#CC0000';
+        
+        document.querySelectorAll('[id^="tab-"]').forEach(t => t.style.display = 'none');
+        document.getElementById(`tab-${tab}`).style.display = 'block';
+    }
+    
+    function logout() { localStorage.clear(); window.location.href = 'index.html'; }
+</script>
+</body>
+</html>

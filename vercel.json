@@ -1,0 +1,11 @@
+{
+  "buildCommand": "echo 'Frontend en GitHub Pages'",
+  "outputDirectory": "api",
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs18.x",
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  }
+}

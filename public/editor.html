@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor — Documentos 3.1</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <a href="dashboard.html" style="color: #1f2937; text-decoration: none; margin-right: 15px;">← Volver</a>
+    <input type="text" id="doc-title" placeholder="Título del documento" style="border: none; background: transparent; font-size: 16px; font-weight: 600; flex: 1; padding: 0;">
+    <div class="header-user">
+        <button class="btn-logout" onclick="saveDraft()">💾 Guardar</button>
+        <button class="btn-logout" onclick="generatePDF()">📥 PDF</button>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 350px 1fr; min-height: calc(100vh - 60px); gap: 0;">
+    <div style="background: #f9f9f9; border-right: 1px solid #ddd; overflow-y: auto; padding: 20px;">
+        <h3 style="font-size: 13px; font-weight: 700; margin-bottom: 12px;">📋 Template</h3>
+        <select id="template-select" onchange="loadTemplate()" style="width: 100%; padding: 8px; margin-bottom: 20px;">
+            <option>Selecciona un template...</option>
+        </select>
+        
+        <h3 style="font-size: 13px; font-weight: 700; margin-bottom: 12px;">📝 Datos</h3>
+        <div id="form-fields" style="margin-bottom: 20px;"></div>
+        
+        <button class="btn-primary" onclick="saveDraft()" style="width: 100%; margin-top: 20px;">✅ Guardar Documento</button>
+    </div>
+    
+    <div style="background: white; padding: 20px; overflow-y: auto;">
+        <h3 style="margin-bottom: 16px;">👁️ Preview</h3>
+        <div id="preview-content" style="background: white; border: 1px solid #ddd; border-radius: 4px; padding: 20px; line-height: 1.8; min-height: 600px;"></div>
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/api.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/utils.js"></script>
+</body>
+</html>

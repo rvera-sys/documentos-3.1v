@@ -1,0 +1,26 @@
+{
+  "name": "documentos-3-1",
+  "version": "3.1.0",
+  "description": "Generador de Documentos Legales Inmobiliarios",
+  "main": "api/index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel deploy --prod",
+    "start": "vercel start"
+  },
+  "keywords": ["documentos", "legal", "inmobiliarios", "pdf"],
+  "author": "Alejandro Vera",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.37.0",
+    "jsonwebtoken": "^9.1.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "vercel": "latest"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
