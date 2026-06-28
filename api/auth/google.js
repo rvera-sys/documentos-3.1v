@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
       .single();
 
     if (!whitelist) {
-      await supabase.from('login_attempts').insert({ email: email, google_name: name, status: 'pending' }).catch(() => {});
+      try { await supabase.from('login_attempts').insert({ email: email, google_name: name, status: 'pending' }); } catch {}
       return res.status(403).json({ error: 'Email not authorized', message: 'Tu email no está habilitado aún', reason: 'pending' });
     }
 
@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
       user = newUser;
     }
 
-    await supabase.from('users').update({ last_login: new Date().toISOString() }).eq('id', user.id).catch(() => {});
+    try { await supabase.from('users').update({ last_login: new Date().toISOString() }).eq('id', user.id); } catch {}
 
     const token = jwt.sign({ sub: user.id, email: user.email, full_name: user.full_name, is_admin: user.is_admin }, process.env.JWT_SECRET, { expiresIn: '24h' });
 
