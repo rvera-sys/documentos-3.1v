@@ -3,6 +3,12 @@ const jwt = require('jsonwebtoken');
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
 
+function setCors(res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
 function verifyAuth(req) {
   const authHeader = req.headers.authorization;
   if (!authHeader) return null;
@@ -12,6 +18,9 @@ function verifyAuth(req) {
 }
 
 module.exports = async (req, res) => {
+  setCors(res);
+  if (req.method === 'OPTIONS') return res.status(200).end();
+
   const user = verifyAuth(req);
   if (!user) return res.status(401).json({ error: 'Unauthorized' });
 
