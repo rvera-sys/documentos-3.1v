@@ -41,8 +41,8 @@ module.exports = async (req, res) => {
       const newVersion = doc.version + 1;
       await supabase.from('document_instances').update({ title: title, form_data: form_data, version: newVersion, updated_at: new Date().toISOString() }).eq('id', id);
 
-      await supabase.from('draft_history').insert({ document_id: id, snapshot: { form_data, selected_clauses, custom_clauses }, version_number: newVersion, action: 'edit', edited_by: user.sub }).catch(() => {});
-      await supabase.from('audit_log').insert({ user_id: user.sub, action: 'update_document', document_id: id, details: { new_version: newVersion } }).catch(() => {});
+      try { await supabase.from('draft_history').insert({ document_id: id, snapshot: { form_data, selected_clauses, custom_clauses }, version_number: newVersion, action: 'edit', edited_by: user.sub }); } catch {}
+      try { await supabase.from('audit_log').insert({ user_id: user.sub, action: 'update_document', document_id: id, details: { new_version: newVersion } }); } catch {}
 
       return res.status(200).json({ success: true, message: 'Document saved', version: newVersion });
     }
@@ -52,7 +52,7 @@ module.exports = async (req, res) => {
       if (!doc) return res.status(404).json({ error: 'Document not found' });
 
       await supabase.from('document_instances').update({ deleted_at: new Date().toISOString() }).eq('id', id);
-      await supabase.from('audit_log').insert({ user_id: user.sub, action: 'delete_document', document_id: id }).catch(() => {});
+      try { await supabase.from('audit_log').insert({ user_id: user.sub, action: 'delete_document', document_id: id }); } catch {}
 
       return res.status(200).json({ success: true, message: 'Document deleted' });
     }

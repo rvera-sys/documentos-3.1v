@@ -47,7 +47,7 @@ module.exports = async (req, res) => {
         .select()
         .single();
 
-      await supabase.from('audit_log').insert({ user_id: user.sub, action: 'create_document', document_id: newDoc.id, details: { template_id, title } }).catch(() => {});
+      try { await supabase.from('audit_log').insert({ user_id: user.sub, action: 'create_document', document_id: newDoc.id, details: { template_id, title } }); } catch {}
 
       return res.status(201).json({ success: true, document: newDoc });
     }
