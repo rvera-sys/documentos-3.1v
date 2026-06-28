@@ -85,7 +85,7 @@
         list.innerHTML = allDocuments.map(doc => `
             <div class="doc-card">
                 <h3>${doc.title}</h3>
-                <div class="template-name">${doc.template_name || doc.template_id}</div>
+                <div class="template-name">${doc.document_templates?.name || doc.template_id}</div>
                 <span class="version-badge">v${doc.version}</span>
                 <div style="font-size: 11px; color: #999;">${new Date(doc.updated_at).toLocaleDateString('es-AR')}</div>
                 <div class="doc-actions">

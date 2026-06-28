@@ -2,64 +2,115 @@ let currentDocument = null;
 let currentTemplate = null;
 let currentFormData = {};
 
+function getFullTemplate(id) {
+    return TEMPLATES_COMPLETOS.find(t => t.id === id);
+}
+
 async function initEditor() {
-    requireAuth();
+    if (!requireAuth()) return;
     loadTemplateOptions();
     const params = new URLSearchParams(window.location.search);
     const docId = params.get('id');
-    if (docId) { loadExistingDocument(docId); }
+    if (docId) await loadExistingDocument(docId);
 }
 
 function loadTemplateOptions() {
     const select = document.getElementById('template-select');
-    select.innerHTML = '<option>Selecciona un template...</option>' + CONFIG.TEMPLATES.map(t => `<option value="${t.id}">${t.icon} ${t.name}</option>`).join('');
+    select.innerHTML = '<option value="">Selecciona un template...</option>' +
+        TEMPLATES_COMPLETOS.map(t =>
+            `<option value="${t.id}">${t.icon} ${t.nombre}</option>`
+        ).join('');
 }
 
 async function loadExistingDocument(docId) {
     try {
         currentDocument = await api.getDocument(docId);
-        document.getElementById('doc-title').value = currentDocument.title;
+        document.getElementById('doc-title').value = currentDocument.title || '';
         document.getElementById('template-select').value = currentDocument.template_id;
         currentFormData = currentDocument.form_data || {};
         loadTemplate();
-    } catch (e) { console.error('Error:', e); alert('Error cargando documento'); }
+    } catch (e) {
+        console.error('Error:', e);
+        showToast('❌ Error cargando documento');
+    }
 }
 
 function loadTemplate() {
     const templateId = document.getElementById('template-select').value;
     if (!templateId) return;
-    currentTemplate = CONFIG.TEMPLATES.find(t => t.id === templateId);
+    currentTemplate = getFullTemplate(templateId);
     if (currentDocument) currentDocument.template_id = templateId;
     renderFormFields();
     renderPreview();
 }
 
 function renderFormFields() {
-    const fields = getTemplateFields(currentTemplate?.id);
-    document.getElementById('form-fields').innerHTML = fields.map(f => `
-        <div style="margin-bottom: 12px;">
-            <label style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px;">${f.label}</label>
-            <input type="text" value="${currentFormData[f.key] || ''}" placeholder="${f.placeholder || ''}" onchange="updateField('${f.key}', this.value)">
+    if (!currentTemplate) {
+        document.getElementById('form-fields').innerHTML = '<p style="color: #999;">Seleccioná un template</p>';
+        return;
+    }
+    const html = currentTemplate.campos.map(grupo => `
+        <div style="margin-bottom: 16px;">
+            <div style="font-size: 12px; font-weight: 700; color: #CC0000; margin-bottom: 8px; border-bottom: 1px solid #ddd; padding-bottom: 4px;">${grupo.titulo}</div>
+            ${grupo.campos.map(key => {
+                const val = currentFormData[key] || '';
+                const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                return `<div style="margin-bottom: 8px;">
+                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #374151;">${label}</label>
+                    <input type="text" value="${val}" data-key="${key}" placeholder="${label}" onchange="updateField('${key}', this.value)" style="font-size: 12px;">
+                </div>`;
+            }).join('')}
         </div>
     `).join('');
+    document.getElementById('form-fields').innerHTML = html;
 }
 
-function updateField(key, value) { currentFormData[key] = value; renderPreview(); }
+function updateField(key, value) {
+    currentFormData[key] = value;
+    renderPreview();
+}
 
 function renderPreview() {
-    let html = '<h2 style="text-align: center; margin-bottom: 20px;">' + (currentTemplate?.name || 'Preview') + '</h2>';
-    html += '<p>Aquí irá el contenido del documento con variables interpoladas.</p>';
-    html += '<p style="margin-top: 20px; color: #999; font-size: 12px;">Datos: ' + JSON.stringify(currentFormData) + '</p>';
+    if (!currentTemplate) {
+        document.getElementById('preview-content').innerHTML = '<p style="color: #999;">Seleccioná un template para ver el preview</p>';
+        return;
+    }
+
+    const hoy = new Date().toLocaleDateString('es-AR');
+    const data = { fecha_hoy: hoy, ...currentFormData };
+
+    const clausulas = currentTemplate.clausulas_default || [];
+    const partes = clausulas.map(id => {
+        const c = CLAUSULAS_COMPLETAS.find(c => c.id === id);
+        if (!c) return '';
+        const texto = c.texto.replace(/\{\{(\w+)\}\}/g, (_, key) => data[key] || `[${key}]`);
+        return `<div style="margin-bottom: 16px; text-align: justify;">
+            <p style="white-space: pre-wrap; font-size: 13px; line-height: 1.8;">${texto}</p>
+        </div>`;
+    }).join('');
+
+    const html = `
+        <div style="max-width: 210mm; margin: 0 auto; padding: 30px 40px; font-family: 'Times New Roman', Times, serif; background: white;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="font-size: 18px; font-weight: 700; color: #CC0000; margin-bottom: 4px;">${currentTemplate.nombre}</h1>
+                <hr style="border: none; border-top: 2px solid #CC0000; margin: 10px 0;">
+            </div>
+            ${partes}
+            <div style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 16px;">
+                <p style="font-size: 11px; color: #666; text-align: center;">Generado por Documentos 3.1 — RE/MAX CREA</p>
+            </div>
+        </div>`;
+
     document.getElementById('preview-content').innerHTML = html;
 }
 
 async function saveDraft() {
     const title = document.getElementById('doc-title').value;
-    if (!title || !currentTemplate) { alert('Completa título y template'); return; }
+    if (!title || !currentTemplate) { showToast('⚠️ Completá título y seleccioná un template'); return; }
 
     try {
         if (currentDocument && currentDocument.id) {
-            await api.updateDocument(currentDocument.id, { title: title, form_data: currentFormData });
+            await api.updateDocument(currentDocument.id, { title, form_data: currentFormData });
             showToast('✅ Documento guardado');
         } else {
             const result = await api.createDocument(currentTemplate.id, title, currentFormData);
@@ -67,14 +118,23 @@ async function saveDraft() {
             window.history.replaceState(null, '', `editor.html?id=${currentDocument.id}`);
             showToast('✅ Documento creado');
         }
-    } catch (e) { console.error('Error:', e); alert('Error guardando'); }
+    } catch (e) {
+        console.error('Error:', e);
+        showToast('❌ Error guardando');
+    }
 }
 
 async function generatePDF() {
-    if (!currentDocument) { alert('Guarda el documento primero'); return; }
+    if (!currentDocument) { showToast('⚠️ Guardá el documento primero'); return; }
     try {
         const element = document.getElementById('preview-content');
-        const opt = { margin: 10, filename: (currentDocument.title || 'documento') + '.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' } };
+        const opt = {
+            margin: 10,
+            filename: (currentDocument.title || 'documento') + '.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+        };
         html2pdf().set(opt).from(element).save();
         await api.exportPDF(currentDocument.id, currentDocument.title + '.pdf');
         showToast('✅ PDF generado');
@@ -82,17 +142,5 @@ async function generatePDF() {
 }
 
 function logout() { localStorage.clear(); window.location.href = 'index.html'; }
-function getTemplateFields(tid) {
-    const fields = { 'aut_venta_exc': [
-        { key: 'cliente_nombre', label: 'Cliente', placeholder: 'Nombre' },
-        { key: 'cliente_dni', label: 'DNI', placeholder: 'DNI' },
-        { key: 'precio_num', label: 'Precio', placeholder: 'Monto' }
-    ], 'cont_locacion_viv': [
-        { key: 'inquilino', label: 'Inquilino', placeholder: 'Nombre' },
-        { key: 'canon', label: 'Canon mensual', placeholder: 'Monto' },
-        { key: 'duracion', label: 'Duración (meses)', placeholder: 'Meses' }
-    ]};
-    return fields[tid] || [];
-}
 
 document.addEventListener('DOMContentLoaded', initEditor);

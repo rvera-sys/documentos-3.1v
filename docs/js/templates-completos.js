@@ -287,7 +287,97 @@ const CLAUSULAS_COMPLETAS = [
     
     // FIRMAS
     { id: 'firma_partes', nombre: 'Firma de Partes', texto: 'En prueba de conformidad, se firman dos ejemplares de este instrumento.', categoria: null },
-    { id: 'datos_corredor', nombre: 'Datos del Corredor', texto: 'CORREDOR INMOBILIARIO: René Alejandro Vera (CSI 5848 / CPI 6778)\nRE/MAX CREA', categoria: null }
+    { id: 'datos_corredor', nombre: 'Datos del Corredor', texto: 'CORREDOR INMOBILIARIO: René Alejandro Vera (CSI 5848 / CPI 6778)\nRE/MAX CREA', categoria: null },
+
+    // DESISTIMIENTO
+    { id: 'encabezado_desistimiento', nombre: 'Encabezado Desistimiento', texto: 'DESISTIMIENTO DE COMPRA-venta\n\nBuenos Aires, {{fecha_hoy}}.', categoria: 'compra' },
+    { id: 'datos_partes_desistimiento', nombre: 'Datos Partes Desistimiento', texto: 'Entre {{comprador_nombre}}, DNI {{comprador_dni}}, denominado "DESISTENTE", y {{vendedor_nombre}}, denominado "VENDEDOR".', categoria: 'compra' },
+    { id: 'clausula_devolucion_seña', nombre: 'Cláusula Devolución de Seña', texto: 'Las partes acuerdan dejar sin efecto la operación de compra sobre el inmueble sito en {{inm_direccion}}. El VENDEDOR devuelve la suma de {{seña_monto}} recibida en concepto de seña.', categoria: 'compra' },
+
+    // RESERVA COMPRA
+    { id: 'encabezado_reserva', nombre: 'Encabezado Reserva Compra', texto: 'RESERVA DE COMPRA\n\nBuenos Aires, {{fecha_hoy}}.', categoria: 'compra' },
+    { id: 'datos_comprador', nombre: 'Datos Comprador', texto: 'El Sr./a {{comprador_nombre}}, DNI {{comprador_dni}}, con domicilio en {{comprador_domicilio}}, manifiesta su intención de adquirir el inmueble.', categoria: 'compra' },
+    { id: 'datos_inmueble', nombre: 'Datos Inmueble', texto: 'El inmueble objeto de la presente reserva se encuentra ubicado en {{inm_direccion}}, {{inm_localidad}}, tipo {{inm_tipo}}.', categoria: 'compra' },
+
+    // EMPRENDIMIENTO
+    { id: 'encabezado_empr', nombre: 'Encabezado Emprendimiento', texto: 'RESERVA DE UNIDAD EN EMPRENDIMIENTO\n\nBuenos Aires, {{fecha_hoy}}.', categoria: 'compra' },
+    { id: 'datos_emprendimiento', nombre: 'Datos Emprendimiento', texto: 'El emprendimiento denominado "{{empr_nombre}}" desarrollado por {{empr_desarrollador}}, ubicado en {{empr_ubicacion}}.', categoria: 'compra' },
+    { id: 'clausula_unidad', nombre: 'Cláusula Unidad', texto: 'Se reserva la unidad {{unidad_numero}}, piso {{unidad_piso}}, de {{unidad_ambientes}} ambientes, en el emprendimiento {{empr_nombre}}.', categoria: 'compra' },
+    { id: 'clausula_precio_empr', nombre: 'Cláusula Precio Emprendimiento', texto: 'El precio total de la unidad es de {{precio_unidad}}. Se entrega en concepto de seña la suma de {{seña_monto}} ({{porcentaje_seña}}% del valor total).', categoria: 'compra' },
+    { id: 'clausula_seña_empr', nombre: 'Cláusula Seña Emprendimiento', texto: 'La seña entregada quedará en poder del desarrollador como garantía de la reserva, imputándose al precio final.', categoria: 'compra' },
+    { id: 'clausula_entrega', nombre: 'Cláusula Entrega', texto: 'La entrega de la unidad se estima para la fecha que oportunamente se acuerde entre las partes.', categoria: 'compra' },
+
+    // RENTA VITALICIA
+    { id: 'datos_propietario_renta', nombre: 'Datos Propietario Renta', texto: 'El Sr./a {{prop_nombre}}, DNI {{prop_dni}}, de {{prop_edad}} años de edad, es propietario del inmueble sito en {{inm_direccion}}.', categoria: 'compra' },
+    { id: 'clausula_renta_vitalicia', nombre: 'Cláusula Renta Vitalicia', texto: 'El PROPIETARIO vende el inmueble con la condición de recibir una renta vitalicia mensual de {{renta_monto_mensual}} {{renta_moneda}}.', categoria: 'compra' },
+    { id: 'clausula_pagos_renta', nombre: 'Cláusula Pagos Renta', texto: 'La renta será abonada mensualmente dentro de los primeros cinco días de cada mes, iniciando con la firma de la escritura traslativa de dominio.', categoria: 'compra' },
+    { id: 'clausula_reajuste_renta', nombre: 'Cláusula Reajuste Renta', texto: 'El monto de la renta se reajustará periódicamente según {{renta_indexacion}}, a fin de mantener su valor adquisitivo.', categoria: 'compra' },
+
+    // CESION
+    { id: 'encabezado_cesion', nombre: 'Encabezado Cesión', texto: 'RESERVA DE CESIÓN DE DERECHOS\n\nBuenos Aires, {{fecha_hoy}}.', categoria: 'compra' },
+    { id: 'datos_partes_cesion', nombre: 'Datos Partes Cesión', texto: 'El Sr./a {{comprador_orig_nombre}}, DNI {{comprador_orig_dni}}, cede los derechos adquiridos al Sr./a {{cesionario_nombre}}, DNI {{cesionario_dni}}.', categoria: 'compra' },
+    { id: 'clausula_cesion_derechos', nombre: 'Cláusula Cesión Derechos', texto: 'El COMPRADOR ORIGINAL cede al CESIONARIO todos los derechos y obligaciones emergentes de la reserva de compra sobre el inmueble sito en {{inm_direccion}}, por el precio de {{precio_cesion}}.', categoria: 'compra' },
+
+    // CASO ESPECIAL
+    { id: 'clausula_caso_especial', nombre: 'Cláusula Caso Especial', texto: 'La presente autorización se otorga para el siguiente caso particular: {{caso_descripcion}}. Referencias: {{caso_referencias}}.', categoria: 'compra' },
+
+    // ALQUILER - AUTORIZACION
+    { id: 'encabezado_alquiler', nombre: 'Encabezado Alquiler', texto: 'AUTORIZACIÓN DE ALQUILER\n\nBuenos Aires, {{fecha_hoy}}.', categoria: 'alquiler' },
+    { id: 'datos_locador', nombre: 'Datos Locador', texto: 'El Sr./a {{locador_nombre}}, DNI {{locador_dni}}, con domicilio en {{locador_domicilio}}, denominado "LOCADOR".', categoria: 'alquiler' },
+    { id: 'clausula_exclusividad_alquiler', nombre: 'Cláusula Exclusividad Alquiler', texto: 'El LOCADOR otorga mandato EXCLUSIVO para alquilar el inmueble ubicado en {{inm_direccion}}, tipo {{inm_tipo}}, de {{inm_ambientes}} ambientes.', categoria: 'alquiler' },
+    { id: 'clausula_comision_alquiler', nombre: 'Cláusula Comisión Alquiler', texto: 'La comisión de la inmobiliaria será equivalente a {{porcentaje_comision}} meses de canon, a cargo del LOCADOR.', categoria: 'alquiler' },
+
+    // RESERVA CABA
+    { id: 'encabezado_reserva_caba', nombre: 'Encabezado Reserva CABA', texto: 'RESERVA DE LOCACIÓN - CABA\n\nBuenos Aires, {{fecha_hoy}}.', categoria: 'alquiler' },
+    { id: 'datos_interesado', nombre: 'Datos Interesado', texto: 'El Sr./a {{locatario_nombre}}, DNI {{locatario_dni}}, teléfono {{locatario_telefono}}, manifiesta interés en alquilar el inmueble.', categoria: 'alquiler' },
+    { id: 'datos_propiedad', nombre: 'Datos Propiedad', texto: 'Inmueble ubicado en {{inm_direccion}}, {{inm_localidad}}, piso/dpto {{inm_piso_dpto}}.', categoria: 'alquiler' },
+    { id: 'clausula_canon_reserva', nombre: 'Cláusula Canon Reserva', texto: 'El canon ofrecido es de {{canon_ofrecido}}. Se entrega en concepto de reserva la suma de {{seña_reserva}}.', categoria: 'alquiler' },
+    { id: 'clausula_seña_reserva_caba', nombre: 'Cláusula Seña Reserva CABA', texto: 'La suma entregada en concepto de seña garantiza la reserva del inmueble hasta la firma del contrato de locación.', categoria: 'alquiler' },
+    { id: 'clausula_plazo_confirmacion', nombre: 'Cláusula Plazo Confirmación', texto: 'El LOCADOR dispondrá de un plazo de {{plazo_confirmacion}} días hábiles para confirmar la operación.', categoria: 'alquiler' },
+
+    // RESERVA PBA
+    { id: 'encabezado_reserva_pba', nombre: 'Encabezado Reserva PBA', texto: 'RESERVA DE LOCACIÓN - PBA\n\n{{inm_localidad_pba}}, {{fecha_hoy}}.', categoria: 'alquiler' },
+    { id: 'datos_partes_pba', nombre: 'Datos Partes PBA', texto: 'Entre {{locatario_nombre}}, DNI {{locatario_dni}}, y {{locador_nombre}}, se acuerda la reserva del inmueble sito en {{inm_direccion_pba}}.', categoria: 'alquiler' },
+    { id: 'clausula_canon_pba', nombre: 'Cláusula Canon PBA', texto: 'El canon mensual acordado es de {{canon_pba}}. Se entrega como seña la suma de {{seña_pba}}.', categoria: 'alquiler' },
+    { id: 'clausula_seña_pba', nombre: 'Cláusula Seña PBA', texto: 'La seña entregada se imputará al primer mes de alquiler y al depósito en garantía.', categoria: 'alquiler' },
+
+    // RESERVA COMERCIAL
+    { id: 'encabezado_reserva_com', nombre: 'Encabezado Reserva Comercial', texto: 'RESERVA DE LOCACIÓN COMERCIAL\n\n{{fecha_hoy}}.', categoria: 'alquiler' },
+    { id: 'datos_interesado_com', nombre: 'Datos Interesado Comercial', texto: 'El Sr./a {{locatario_nombre}}, DNI {{locatario_dni}}, rubro {{rubro}}, manifiesta interés en el local.', categoria: 'alquiler' },
+    { id: 'clausula_canon_reserva_com', nombre: 'Cláusula Canon Reserva Comercial', texto: 'Se acuerda un canon de {{canon_solicitado}}. Se entrega como reserva la suma de {{seña_comercial}}.', categoria: 'alquiler' },
+    { id: 'clausula_confirmacion_com', nombre: 'Cláusula Confirmación Comercial', texto: 'El LOCADOR confirmará la operación en un plazo máximo de {{plazo_confirmacion}} días hábiles.', categoria: 'alquiler' },
+
+    // TEMPORARIO
+    { id: 'encabezado_temporal', nombre: 'Encabezado Temporario', texto: 'RESERVA DE ALQUILER TEMPORARIO\n\n{{fecha_hoy}}.', categoria: 'alquiler' },
+    { id: 'datos_temporal', nombre: 'Datos Inquilino Temporal', texto: 'El Sr./a {{temporal_nombre}}, DNI {{temporal_dni}}, procedente de {{temporal_pais}}, manifiesta interés en alquiler temporario.', categoria: 'alquiler' },
+    { id: 'clausula_periodo_temporal', nombre: 'Cláusula Período Temporario', texto: 'El período de alquiler comprende desde {{fecha_entrada}} hasta {{fecha_salida}}, totalizando {{dias_alquiler}} días.', categoria: 'alquiler' },
+    { id: 'clausula_tarifa_temporal', nombre: 'Cláusula Tarifa Temporaria', texto: 'La tarifa diaria acordada es de {{tarifa_diaria}}, resultando un monto total de {{monto_total}}.', categoria: 'alquiler' },
+    { id: 'clausula_seña_temporal', nombre: 'Cláusula Seña Temporario', texto: 'Se entrega en concepto de seña la suma de {{seña_temporal}} para confirmar la reserva.', categoria: 'alquiler' },
+    { id: 'clausula_deposito_garantia_temp', nombre: 'Cláusula Depósito Garantía Temporario', texto: 'Se requiere un depósito en garantía que será devuelto al finalizar la estadía, previa verificación del estado del inmueble.', categoria: 'alquiler' },
+
+    // AUTORIZACION TEMPORARIO
+    { id: 'encabezado_aut_temporal', nombre: 'Encabezado Autorización Temporario', texto: 'AUTORIZACIÓN DE ALQUILER TEMPORARIO — EXCLUSIVA\n\nBuenos Aires, {{fecha_hoy}}.', categoria: 'alquiler' },
+    { id: 'datos_prop_temporal', nombre: 'Datos Propietario Temporario', texto: 'El Sr./a {{prop_temporal_nombre}}, DNI {{prop_temporal_dni}}, propietario del inmueble.', categoria: 'alquiler' },
+    { id: 'clausula_exclusividad_temporal', nombre: 'Cláusula Exclusividad Temporario', texto: 'El PROPIETARIO otorga mandato EXCLUSIVO para alquiler temporario del inmueble sito en {{inm_temp_direccion}}, tipo {{inm_temp_tipo}}.', categoria: 'alquiler' },
+    { id: 'clausula_tarifa_temporal_aut', nombre: 'Cláusula Tarifa Autorización Temporario', texto: 'La tarifa diaria estimada es de {{tarifa_diaria_aut}}. La temporada acordada es de {{temporada_meses}} meses.', categoria: 'alquiler' },
+    { id: 'clausula_plazo_vigencia_temporal', nombre: 'Cláusula Vigencia Autorización Temporario', texto: 'La presente autorización tiene una vigencia de {{vigencia_meses}} meses a partir de la fecha de firma.', categoria: 'alquiler' },
+
+    // USD
+    { id: 'encabezado_usd', nombre: 'Encabezado USD', texto: 'CONTRATO DE LOCACIÓN — VIVIENDA EN USD\n\nBuenos Aires, {{fecha_hoy}}.', categoria: 'alquiler' },
+    { id: 'datos_partes_usd', nombre: 'Datos Partes USD', texto: 'Entre {{locador_nombre}}, DNI {{locador_dni}}, y {{locatario_nombre}}, DNI {{locatario_dni}}, se celebra el presente contrato.', categoria: 'alquiler' },
+    { id: 'clausula_canon_usd', nombre: 'Cláusula Canon USD', texto: 'El canon mensual se fija en {{canon_usd}} dólares estadounidenses, pagadero en la forma convenida.', categoria: 'alquiler' },
+    { id: 'clausula_transferencia_usd', nombre: 'Cláusula Transferencia USD', texto: 'El pago se efectuará mediante transferencia bancaria a la cuenta {{banco_transferencia}} en dólares estadounidenses.', categoria: 'alquiler' },
+    { id: 'clausula_renuncia_765', nombre: 'Cláusula Renuncia Art. 765 CCCN', texto: 'El LOCATARIO renuncia a la facultad prevista en el Artículo 765 del Código Civil y Comercial de la Nación, obligándose a pagar en la moneda pactada.', categoria: 'alquiler' },
+
+    // COMERCIAL
+    { id: 'encabezado_comercial', nombre: 'Encabezado Comercial', texto: 'CONTRATO DE LOCACIÓN COMERCIAL\n\n{{fecha_hoy}}.', categoria: 'alquiler' },
+    { id: 'datos_partes_comercial', nombre: 'Datos Partes Comercial', texto: 'Entre {{locador_nombre}}, DNI {{locador_dni}}, y {{locatario_nombre}}, DNI {{locatario_dni}}, rubro {{rubro_comercial}}, se celebra el presente contrato.', categoria: 'alquiler' },
+    { id: 'datos_local', nombre: 'Datos Local Comercial', texto: 'El local comercial se encuentra en {{inm_direccion}}, piso {{inm_piso}}, con {{inm_frente_metros}} m de frente y {{inm_fondo_metros}} m de fondo.', categoria: 'alquiler' },
+    { id: 'clausula_canon_comercial', nombre: 'Cláusula Canon Comercial', texto: 'El canon mensual es de {{canon_comercial}}, sujeto a reajuste según {{indices_ajuste_com}}.', categoria: 'alquiler' },
+    { id: 'clausula_indices_comercial', nombre: 'Cláusula Índices Comercial', texto: 'El canon se reajustará con la periodicidad y según los índices que se acuerden entre las partes.', categoria: 'alquiler' },
+    { id: 'clausula_mejoras', nombre: 'Cláusula Mejoras', texto: 'El LOCATARIO podrá realizar mejoras en el local previa autorización escrita del LOCADOR, quedando las mismas a beneficio del inmueble.', categoria: 'alquiler' },
+    { id: 'clausula_opcion_compra', nombre: 'Cláusula Opción de Compra', texto: 'Se otorga opción de compra al LOCATARIO sobre el inmueble, por el plazo y condiciones que se acuerden en documento separado.', categoria: 'alquiler' },
+    { id: 'clausula_resolucion_comercial', nombre: 'Cláusula Resolución Comercial', texto: 'Cualquiera de las partes podrá resolver el contrato en caso de incumplimiento de las obligaciones contraídas.', categoria: 'alquiler' }
 ];
 
 console.log('✅ Cargados ' + TEMPLATES_COMPLETOS.length + ' templates y ' + CLAUSULAS_COMPLETAS.length + ' cláusulas');
