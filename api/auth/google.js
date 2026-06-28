@@ -2,7 +2,7 @@ const { createClient } = require('@supabase/supabase-js');
 const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+const supabaseAdmin = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 function setCors(res) {
@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
 
     if (payload.email !== email) return res.status(401).json({ error: 'Email mismatch' });
 
-    const { data: whitelist } = await supabase
+    const { data: whitelist } = await supabaseAdmin
       .from('email_whitelist')
       .select('*')
       .eq('email', email)
@@ -38,14 +38,14 @@ module.exports = async (req, res) => {
       .single();
 
     if (!whitelist) {
-      try { await supabase.from('login_attempts').insert({ email: email, google_name: name, status: 'pending' }); } catch {}
+      try { await supabaseAdmin.from('login_attempts').insert({ email: email, google_name: name, status: 'pending' }); } catch {}
       return res.status(403).json({ error: 'Email not authorized', message: 'Tu email no está habilitado aún', reason: 'pending' });
     }
 
-    let { data: user } = await supabase.from('users').select('*').eq('email', email).single();
+    let { data: user } = await supabaseAdmin.from('users').select('*').eq('email', email).single();
 
     if (!user) {
-      const { data: newUser } = await supabase
+      const { data: newUser } = await supabaseAdmin
         .from('users')
         .insert({ email: email, full_name: name, picture_url: picture, is_admin: whitelist.is_admin || false, company_name: whitelist.company_name })
         .select()
@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
       user = newUser;
     }
 
-    try { await supabase.from('users').update({ last_login: new Date().toISOString() }).eq('id', user.id); } catch {}
+    try { await supabaseAdmin.from('users').update({ last_login: new Date().toISOString() }).eq('id', user.id); } catch {}
 
     const token = jwt.sign({ sub: user.id, email: user.email, full_name: user.full_name, is_admin: user.is_admin }, process.env.JWT_SECRET, { expiresIn: '24h' });
 
