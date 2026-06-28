@@ -3,17 +3,13 @@
   "version": "3.1.0",
   "description": "Generador de Documentos Legales Inmobiliarios",
   "scripts": {
-    "build": "echo 'Frontend en GitHub Pages, backend en Vercel Functions'"
+    "build": "echo build"
   },
-  "keywords": ["documentos", "legal", "inmobiliarios", "pdf"],
   "author": "Alejandro Vera",
   "license": "MIT",
   "dependencies": {
-    "@supabase/supabase-js": "^2.37.0",
-    "jsonwebtoken": "^9.1.0",
-    "dotenv": "^16.3.1"
-  },
-  "engines": {
-    "node": "22.x"
+    "@supabase/supabase-js": "^2.45.0",
+    "jsonwebtoken": "^9.0.0",
+    "dotenv": "^16.0.0"
   }
 }

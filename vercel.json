@@ -1,6 +1,4 @@
 {
-  "framework": null,
-  "buildCommand": "echo ok",
   "functions": {
     "api/**/*.js": {
       "memory": 1024,
