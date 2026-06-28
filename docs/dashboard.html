@@ -84,8 +84,8 @@
         empty.style.display = 'none';
         list.innerHTML = allDocuments.map(doc => `
             <div class="doc-card">
-                <h3>${doc.title}</h3>
-                <div class="template-name">${doc.document_templates?.name || doc.template_id}</div>
+                <h3>${escapeHtml(doc.title)}</h3>
+                <div class="template-name">${escapeHtml(doc.document_templates?.name || doc.template_id)}</div>
                 <span class="version-badge">v${doc.version}</span>
                 <div style="font-size: 11px; color: #999;">${new Date(doc.updated_at).toLocaleDateString('es-AR')}</div>
                 <div class="doc-actions">
@@ -100,16 +100,18 @@
     function createNewDocument() { window.location.href = 'editor.html?new=true'; }
     
     function deleteDocument(id) {
-        if (confirm('¿Eliminar este documento?')) {
-            const token = getToken();
-            fetch(`${API_BASE_URL}/api/documents/${id}`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` }
-            }).then(() => {
-                showToast('✅ Documento eliminado');
-                loadDocuments();
-            });
-        }
+        if (!confirm('¿Eliminar este documento?')) return;
+        const token = getToken();
+        fetch(`${API_BASE_URL}/api/documents/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        }).then(res => {
+            if (!res.ok) throw new Error('Error al eliminar');
+            showToast('✅ Documento eliminado');
+            loadDocuments();
+        }).catch(() => {
+            showToast('❌ Error al eliminar');
+        });
     }
     
     function logout() {

@@ -1,7 +1,9 @@
 const { createClient } = require('@supabase/supabase-js');
+const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -15,8 +17,18 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { email, name, picture } = req.body;
-    if (!email) return res.status(400).json({ error: 'Email required' });
+    const { token: googleToken, email, name, picture } = req.body;
+    if (!googleToken || !email) return res.status(400).json({ error: 'Token and email required' });
+
+    let payload;
+    try {
+      const ticket = await googleClient.verifyIdToken({ idToken: googleToken, audience: process.env.GOOGLE_CLIENT_ID });
+      payload = ticket.getPayload();
+    } catch (e) {
+      return res.status(401).json({ error: 'Invalid Google token' });
+    }
+
+    if (payload.email !== email) return res.status(401).json({ error: 'Email mismatch' });
 
     const { data: whitelist } = await supabase
       .from('email_whitelist')

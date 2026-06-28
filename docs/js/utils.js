@@ -1,3 +1,8 @@
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
 function formatDate(date) {
     if (typeof date === 'string') date = new Date(date);
     return date.toLocaleDateString('es-AR');

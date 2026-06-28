@@ -40,6 +40,7 @@ function loadTemplate() {
     if (!templateId) return;
     currentTemplate = getFullTemplate(templateId);
     if (currentDocument) currentDocument.template_id = templateId;
+    if (!currentDocument) currentFormData = {};
     renderFormFields();
     renderPreview();
 }
@@ -51,13 +52,13 @@ function renderFormFields() {
     }
     const html = currentTemplate.campos.map(grupo => `
         <div style="margin-bottom: 16px;">
-            <div style="font-size: 12px; font-weight: 700; color: #CC0000; margin-bottom: 8px; border-bottom: 1px solid #ddd; padding-bottom: 4px;">${grupo.titulo}</div>
+            <div style="font-size: 12px; font-weight: 700; color: #CC0000; margin-bottom: 8px; border-bottom: 1px solid #ddd; padding-bottom: 4px;">${escapeHtml(grupo.titulo)}</div>
             ${grupo.campos.map(key => {
                 const val = currentFormData[key] || '';
                 const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
                 return `<div style="margin-bottom: 8px;">
-                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #374151;">${label}</label>
-                    <input type="text" value="${val}" data-key="${key}" placeholder="${label}" onchange="updateField('${key}', this.value)" style="font-size: 12px;">
+                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #374151;">${escapeHtml(label)}</label>
+                    <input type="text" value="${escapeHtml(val)}" data-key="${key}" placeholder="${escapeHtml(label)}" onchange="updateField('${key}', this.value)" style="font-size: 12px;">
                 </div>`;
             }).join('')}
         </div>
@@ -83,7 +84,7 @@ function renderPreview() {
     const partes = clausulas.map(id => {
         const c = CLAUSULAS_COMPLETAS.find(c => c.id === id);
         if (!c) return '';
-        const texto = c.texto.replace(/\{\{(\w+)\}\}/g, (_, key) => data[key] || `[${key}]`);
+        const texto = c.texto.replace(/\{\{(\w+)\}\}/g, (_, key) => escapeHtml(data[key]) || `[${key}]`);
         return `<div style="margin-bottom: 16px; text-align: justify;">
             <p style="white-space: pre-wrap; font-size: 13px; line-height: 1.8;">${texto}</p>
         </div>`;
@@ -92,7 +93,7 @@ function renderPreview() {
     const html = `
         <div style="max-width: 210mm; margin: 0 auto; padding: 30px 40px; font-family: 'Times New Roman', Times, serif; background: white;">
             <div style="text-align: center; margin-bottom: 30px;">
-                <h1 style="font-size: 18px; font-weight: 700; color: #CC0000; margin-bottom: 4px;">${currentTemplate.nombre}</h1>
+                <h1 style="font-size: 18px; font-weight: 700; color: #CC0000; margin-bottom: 4px;">${escapeHtml(currentTemplate.nombre)}</h1>
                 <hr style="border: none; border-top: 2px solid #CC0000; margin: 10px 0;">
             </div>
             ${partes}
@@ -135,10 +136,10 @@ async function generatePDF() {
             html2canvas: { scale: 2 },
             jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
         };
-        html2pdf().set(opt).from(element).save();
+        await html2pdf().set(opt).from(element).save();
         await api.exportPDF(currentDocument.id, currentDocument.title + '.pdf');
         showToast('✅ PDF generado');
-    } catch (e) { console.error('Error:', e); }
+    } catch (e) { console.error('Error:', e); showToast('❌ Error generando PDF'); }
 }
 
 function logout() { localStorage.clear(); window.location.href = 'index.html'; }
