@@ -1,6 +1,6 @@
 const CONFIG = {
     API_BASE_URL: localStorage.getItem('api_base_url') || 'https://documentos-3-1.vercel.app',
-    GOOGLE_CLIENT_ID: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+    GOOGLE_CLIENT_ID: '646250109102-o86kpovp63mnr8q4amap7eve5l95rj61.apps.googleusercontent.com',
     STORAGE_KEYS: {
         TOKEN: 'auth_token',
         USER: 'auth_user',
