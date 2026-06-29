@@ -50,19 +50,38 @@ function renderFormFields() {
         document.getElementById('form-fields').innerHTML = '<p style="color: #999;">Seleccioná un template</p>';
         return;
     }
-    const html = currentTemplate.campos.map(grupo => `
+    const sections = currentTemplate.sections || currentTemplate.campos || [];
+    const html = sections.map(sec => {
+        const fields = sec.fields || sec.campos || [];
+        return `
         <div style="margin-bottom: 16px;">
-            <div style="font-size: 12px; font-weight: 700; color: #CC0000; margin-bottom: 8px; border-bottom: 1px solid #ddd; padding-bottom: 4px;">${escapeHtml(grupo.titulo)}</div>
-            ${grupo.campos.map(key => {
+            <div style="font-size: 12px; font-weight: 700; color: #CC0000; margin-bottom: 8px; border-bottom: 1px solid #ddd; padding-bottom: 4px;">${escapeHtml(sec.title || sec.titulo || '')}</div>
+            ${fields.map(f => {
+                const key = typeof f === 'string' ? f : f.id;
                 const val = currentFormData[key] || '';
-                const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-                return `<div style="margin-bottom: 8px;">
-                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #374151;">${escapeHtml(label)}</label>
-                    <input type="text" value="${escapeHtml(val)}" data-key="${key}" placeholder="${escapeHtml(label)}" onchange="updateField('${key}', this.value)" style="font-size: 12px;">
+                const fieldObj = typeof f === 'object' ? f : {};
+                const label = fieldObj.label || key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                const placeholder = fieldObj.placeholder || label;
+                const isFull = fieldObj.full ? 'width:100%;' : '';
+                let input;
+                if (fieldObj.type === 'select' && fieldObj.options) {
+                    input = `<select data-key="${key}" onchange="updateField('${key}', this.value)" style="font-size:12px;${isFull}">
+                        ${fieldObj.options.map(o => `<option value="${escapeHtml(o)}" ${val === o ? 'selected' : ''}>${escapeHtml(o)}</option>`).join('')}
+                    </select>`;
+                } else if (fieldObj.type === 'textarea') {
+                    input = `<textarea data-key="${key}" placeholder="${escapeHtml(placeholder)}" rows="3" oninput="updateField('${key}', this.value)" style="font-size:12px;${isFull}width:100%;">${escapeHtml(val)}</textarea>`;
+                } else if (fieldObj.type === 'date') {
+                    input = `<input type="date" data-key="${key}" value="${escapeHtml(val)}" onchange="updateField('${key}', this.value)" style="font-size:12px;${isFull}">`;
+                } else {
+                    input = `<input type="text" value="${escapeHtml(val)}" data-key="${key}" placeholder="${escapeHtml(placeholder)}" oninput="updateField('${key}', this.value)" style="font-size:12px;${isFull}">`;
+                }
+                return `<div style="margin-bottom: 8px;${fieldObj.full ? '' : ' display:inline-block; width:calc(50% - 8px); margin-right:8px;'}">
+                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #374151;">${label}</label>
+                    ${input}
                 </div>`;
             }).join('')}
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
     document.getElementById('form-fields').innerHTML = html;
 }
 
@@ -82,9 +101,11 @@ function renderPreview() {
 
     const clausulas = currentTemplate.clausulas_default || [];
     const partes = clausulas.map(id => {
-        const c = CLAUSULAS_COMPLETAS.find(c => c.id === id);
+        const c = typeof CLAUSULAS_COMPLETAS === 'object' && !Array.isArray(CLAUSULAS_COMPLETAS)
+            ? CLAUSULAS_COMPLETAS[id]
+            : (CLAUSULAS_COMPLETAS.find ? CLAUSULAS_COMPLETAS.find(c => c.id === id) : null);
         if (!c) return '';
-        const texto = c.texto.replace(/\{\{(\w+)\}\}/g, (_, key) => escapeHtml(data[key]) || `[${key}]`);
+        const texto = (c.texto || '').replace(/\{\{(\w+)\}\}/g, (_, key) => escapeHtml(data[key]) || `[${key}]`);
         return `<div style="margin-bottom: 16px; text-align: justify;">
             <p style="white-space: pre-wrap; font-size: 13px; line-height: 1.8;">${texto}</p>
         </div>`;

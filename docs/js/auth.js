@@ -18,9 +18,9 @@ async function handleGoogleLogin(response) {
             setTimeout(() => { window.location.href = 'dashboard.html'; }, 500);
         } else {
             console.error('Auth error response:', data);
-            alert('âŒ ' + (data.error || data.message || 'Error en autenticaciÃ³n') + (data.detail ? '\n' + data.detail : ''));
+            alert('❌ ' + (data.error || data.message || 'Error en autenticación') + (data.detail ? '\n' + data.detail : ''));
         }
-    } catch (error) { console.error('Login error:', error); alert('Error de conexiÃ³n'); }
+    } catch (error) { console.error('Login error:', error); alert('Error de conexión'); }
 }
 
 function parseJwt(token) {
