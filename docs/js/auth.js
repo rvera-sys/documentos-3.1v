@@ -18,7 +18,7 @@ async function handleGoogleLogin(response) {
             setTimeout(() => { window.location.href = 'dashboard.html'; }, 500);
         } else {
             console.error('Auth error response:', data);
-            alert('âŒ ' + (data.error || data.message || 'Error en autenticaciÃ³n'));
+            alert('âŒ ' + (data.error || data.message || 'Error en autenticaciÃ³n') + (data.detail ? '\n' + data.detail : ''));
         }
     } catch (error) { console.error('Login error:', error); alert('Error de conexiÃ³n'); }
 }
