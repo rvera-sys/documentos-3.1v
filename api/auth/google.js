@@ -54,9 +54,10 @@ module.exports = async (req, res) => {
     if (payload.email !== email) return res.status(401).json({ error: 'Email mismatch' });
 
     let { data: user, error: fetchErr } = await supabaseAdmin
-      .from('users').select('*').eq('email', email).single();
+      .from('users').select('*').eq('email', email).maybeSingle();
 
-    if (fetchErr || !user) {
+    if (!user) {
+      console.log('User not found, creating:', email, 'fetchErr:', fetchErr?.message);
       const { data: newUser, error: insertErr } = await supabaseAdmin
         .from('users')
         .insert({ email, full_name: name, picture_url: picture, is_admin: false, company_name: 'RE/MAX CREA' })
@@ -64,10 +65,12 @@ module.exports = async (req, res) => {
         .single();
 
       if (insertErr) {
-        console.error('User insert error:', insertErr);
-        return res.status(500).json({ error: 'Failed to create user', detail: insertErr.message });
+        console.error('User insert error:', JSON.stringify(insertErr));
+        return res.status(500).json({ error: 'Failed to create user', code: insertErr.code, detail: insertErr.message, hint: insertErr.hint });
       }
       user = newUser;
+    } else if (fetchErr) {
+      console.log('User found despite fetchErr:', user.email);
     }
 
     try {
