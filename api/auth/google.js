@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 
 const supabaseAdmin = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const ALLOWED_EMAILS = (process.env.ALLOWED_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -34,15 +33,9 @@ module.exports = async (req, res) => {
     let { data: user } = await supabaseAdmin.from('users').select('*').eq('email', email).single();
 
     if (!user) {
-      if (!ALLOWED_EMAILS.includes(email.toLowerCase())) {
-        try { await supabaseAdmin.from('login_attempts').insert({ email: email, google_name: name, status: 'pending' }); } catch {}
-        return res.status(403).json({ error: 'Email not authorized', message: 'Tu email no está habilitado aún', reason: 'pending' });
-      }
-
-      const isAdmin = ALLOWED_EMAILS.indexOf(email.toLowerCase()) === 0;
       const { data: newUser } = await supabaseAdmin
         .from('users')
-        .insert({ email: email, full_name: name, picture_url: picture, is_admin: isAdmin, company_name: 'RE/MAX CREA' })
+        .insert({ email: email, full_name: name, picture_url: picture, is_admin: false, company_name: 'RE/MAX CREA' })
         .select()
         .single();
       user = newUser;
