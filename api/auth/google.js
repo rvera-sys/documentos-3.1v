@@ -18,9 +18,21 @@ async function verifyGoogleToken(idToken) {
   try {
     const resp = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(idToken)}`);
     if (!resp.ok) return null;
-    const data = await resp.json();
-    if (data.aud !== GOOGLE_CLIENT_ID) return null;
-    if (data.email_verified !== 'true') return null;
+    const text = await resp.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = Object.fromEntries(new URLSearchParams(text));
+    }
+    if (data.aud !== GOOGLE_CLIENT_ID) {
+      console.error('Google tokeninfo: audience mismatch', { expected: GOOGLE_CLIENT_ID, got: data.aud });
+      return null;
+    }
+    if (data.email_verified !== 'true' && data.email_verified !== true) {
+      console.error('Google tokeninfo: email not verified', { email_verified: data.email_verified });
+      return null;
+    }
     return data;
   } catch (e) {
     console.error('Google tokeninfo error:', e.message);
