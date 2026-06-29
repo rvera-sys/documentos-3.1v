@@ -17,7 +17,8 @@ async function handleGoogleLogin(response) {
             localStorage.setItem(CONFIG.STORAGE_KEYS.USER, JSON.stringify(data.user));
             setTimeout(() => { window.location.href = 'dashboard.html'; }, 500);
         } else {
-            alert('❌ ' + (data.message || 'Error en autenticación'));
+            console.error('Auth error response:', data);
+            alert('❌ ' + (data.error || data.message || 'Error en autenticación') + (data.detail ? '\n' + data.detail : ''));
         }
     } catch (error) { console.error('Login error:', error); alert('Error de conexión'); }
 }
