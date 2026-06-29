@@ -1,11 +1,12 @@
 const { createClient } = require('@supabase/supabase-js');
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+const supabaseAdmin = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY
+);
+
 const JWT_SECRET = process.env.JWT_SECRET;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-
-const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,13 +14,16 @@ function setCors(res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 }
 
-async function verifyGoogleToken(token) {
+async function verifyGoogleToken(idToken) {
   try {
-    const { OAuth2Client } = require('google-auth-library');
-    const client = new OAuth2Client(GOOGLE_CLIENT_ID);
-    const ticket = await client.verifyIdToken({ idToken: token, audience: GOOGLE_CLIENT_ID });
-    return ticket.getPayload();
+    const resp = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(idToken)}`);
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    if (data.aud !== GOOGLE_CLIENT_ID) return null;
+    if (data.email_verified !== 'true') return null;
+    return data;
   } catch (e) {
+    console.error('Google tokeninfo error:', e.message);
     return null;
   }
 }
@@ -37,7 +41,8 @@ module.exports = async (req, res) => {
     if (!payload) return res.status(401).json({ error: 'Invalid Google token' });
     if (payload.email !== email) return res.status(401).json({ error: 'Email mismatch' });
 
-    let { data: user, error: fetchErr } = await supabaseAdmin.from('users').select('*').eq('email', email).single();
+    let { data: user, error: fetchErr } = await supabaseAdmin
+      .from('users').select('*').eq('email', email).single();
 
     if (fetchErr || !user) {
       const { data: newUser, error: insertErr } = await supabaseAdmin
@@ -53,7 +58,9 @@ module.exports = async (req, res) => {
       user = newUser;
     }
 
-    try { await supabaseAdmin.from('users').update({ last_login: new Date().toISOString() }).eq('id', user.id }); } catch {}
+    try {
+      await supabaseAdmin.from('users').update({ last_login: new Date().toISOString() }).eq('id', user.id);
+    } catch (e) { /* non-critical */ }
 
     const jwt = require('jsonwebtoken');
     const token = jwt.sign(
