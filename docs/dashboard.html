@@ -64,6 +64,11 @@
     
     async function loadDocuments() {
         try {
+            if (LOCAL_DEMO_MODE) {
+                allDocuments = JSON.parse(localStorage.getItem('local_demo_documents') || '[]');
+                renderDocuments();
+                return;
+            }
             allDocuments = await api.listDocuments();
             renderDocuments();
         } catch (e) {
@@ -101,6 +106,13 @@
     
     function deleteDocument(id) {
         if (!confirm('¿Eliminar este documento?')) return;
+        if (LOCAL_DEMO_MODE) {
+            allDocuments = allDocuments.filter(doc => doc.id !== id);
+            localStorage.setItem('local_demo_documents', JSON.stringify(allDocuments));
+            renderDocuments();
+            showToast('✅ Documento eliminado');
+            return;
+        }
         const token = getToken();
         fetch(`${API_BASE_URL}/api/documents/${id}`, {
             method: 'DELETE',

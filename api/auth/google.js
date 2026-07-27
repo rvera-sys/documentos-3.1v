@@ -1,138 +1,103 @@
-const { createClient } = require('@supabase/supabase-js');
+// ═══════════════════════════════════════════════════════════════════════════════
+// AUTH GOOGLE v3.2
+// Cambios vs 3.1:
+//  · Whitelist obligatoria (email_whitelist) — sin ella, cualquier cuenta Google entraba
+//  · Nunca emite un JWT sin `sub`: sin sub, /api/documents devolvía resultados vacíos
+//  · Registra los intentos rechazados en login_attempts
+//  · CORS restringido a los orígenes propios
+// ═══════════════════════════════════════════════════════════════════════════════
+const { supabase, setCors } = require('../_lib');
+const jwt = require('jsonwebtoken');
 
-const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY
-);
-
-const JWT_SECRET = process.env.JWT_SECRET;
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase());
+const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
+// Poné WHITELIST_MODE=off sólo para pruebas
+const WHITELIST_ON = (process.env.WHITELIST_MODE || 'on') !== 'off';
 
-function setCors(res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-}
-
-async function verifyGoogleToken(idToken) {
-  try {
-    const resp = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(idToken)}`);
-    if (!resp.ok) return null;
-    const text = await resp.text();
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      data = Object.fromEntries(new URLSearchParams(text));
-    }
-    if (data.aud !== GOOGLE_CLIENT_ID) {
-      console.error('Tokeninfo: audience mismatch', { expected: GOOGLE_CLIENT_ID, got: data.aud });
-      return null;
-    }
-    if (data.email_verified !== 'true' && data.email_verified !== true) {
-      console.error('Tokeninfo: email not verified', { email_verified: data.email_verified });
-      return null;
-    }
-    return data;
-  } catch (e) {
-    console.error('Google tokeninfo error:', e.message);
-    return null;
-  }
-}
-
-async function tryQueryUsers(email) {
-  try {
-    const { data, error } = await supabaseAdmin.from('users').select('*').eq('email', email).maybeSingle();
-    if (error && error.code === '42P01') return { notFound: true };
-    if (error) return { error };
-    return { data };
-  } catch (e) {
-    return { notFound: true };
-  }
-}
-
-async function tryInsertUser(userData) {
-  try {
-    const { data, error } = await supabaseAdmin
-      .from('users')
-      .insert(userData)
-      .select()
-      .single();
-    if (error && error.code === '42P01') return { notFound: true };
-    if (error) return { error };
-    return { data };
-  } catch (e) {
-    return { notFound: true };
-  }
+async function verificarTokenGoogle(idToken) {
+  const r = await fetch('https://oauth2.googleapis.com/tokeninfo?id_token=' + encodeURIComponent(idToken));
+  if (!r.ok) return null;
+  const d = await r.json().catch(() => null);
+  if (!d) return null;
+  if (d.aud !== GOOGLE_CLIENT_ID) return null;
+  if (!['accounts.google.com', 'https://accounts.google.com'].includes(d.iss)) return null;
+  if (String(d.email_verified) !== 'true') return null;
+  if (Number(d.exp) * 1000 < Date.now()) return null;
+  return d;
 }
 
 module.exports = async (req, res) => {
-  setCors(res);
+  setCors(req, res, 'POST, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { token: googleToken, email, name, picture } = req.body;
-    if (!googleToken || !email) return res.status(400).json({ error: 'Token and email required' });
+    const { token: googleToken, picture } = req.body || {};
+    if (!googleToken) return res.status(400).json({ error: 'Falta el token de Google' });
 
-    const payload = await verifyGoogleToken(googleToken);
-    if (!payload) return res.status(401).json({ error: 'Invalid Google token' });
-    if (payload.email !== email) return res.status(401).json({ error: 'Email mismatch' });
+    const payload = await verificarTokenGoogle(googleToken);
+    if (!payload) return res.status(401).json({ error: 'Token de Google inválido' });
 
-    const isAdmin = ADMIN_EMAILS.includes(email.toLowerCase());
+    const email = String(payload.email).toLowerCase();
+    const nombre = payload.name || email;
 
-    const userResult = await tryQueryUsers(email);
-    let userId = null;
-    let userFullName = name;
-    let userIsAdmin = isAdmin;
-    let companyName = 'RE/MAX CREA';
-
-    if (userResult.data) {
-      userId = userResult.data.id;
-      userFullName = userResult.data.full_name || name;
-      userIsAdmin = userResult.data.is_admin || isAdmin;
-      companyName = userResult.data.company_name || 'RE/MAX CREA';
-      try {
-        await supabaseAdmin.from('users').update({ last_login: new Date().toISOString(), picture_url: picture }).eq('id', userId);
-      } catch (e) { /* non-critical */ }
-    } else if (!userResult.notFound) {
-      console.log('Users table exists but query failed:', userResult.error?.message);
-    }
-
-    if (!userId) {
-      const insertResult = await tryInsertUser({
-        email, full_name: name, picture_url: picture, is_admin: isAdmin, company_name: 'RE/MAX CREA'
-      });
-      if (insertResult.data) {
-        userId = insertResult.data.id;
-        userIsAdmin = insertResult.data.is_admin;
-        companyName = insertResult.data.company_name || 'RE/MAX CREA';
-        console.log('Created user in DB:', email);
-      } else {
-        console.log('Users table not available, using JWT-only auth for:', email);
+    // ── Whitelist ───────────────────────────────────────────────────────────
+    let wl = null;
+    if (WHITELIST_ON) {
+      const { data } = await supabase.from('email_whitelist')
+        .select('*').eq('email', email).eq('status', 'active').maybeSingle();
+      wl = data;
+      if (!wl) {
+        await supabase.from('login_attempts')
+          .insert({ email, google_name: nombre, status: 'rejected' });
+        return res.status(403).json({
+          error: 'Tu cuenta no está habilitada. Pedile el alta al administrador de la oficina.'
+        });
       }
     }
 
-    const jwt = require('jsonwebtoken');
-    const tokenPayload = {
-      email,
-      full_name: userFullName,
-      is_admin: userIsAdmin,
-      picture: picture || null
-    };
-    if (userId) tokenPayload.sub = userId;
+    const esAdmin = ADMIN_EMAILS.includes(email) || !!(wl && wl.is_admin);
+    const empresa = (wl && wl.company_name) || 'RE/MAX CREA';
 
-    const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '24h' });
+    // ── Upsert en users. Si falla, se corta: sin id no hay documentos. ───────
+    const { data: user, error } = await supabase.from('users')
+      .upsert({
+        email,
+        full_name: (wl && wl.full_name) || nombre,
+        picture_url: picture || null,
+        is_admin: esAdmin,
+        company_name: empresa,
+        is_active: true,
+        last_login: new Date().toISOString()
+      }, { onConflict: 'email' })
+      .select().single();
+
+    if (error || !user) {
+      console.error('users upsert falló:', error);
+      return res.status(500).json({ error: 'No se pudo crear la sesión (tabla users)' });
+    }
+    if (user.is_active === false) {
+      return res.status(403).json({ error: 'Tu cuenta está deshabilitada.' });
+    }
+
+    await supabase.from('login_attempts').insert({ email, google_name: nombre, status: 'ok' });
+
+    const token = jwt.sign(
+      { sub: user.id, email, full_name: user.full_name, is_admin: user.is_admin },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRATION || '12h' }
+    );
 
     return res.status(200).json({
-      success: true,
-      token,
-      user: { id: userId, email, full_name: userFullName, picture, is_admin: userIsAdmin, company_name: companyName }
+      success: true, token,
+      user: {
+        id: user.id, email, full_name: user.full_name,
+        picture: picture || user.picture_url, is_admin: user.is_admin,
+        company_name: user.company_name
+      }
     });
-
-  } catch (error) {
-    console.error('Auth error:', error.message, error.stack);
-    return res.status(500).json({ error: 'Authentication failed', message: error.message });
+  } catch (e) {
+    console.error('Auth error:', e);
+    return res.status(500).json({ error: 'Fallo de autenticación' });
   }
 };

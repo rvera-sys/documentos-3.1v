@@ -1,50 +1,51 @@
-const { createClient } = require('@supabase/supabase-js');
-const jwt = require('jsonwebtoken');
-
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
-
-function setCors(res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-}
-
-function verifyAuth(req) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return null;
-  const token = authHeader.replace('Bearer ', '');
-  try { return jwt.verify(token, process.env.JWT_SECRET); }
-  catch (e) { return null; }
-}
+const { supabase, setCors, verifyAuth } = require('../../_lib');
 
 module.exports = async (req, res) => {
-  setCors(res);
+  setCors(req, res, 'GET, POST, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
   const user = verifyAuth(req);
   if (!user) return res.status(401).json({ error: 'Unauthorized' });
-
   const { id } = req.query;
 
+  const { data: doc } = await supabase.from('document_instances')
+    .select('id, version').eq('id', id).eq('user_id', user.sub).maybeSingle();
+  if (!doc) return res.status(404).json({ error: 'Documento no encontrado' });
+
   try {
-    const { data: doc } = await supabase
-      .from('document_instances')
-      .select('id')
-      .eq('id', id)
-      .eq('user_id', user.sub)
-      .single();
+    if (req.method === 'GET') {
+      const { data } = await supabase.from('draft_history')
+        .select('id, version_number, action, created_at, snapshot')
+        .eq('document_id', id).order('version_number', { ascending: false }).limit(50);
+      return res.status(200).json(data || []);
+    }
 
-    if (!doc) return res.status(404).json({ error: 'Document not found' });
+    // POST = restaurar una versión anterior (crea una nueva versión, no pisa historial)
+    if (req.method === 'POST') {
+      const { version_number } = req.body || {};
+      const { data: snap } = await supabase.from('draft_history')
+        .select('snapshot').eq('document_id', id).eq('version_number', version_number).maybeSingle();
+      if (!snap) return res.status(404).json({ error: 'Versión inexistente' });
 
-    const { data: history } = await supabase
-      .from('draft_history')
-      .select('id, version_number, action, created_at, edited_by')
-      .eq('document_id', id)
-      .order('created_at', { ascending: false });
+      const nueva = doc.version + 1;
+      await supabase.from('document_instances').update({
+        title: snap.snapshot.title,
+        form_data: snap.snapshot.form_data,
+        selected_clauses: snap.snapshot.selected_clauses,
+        version: nueva,
+        updated_at: new Date().toISOString()
+      }).eq('id', id);
 
-    return res.status(200).json(history || []);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+      await supabase.from('draft_history').insert({
+        document_id: id, snapshot: snap.snapshot, version_number: nueva,
+        action: 'restore_v' + version_number, edited_by: user.sub
+      });
+
+      return res.status(200).json({ success: true, version: nueva });
+    }
+
+    return res.status(405).json({ error: 'Method not allowed' });
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
   }
 };
