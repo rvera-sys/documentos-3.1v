@@ -1,24 +1,7 @@
-const { createClient } = require('@supabase/supabase-js');
-const jwt = require('jsonwebtoken');
-
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
-
-function setCors(res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-}
-
-function verifyAuth(req) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return null;
-  const token = authHeader.replace('Bearer ', '');
-  try { return jwt.verify(token, process.env.JWT_SECRET); }
-  catch (e) { return null; }
-}
+const { supabase, setCors, verifyAuth, limitar } = require('../_lib');
 
 module.exports = async (req, res) => {
-  setCors(res);
+  setCors(req, res);
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const user = verifyAuth(req);
@@ -26,36 +9,67 @@ module.exports = async (req, res) => {
 
   try {
     if (req.method === 'GET') {
-      const { state = 'draft' } = req.query;
-      const { data: documents } = await supabase
+      const { state, q } = req.query;
+      let query = supabase
         .from('document_instances')
         .select('id, title, template_id, state, version, created_at, updated_at, document_templates(name)')
         .eq('user_id', user.sub)
-        .eq('state', state)
         .is('deleted_at', null)
-        .order('updated_at', { ascending: false });
-      return res.status(200).json(documents || []);
+        .order('updated_at', { ascending: false })
+        .limit(200);
+
+      if (state && state !== 'all') query = query.eq('state', state);
+      if (q) query = query.ilike('title', `%${q}%`);
+
+      const { data, error } = await query;
+      if (error) return res.status(500).json({ error: error.message });
+      return res.status(200).json(data || []);
     }
 
     if (req.method === 'POST') {
-      const { template_id, title, form_data } = req.body;
-      if (!template_id || !title) return res.status(400).json({ error: 'Missing required fields' });
+      const { template_id, title, form_data, selected_clauses } = req.body || {};
+      if (!template_id || !title) return res.status(400).json({ error: 'Faltan template_id o title' });
+      limitar(selected_clauses);
 
-      const { data: newDoc } = await supabase
+      // El template debe existir en document_templates (FK). Si no está, se crea.
+      const { data: tpl } = await supabase
+        .from('document_templates').select('id').eq('id', template_id).maybeSingle();
+      if (!tpl) {
+        await supabase.from('document_templates')
+          .insert({ id: template_id, name: title, category: 'otros' });
+      }
+
+      const { data: newDoc, error } = await supabase
         .from('document_instances')
-        .insert({ user_id: user.sub, template_id: template_id, title: title, form_data: form_data || {}, state: 'draft', version: 1 })
-        .select()
-        .single();
+        .insert({
+          user_id: user.sub,
+          template_id,
+          title,
+          form_data: form_data || {},
+          selected_clauses: selected_clauses || [],
+          state: 'draft',
+          version: 1
+        })
+        .select().single();
 
-      try { await supabase.from('audit_log').insert({ user_id: user.sub, action: 'create_document', document_id: newDoc.id, details: { template_id, title } }); } catch {}
+      if (error) return res.status(500).json({ error: error.message });
+
+      await supabase.from('draft_history').insert({
+        document_id: newDoc.id,
+        snapshot: { form_data: form_data || {}, selected_clauses: selected_clauses || [] },
+        version_number: 1, action: 'create', edited_by: user.sub
+      });
+      await supabase.from('audit_log').insert({
+        user_id: user.sub, action: 'create_document', document_id: newDoc.id,
+        details: { template_id, title }
+      });
 
       return res.status(201).json({ success: true, document: newDoc });
     }
 
     return res.status(405).json({ error: 'Method not allowed' });
-
-  } catch (error) {
-    console.error('Error:', error);
-    return res.status(500).json({ error: error.message });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: e.message });
   }
 };

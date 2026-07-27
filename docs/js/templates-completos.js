@@ -951,7 +951,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'lcab_garantia': {
     titulo: 'SEXTA: GARANTÍA',
-    texto: `Que EL/LA INQUILINO/A en su carácter de tal, presenta en garantía del pago del alquiler y de las obligaciones asumidas en virtud del presente contrato de locación, un/a {{garantia_tipo}} por un monto de pesos argentinos {{garantia_monto}}. En caso de que la garantía ofrecida por EL/LA INQUILINO/A no alcancen a cubrir los importes adeudados, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}}, en su carácter de propietario/a del inmueble objeta del presente contrato, se reserva el derecho de solicitar la ampliación de la misma, debiendo EL/LA INQUILINO/A aportar la documentación respaldatoria a su cargo.`
+    texto: `Que EL/LA INQUILINO/A en su carácter de tal, presenta en garantía del pago del alquiler y de las obligaciones asumidas en virtud del presente contrato de locación, un/a {{garantia_tipo}} por un monto de pesos argentinos {{garantia_monto}}. En caso de que la garantía ofrecida por EL/LA INQUILINO/A no alcancen a cubrir los importes adeudados, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}}, en su carácter de propietario/a del inmueble objeto del presente contrato, se reserva el derecho de solicitar la ampliación de la misma, debiendo EL/LA INQUILINO/A aportar la documentación respaldatoria a su cargo.`
   },
   'lcab_deposito': {
     titulo: 'SÉPTIMA: DEPÓSITO EN GARANTÍA',
@@ -967,7 +967,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'lcab_destino': {
     titulo: 'DÉCIMA: DESTINO',
-    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato será destinado exclusivamente a vivienda. En caso de que EL/LA INQUILINO/A incumpliera con la obligación precedentemente pactada, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeta del presente contrato,将以 la facultad de rescindir el mismo en los términos previstos por los artículos 1200 y concordantes del Código Civil y Comercial de la Nación.`
+    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato será destinado exclusivamente a vivienda. En caso de que EL/LA INQUILINO/A incumpliera con la obligación precedentemente pactada, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeto del presente contrato, tendrá la facultad de rescindir el mismo en los términos previstos por los artículos 1200 y concordantes del Código Civil y Comercial de la Nación.`
   },
   'lcab_subarriendo': {
     titulo: 'DÉCIMO PRIMERA: SUBARRIENDO',
@@ -975,7 +975,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'lcab_entrega_devolucion': {
     titulo: 'DÉCIMO SEGUNDA: ENTREGA Y DEVOLUCIÓN DEL INMUEBLE',
-    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato le fue entregado por EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeta del presente contrato, en perfecto estado de conservación y funcionamiento, conforme al inventario que obra en el Anexo I que forma parte integrante del presente contrato.`
+    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato le fue entregado por EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeto del presente contrato, en perfecto estado de conservación y funcionamiento, conforme al inventario que obra en el Anexo I que forma parte integrante del presente contrato.`
   },
   'lcab_jurisdiccion': {
     titulo: 'DÉCIMO TERCERA: JURISDICCION',
@@ -1014,7 +1014,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'lpb_garantia': {
     titulo: 'SEXTA: GARANTÍA',
-    texto: `Que EL/LA INQUILINO/A en su carácter de tal, presenta en garantía del pago del alquiler y de las obligaciones asumidas en virtud del presente contrato de locación, un/a {{garantia_tipo}} por un monto de pesos argentinos {{garantia_monto}}. En caso de que la garantía ofrecida por EL/LA INQUILINO/A no alcancen a cubrir los importes adeudados, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}}, en su carácter de propietario/a del inmueble objeta del presente contrato, se reserva el derecho de solicitar la ampliación de la misma, debiendo EL/LA INQUILINO/A aportar la documentación respaldatoria a su cargo.`
+    texto: `Que EL/LA INQUILINO/A en su carácter de tal, presenta en garantía del pago del alquiler y de las obligaciones asumidas en virtud del presente contrato de locación, un/a {{garantia_tipo}} por un monto de pesos argentinos {{garantia_monto}}. En caso de que la garantía ofrecida por EL/LA INQUILINO/A no alcancen a cubrir los importes adeudados, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}}, en su carácter de propietario/a del inmueble objeto del presente contrato, se reserva el derecho de solicitar la ampliación de la misma, debiendo EL/LA INQUILINO/A aportar la documentación respaldatoria a su cargo.`
   },
   'lpb_deposito': {
     titulo: 'SÉPTIMA: DEPÓSITO EN GARANTÍA',
@@ -1030,7 +1030,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'lpb_destino': {
     titulo: 'DÉCIMA: DESTINO',
-    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato será destinado exclusivamente a vivienda. En caso de que EL/LA INQUILINO/A incumpliera con la obligación precedentemente pactada, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeta del presente contrato, tendrá la facultad de rescindir el mismo en los términos previstos por los artículos 1200 y concordantes del Código Civil y Comercial de la Nación.`
+    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato será destinado exclusivamente a vivienda. En caso de que EL/LA INQUILINO/A incumpliera con la obligación precedentemente pactada, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeto del presente contrato, tendrá la facultad de rescindir el mismo en los términos previstos por los artículos 1200 y concordantes del Código Civil y Comercial de la Nación.`
   },
   'lpb_subarriendo': {
     titulo: 'DÉCIMO PRIMERA: SUBARRIENDO',
@@ -1038,7 +1038,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'lpb_entrega_devolucion': {
     titulo: 'DÉCIMO SEGUNDA: ENTREGA Y DEVOLUCIÓN DEL INMUEBLE',
-    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato le fue entregado por EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeta del presente contrato, en perfecto estado de conservación y funcionamiento, conforme al inventario que obra en el Anexo I que forma parte integrante del presente contrato.`
+    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato le fue entregado por EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeto del presente contrato, en perfecto estado de conservación y funcionamiento, conforme al inventario que obra en el Anexo I que forma parte integrante del presente contrato.`
   },
   'lpb_jurisdiccion': {
     titulo: 'DÉCIMO TERCERA: JURISDICCION',
@@ -1077,7 +1077,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'lcom_garantia': {
     titulo: 'SEXTA: GARANTÍA',
-    texto: `Que EL/LA INQUILINO/A en su carácter de tal, presenta en garantía del pago del alquiler y de las obligaciones asumidas en virtud del presente contrato de locación, un/a {{garantia_tipo}} por un monto de pesos argentinos {{garantia_monto}}. En caso de que la garantía ofrecida por EL/LA INQUILINO/A no alcancen a cubrir los importes adeudados, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}}, en su carácter de propietario/a del inmueble objeta del presente contrato, se reserva el derecho de solicitar la ampliación de la misma, debiendo EL/LA INQUILINO/A aportar la documentación respaldatoria a su cargo.`
+    texto: `Que EL/LA INQUILINO/A en su carácter de tal, presenta en garantía del pago del alquiler y de las obligaciones asumidas en virtud del presente contrato de locación, un/a {{garantia_tipo}} por un monto de pesos argentinos {{garantia_monto}}. En caso de que la garantía ofrecida por EL/LA INQUILINO/A no alcancen a cubrir los importes adeudados, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}}, en su carácter de propietario/a del inmueble objeto del presente contrato, se reserva el derecho de solicitar la ampliación de la misma, debiendo EL/LA INQUILINO/A aportar la documentación respaldatoria a su cargo.`
   },
   'lcom_honorarios': {
     titulo: 'SÉPTIMA: HONORARIOS',
@@ -1089,7 +1089,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'lcom_destino': {
     titulo: 'NOVENA: DESTINO',
-    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato será destinado exclusivamente a {{inmueble_destino}}. En caso de que EL/LA INQUILINO/A incumpliera con la obligación precedentemente pactada, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeta del presente contrato, tendrá la facultad de rescindir el mismo en los términos previstos por los artículos 1200 y concordantes del Código Civil y Comercial de la Nación.`
+    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato será destinado exclusivamente a {{inmueble_destino}}. En caso de que EL/LA INQUILINO/A incumpliera con la obligación precedentemente pactada, EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeto del presente contrato, tendrá la facultad de rescindir el mismo en los términos previstos por los artículos 1200 y concordantes del Código Civil y Comercial de la Nación.`
   },
   'lcom_subarriendo': {
     titulo: 'DÉCIMA: SUBARRIENDO',
@@ -1097,7 +1097,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'lcom_entrega_devolucion': {
     titulo: 'DÉCIMO PRIMERA: ENTREGA Y DEVOLUCIÓN DEL INMUEBLE',
-    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato le fue entregado por EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeta del presente contrato, en perfecto estado de conservación y funcionamiento, conforme al inventario que obra en el Anexo I que forma parte integrante del presente contrato.`
+    texto: `Que EL/LA INQUILINO/A en su carácter de tal, declara que el inmueble objeto del presente contrato le fue entregado por EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}} en su carácter de propietario/a del inmueble objeto del presente contrato, en perfecto estado de conservación y funcionamiento, conforme al inventario que obra en el Anexo I que forma parte integrante del presente contrato.`
   },
   'lcom_jurisdiccion': {
     titulo: 'DÉCIMO SEGUNDA: JURISDICCION',
@@ -1132,7 +1132,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'rtmp_servicios': {
     titulo: 'QUINTA: SERVICIOS INCLUIDOS',
-    texto: `Que EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}}, en su carácter de propietario/a del inmueble objeta del presente contrato, pone a disposición de EL/LA HUÉSPED los siguientes servicios incluidos en el precio: {{servicios_incluidos}}. Los servicios de electricidad, gas y agua que excedan el uso razonable serán a cargo de EL/LA HUÉSPED.`
+    texto: `Que EL/LA/Los/Las Sr./Sra./Sres./Sras. {{propietario_nombre}} {{propietario_apellido}} de nacionalidad {{propietario_nacionalidad}}, de estado civil {{propietario_ecivil}} en virtud de {{propietario_causes}} portador/a del DNI nro. {{propietario_dni}}, CUIT nro. {{propietario_cuit}} nacido/a el día {{propietario_nacimiento}} en {{propietario_lugar_nacimiento}} y domiciliado/a en {{propietario_domicilio}}, en su carácter de propietario/a del inmueble objeto del presente contrato, pone a disposición de EL/LA HUÉSPED los siguientes servicios incluidos en el precio: {{servicios_incluidos}}. Los servicios de electricidad, gas y agua que excedan el uso razonable serán a cargo de EL/LA HUÉSPED.`
   },
   'rtmp_honorarios': {
     titulo: 'SEXTA: HONORARIOS',
@@ -1493,7 +1493,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'pr_plazo': {
     titulo: 'TERCERA: NUEVO PLAZO',
-    texto: `Que el contrato prorrogado tendrá vigencia hasta el día {{fecha_fin_nueva}}, manteniéndose todas las demás condiciones原始 del contrato original sin modificaciones.`
+    texto: `Que el contrato prorrogado tendrá vigencia hasta el día {{fecha_fin_nueva}}, manteniéndose todas las demás condiciones del contrato original sin modificaciones.`
   },
   'pr_mensual': {
     titulo: 'CUARTA: MONTO MENSUAL',
