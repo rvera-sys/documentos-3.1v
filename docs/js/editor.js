@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════════════════
 // EDITOR v3.2 — Documentos modulares por cláusula
 // Requiere: config.js, auth.js, api.js, utils.js, templates-completos.js,
+//           templates-adicionales.js,
 //           clausulas-engine.js
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -12,7 +13,7 @@ let dirty = false;
 let dragUid = null;
 
 function getFullTemplate(id) {
-  return TEMPLATES_COMPLETOS.find(t => t.id === id);
+  return TEMPLATES_CARGADOS.find(t => t.id === id);
 }
 
 function marcarSucio() {
@@ -45,7 +46,7 @@ async function initEditor() {
 function loadTemplateOptions() {
   const select = document.getElementById('template-select');
   const grupos = {};
-  TEMPLATES_COMPLETOS.forEach(t => {
+  TEMPLATES_CARGADOS.forEach(t => {
     (grupos[t.categoria] = grupos[t.categoria] || []).push(t);
   });
   select.innerHTML = '<option value="">Seleccioná un template…</option>' +
@@ -57,7 +58,13 @@ function loadTemplateOptions() {
 
 async function loadExistingDocument(docId) {
   try {
-    currentDocument = await api.getDocument(docId);
+    if (LOCAL_DEMO_MODE && docId.startsWith('local-')) {
+      const docs = JSON.parse(localStorage.getItem('local_demo_documents') || '[]');
+      currentDocument = docs.find(doc => doc.id === docId);
+      if (!currentDocument) throw new Error('Documento local no encontrado');
+    } else {
+      currentDocument = await api.getDocument(docId);
+    }
     document.getElementById('doc-title').value = currentDocument.title || '';
     document.getElementById('template-select').value = currentDocument.template_id;
     currentFormData = currentDocument.form_data || {};
@@ -334,6 +341,28 @@ async function saveDraft() {
   const title = document.getElementById('doc-title').value.trim();
   if (!title || !currentTemplate) { showToast('⚠️ Completá el título y elegí un template'); return; }
   try {
+    if (LOCAL_DEMO_MODE) {
+      const docs = JSON.parse(localStorage.getItem('local_demo_documents') || '[]');
+      const saved = {
+        ...(currentDocument || {}),
+        id: currentDocument?.id || 'local-' + Date.now(),
+        title,
+        template_id: currentTemplate.id,
+        form_data: currentFormData,
+        selected_clauses: payloadClausulas(),
+        state: 'draft',
+        version: (currentDocument?.version || 0) + 1,
+        updated_at: new Date().toISOString()
+      };
+      const i = docs.findIndex(doc => doc.id === saved.id);
+      if (i >= 0) docs[i] = saved; else docs.unshift(saved);
+      localStorage.setItem('local_demo_documents', JSON.stringify(docs));
+      currentDocument = saved;
+      window.history.replaceState(null, '', `editor.html?id=${saved.id}`);
+      marcarLimpio('✓ Guardado local (v' + saved.version + ')');
+      showToast('✅ Documento guardado localmente');
+      return;
+    }
     if (currentDocument && currentDocument.id) {
       const r = await api.updateDocument(currentDocument.id, {
         title, form_data: currentFormData, selected_clauses: payloadClausulas()
@@ -374,7 +403,7 @@ async function generatePDF() {
     }).from(wrap).save();
 
     wrap.remove();
-    if (currentDocument) await api.exportPDF(currentDocument.id, 'pdf');
+    if (currentDocument && !LOCAL_DEMO_MODE) await api.exportPDF(currentDocument.id, 'pdf');
     showToast('✅ PDF generado');
   } catch (e) { console.error(e); showToast('❌ Error generando PDF'); }
 }

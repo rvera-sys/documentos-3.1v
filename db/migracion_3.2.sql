@@ -9,7 +9,7 @@ ALTER TABLE document_instances ADD COLUMN IF NOT EXISTS custom_clauses  JSONB DE
 ALTER TABLE document_instances ADD COLUMN IF NOT EXISTS locked_at TIMESTAMPTZ;
 ALTER TABLE document_templates ALTER COLUMN icon TYPE VARCHAR(8);  -- los emojis no entran en VARCHAR(2)
 
--- 2) FIX CRÍTICO: los 25 templates reales de la app deben existir por el FK ────
+-- 2) FIX CRÍTICO: los templates reales de la app deben existir por el FK ────────
 INSERT INTO document_templates (id, name, category, icon, description) VALUES
 ('r_escritura', 'Reserva de compra — Escritura directa', 'compra', '🏠', 'Escritura directa'),
 ('r_boleto_esc', 'Reserva de compra — Boleto + escritura', 'compra', '📋', 'Boleto + escritura'),
@@ -65,6 +65,26 @@ FROM (VALUES
 ('cont_temp_con', 'Contrato temporario — Temporario con servicios', 'contrato', '🌟', 'Temporario con servicios'),
 ('cont_temp_sin', 'Contrato temporario — Temporario sin servicios', 'contrato', '📄', 'Temporario sin servicios')) AS v(id, name, category, icon, description)
 WHERE dt.id = v.id;
+
+-- Modelos CREA 2026 adicionales normalizados en templates-adicionales.js.
+INSERT INTO document_templates (id, name, category, icon, description) VALUES
+  ('recibo_reserva', 'Recibo de reserva', 'gestion', '🧾', 'Constancia de fondos recibidos'),
+  ('refuerzo_reserva', 'Refuerzo de reserva', 'gestion', '➕', 'Adicional a una reserva existente'),
+  ('aceptacion_compraventa', 'Aceptación / contraoferta / rechazo', 'gestion', '✅', 'Compraventa'),
+  ('aceptacion_locacion', 'Aceptación / contraoferta / rechazo de locación', 'gestion', '✅', 'Locación'),
+  ('sena_compraventa', 'Seña de compraventa', 'gestion', '✍️', 'Seña penitencial'),
+  ('boleto_compraventa', 'Boleto de compraventa', 'contrato', '📜', 'Compraventa con o sin posesión'),
+  ('boleto_compraventa_posesion', 'Boleto de compraventa con posesión', 'contrato', '🏠', 'Boleto y entrega de posesión'),
+  ('cesion_boleto', 'Cesión de boleto de compraventa', 'contrato', '🔄', 'Cesión de derechos del boleto'),
+  ('cesion_locacion', 'Cesión de contrato de locación', 'contrato', '🔑', 'Cesión de posición contractual'),
+  ('convenio_desocupacion', 'Convenio de desocupación', 'gestion', '🚪', 'Restitución acordada del inmueble'),
+  ('comodato', 'Contrato de comodato', 'contrato', '🤝', 'Préstamo gratuito de uso'),
+  ('mutuo', 'Contrato de mutuo', 'contrato', '💰', 'Préstamo de dinero')
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  category = EXCLUDED.category,
+  icon = EXCLUDED.icon,
+  description = EXCLUDED.description;
 
 -- Baja lógica de los ids sembrados que la app nunca usa
 UPDATE document_templates SET deleted_at = now()

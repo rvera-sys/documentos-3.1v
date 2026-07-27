@@ -44,6 +44,13 @@
     <h1>Documentos 3.1</h1>
     <p class="tagline">Generador de Documentos Legales Inmobiliarios</p>
     
+    <script>
+        const host = window.location.hostname;
+        if (host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local') ||
+            host.startsWith('10.') || host.startsWith('192.168.') || host.startsWith('172.16.')) {
+            window.location.replace('editor.html?new=true');
+        }
+    </script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <div id="google_signin_button"></div>
     
@@ -60,6 +67,7 @@
 <script src="js/auth.js"></script>
 <script>
     window.onload = function () {
+        if (LOCAL_DEMO_MODE) { window.location.href = 'editor.html?new=true'; return; }
         if (isAuthenticated()) { window.location.href = 'dashboard.html'; return; }
         google.accounts.id.initialize({
             client_id: CONFIG.GOOGLE_CLIENT_ID,

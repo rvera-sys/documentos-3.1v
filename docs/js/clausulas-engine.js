@@ -122,10 +122,11 @@ const CLAUSULAS_OPCIONALES = {
   }
 };
 
-// Catálogo unificado (cláusulas de los 25 templates + opcionales)
+// Catálogo unificado (cláusulas de todos los templates + opcionales)
 function catalogoCompleto() {
   const base = (typeof CLAUSULAS_COMPLETAS !== 'undefined') ? CLAUSULAS_COMPLETAS : {};
-  return { ...base, ...CLAUSULAS_OPCIONALES };
+  const adicionales = (typeof ADICIONALES_CLAUSULAS !== 'undefined') ? ADICIONALES_CLAUSULAS : {};
+  return { ...base, ...adicionales, ...CLAUSULAS_OPCIONALES };
 }
 
 function buscarClausula(ref) {

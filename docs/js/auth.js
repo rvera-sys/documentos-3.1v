@@ -1,6 +1,10 @@
 function getToken() { return localStorage.getItem(CONFIG.STORAGE_KEYS.TOKEN); }
-function getCurrentUser() { const u = localStorage.getItem(CONFIG.STORAGE_KEYS.USER); return u ? JSON.parse(u) : null; }
-function isAuthenticated() { return !!getToken(); }
+function getCurrentUser() {
+    const u = localStorage.getItem(CONFIG.STORAGE_KEYS.USER);
+    if (u) return JSON.parse(u);
+    return LOCAL_DEMO_MODE ? { full_name: 'Usuario local', company_name: 'Modo demo', is_admin: true } : null;
+}
+function isAuthenticated() { return LOCAL_DEMO_MODE || !!getToken(); }
 function isAdmin() { const u = getCurrentUser(); return u && u.is_admin; }
 
 async function handleGoogleLogin(response) {
