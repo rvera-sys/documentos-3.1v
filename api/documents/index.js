@@ -41,13 +41,15 @@ module.exports = async (req, res) => {
       const { template_id, title, form_data } = req.body;
       if (!template_id || !title) return res.status(400).json({ error: 'Missing required fields' });
 
-      const { data: newDoc } = await supabase
+      const { data: newDocs, error: insertError } = await supabase
         .from('document_instances')
         .insert({ user_id: user.sub, template_id: template_id, title: title, form_data: form_data || {}, state: 'draft', version: 1 })
-        .select()
-        .single();
+        .select();
 
-      if (!newDoc) return res.status(500).json({ error: 'Document created but RLS blocked readback. Set SUPABASE_SERVICE_ROLE_KEY.' });
+      if (insertError) return res.status(500).json({ error: 'Insert error: ' + insertError.message, details: insertError });
+      if (!newDocs || newDocs.length === 0) return res.status(500).json({ error: 'Insert succeeded but select returned empty array. Service role key might be invalid.' });
+
+      const newDoc = newDocs[0];
 
       try { await supabase.from('audit_log').insert({ user_id: user.sub, action: 'create_document', document_id: newDoc.id, details: { template_id, title } }); } catch {}
 
