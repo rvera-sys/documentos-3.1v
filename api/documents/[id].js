@@ -1,7 +1,7 @@
 const { createClient } = require('@supabase/supabase-js');
 const jwt = require('jsonwebtoken');
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY);
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
       if (!doc) return res.status(404).json({ error: 'Document not found' });
 
       const newVersion = doc.version + 1;
-      await supabase.from('document_instances').update({ title: title, form_data: form_data, version: newVersion, updated_at: new Date().toISOString() }).eq('id', id);
+      await supabase.from('document_instances').update({ title: title, form_data: form_data, selected_clauses: selected_clauses, custom_clauses: custom_clauses, version: newVersion, updated_at: new Date().toISOString() }).eq('id', id);
 
       try { await supabase.from('draft_history').insert({ document_id: id, snapshot: { form_data, selected_clauses, custom_clauses }, version_number: newVersion, action: 'edit', edited_by: user.sub }); } catch {}
       try { await supabase.from('audit_log').insert({ user_id: user.sub, action: 'update_document', document_id: id, details: { new_version: newVersion } }); } catch {}

@@ -1,7 +1,7 @@
 const { createClient } = require('@supabase/supabase-js');
 const jwt = require('jsonwebtoken');
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY);
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -46,6 +46,8 @@ module.exports = async (req, res) => {
         .insert({ user_id: user.sub, template_id: template_id, title: title, form_data: form_data || {}, state: 'draft', version: 1 })
         .select()
         .single();
+
+      if (!newDoc) return res.status(500).json({ error: 'Document created but RLS blocked readback. Set SUPABASE_SERVICE_ROLE_KEY.' });
 
       try { await supabase.from('audit_log').insert({ user_id: user.sub, action: 'create_document', document_id: newDoc.id, details: { template_id, title } }); } catch {}
 
