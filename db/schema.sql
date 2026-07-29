@@ -118,7 +118,17 @@ INSERT INTO document_templates (id, name, category, icon, description) VALUES
 ('r_loc_pba', 'Reserva de locación PBA', 'alquiler', '🔑', 'Reserva de alquiler en Provincia de Buenos Aires'),
 ('r_loc_comercial', 'Reserva de locación comercial', 'alquiler', '🏢', 'Reserva de local comercial'),
 ('r_temporal', 'Reserva de alquiler temporario', 'alquiler', '⏱️', 'Para alquiler de corta duración'),
-('aut_temporal_excl', 'Autorización temporario — exclusiva', 'alquiler', '📌', 'Autorización de temporario exclusivo')
+('aut_temporal_excl', 'Autorización temporario — exclusiva', 'alquiler', '📌', 'Autorización de temporario exclusivo'),
+('r_boleto_esc', 'Reserva de compra — boleto + escritura', 'compra', '📋', 'Reserva con boleto de compraventa y escritura'),
+('r_hipotecario', 'Reserva crédito hipotecario', 'compra', '🏦', 'Reserva ad referéndum de crédito hipotecario'),
+('aut_cesion', 'Autorización de venta — cesión', 'compra', '🔄', 'Autorización de venta con cesión de derechos'),
+('aut_emprendimiento', 'Autorización de venta — emprendimiento', 'compra', '🏗️', 'Autorización de venta de unidad en emprendimiento'),
+('aut_temp_noexcl', 'Autorización temporario — no exclusiva', 'alquiler', '📄', 'Autorización de alquiler temporario no exclusiva'),
+('prorroga', 'Prórroga de contrato', 'gestion', '📅', 'Extensión de plazo de contrato vigente'),
+('reintegro', 'Reintegro de locador', 'gestion', '💰', 'Reintegro por daños y reparaciones'),
+('acta_fondos', 'Acta de fondos', 'gestion', '🧾', 'Liquidación final y entrega de fondos'),
+('cont_temp_con', 'Contrato temporario — con servicios', 'contrato', '🌟', 'Contrato de alquiler temporario con servicios'),
+('cont_temp_sin', 'Contrato temporario — sin servicios', 'contrato', '📄', 'Contrato de alquiler temporario sin servicios')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO clauses_library (clause_id, name, text_template, category) VALUES

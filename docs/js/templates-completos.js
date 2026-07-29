@@ -10,7 +10,7 @@ const TEMPLATES_COMPLETOS = [
   // COMPRA (5 templates)
   // ════════════════════════════════════════════════════════════════
   {
-    id: 'r_escritura', nombre: 'Reserva de compra', icon: '🏠', categoria: 'compra', descripcion: 'Escritura directa',
+    id: 'r_compra', nombre: 'Reserva de compra', icon: '🏠', categoria: 'compra', descripcion: 'Escritura directa',
     sections: [
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Ej: Gurruchaga 1234, Piso 2°, Dpto. B, CABA', full: true },
@@ -335,7 +335,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['lcom_encabezado','lcom_locatario','lcom_propietario','lcom_inmueble','lcom_condiciones','lcom_reserva','lcom_ad_referendum','lcom_condicion','lcom_honorarios','lcom_jurisdiccion','lcom_agente','lcom_cierre']
   },
   {
-    id: 'r_temp', nombre: 'Reserva temporario', icon: '⏱️', categoria: 'alquiler', descripcion: 'Alquiler temporario',
+    id: 'r_temporal', nombre: 'Reserva temporario', icon: '⏱️', categoria: 'alquiler', descripcion: 'Alquiler temporario',
     sections: [
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Calle, número, localidad', full: true },
@@ -372,7 +372,7 @@ const TEMPLATES_COMPLETOS = [
   // AUTORIZACIÓN (7 templates)
   // ════════════════════════════════════════════════════════════════
   {
-    id: 'aut_venta', nombre: 'Autorización de venta', icon: '✍️', categoria: 'autorizacion', descripcion: 'Exclusiva',
+    id: 'aut_venta_exc', nombre: 'Autorización de venta', icon: '✍️', categoria: 'autorizacion', descripcion: 'Exclusiva',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -518,7 +518,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['ae_encabezado','ae_precio_anexo','ae_declaracion','ae_percibir','ae_honorarios','ae_exclusividad','ae_publicidad','ae_gastos_pub','ae_jurisdiccion','ae_cierre']
   },
   {
-    id: 'aut_locacion', nombre: 'Autorización de alquiler', icon: '📋', categoria: 'autorizacion', descripcion: 'Exclusiva',
+    id: 'aut_locacion_exc', nombre: 'Autorización de alquiler', icon: '📋', categoria: 'autorizacion', descripcion: 'Exclusiva',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -551,7 +551,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['al_encabezado','al_autorizante','al_inmueble','al_alquiler','al_exclusividad','al_garantia','al_comision','al_obligaciones','al_proteccion','al_jurisdiccion','al_agente','al_cierre']
   },
   {
-    id: 'aut_temp_excl', nombre: 'Autorización temporario', icon: '🌟', categoria: 'autorizacion', descripcion: 'Exclusiva',
+    id: 'aut_temporal_excl', nombre: 'Autorización temporario', icon: '🌟', categoria: 'autorizacion', descripcion: 'Exclusiva',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
