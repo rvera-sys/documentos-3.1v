@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
       if (q) query = query.ilike('title', `%${q}%`);
 
       const { data, error } = await query;
-      if (error) return res.status(500).json({ error: error.message });
+      if (error) return res.status(500).json({ error: error.message, code: error.code });
       return res.status(200).json(data || []);
     }
 
@@ -52,7 +52,16 @@ module.exports = async (req, res) => {
         })
         .select().single();
 
-      if (error) return res.status(500).json({ error: error.message });
+      if (error) {
+        const hint = error.code === '42501'
+          ? 'RLS bloqueo el insert: verificá SUPABASE_SERVICE_ROLE_KEY en Vercel.'
+          : error.code === '23503'
+            ? 'La plantilla o el usuario no existe en Supabase.'
+            : error.code === '23502'
+              ? 'Falta un campo obligatorio, normalmente user_id.'
+              : null;
+        return res.status(500).json({ error: error.message, code: error.code, hint });
+      }
 
       await supabase.from('draft_history').insert({
         document_id: newDoc.id,

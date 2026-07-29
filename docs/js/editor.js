@@ -385,10 +385,11 @@ async function saveDraft() {
 async function generatePDF() {
   const f = faltantes(clausulas, datosCompletos());
   if (f.length && !confirm(`Hay ${f.length} campo/s sin completar (${f.slice(0, 5).join(', ')}…). ¿Generar el PDF igual?`)) return;
+  let wrap;
   try {
     const clone = document.getElementById('preview-content').cloneNode(true);
     clone.querySelectorAll('.ph-falta').forEach(el => { el.outerHTML = el.textContent; });
-    const wrap = document.createElement('div');
+    wrap = document.createElement('div');
     wrap.className = 'pdf-render';
     wrap.appendChild(clone);
     document.body.appendChild(wrap);
@@ -402,10 +403,18 @@ async function generatePDF() {
       pagebreak: { mode: ['css', 'legacy'], avoid: '.cl-bloque' }
     }).from(wrap).save();
 
-    wrap.remove();
-    if (currentDocument && !LOCAL_DEMO_MODE) await api.exportPDF(currentDocument.id, 'pdf');
     showToast('✅ PDF generado');
-  } catch (e) { console.error(e); showToast('❌ Error generando PDF'); }
+    if (currentDocument && !LOCAL_DEMO_MODE) {
+      api.exportPDF(currentDocument.id, 'pdf').catch(e => {
+        console.warn('No se pudo registrar la exportación:', e.message);
+      });
+    }
+  } catch (e) {
+    console.error(e);
+    showToast('❌ Error generando PDF: ' + (e.message || 'revisá la consola'));
+  } finally {
+    if (wrap) wrap.remove();
+  }
 }
 
 function copiarTexto() {
