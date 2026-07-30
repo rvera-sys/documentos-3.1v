@@ -718,17 +718,22 @@ const TEMPLATES_COMPLETOS = [
       ]},
       { title: '👤 Locatario', fields: [
         { id: 'locatario_nombre', label: 'Nombre y apellido <span class="req">*</span>', placeholder: 'Nombre completo' },
-        { id: 'locatario_dni', label: 'DNI / CUIT', placeholder: '00.000.000' },
+        { id: 'locatario_dni', label: 'DNI', placeholder: '00.000.000' },
+        { id: 'locatario_cuit', label: 'CUIT', placeholder: '00-00000000-0' },
         { id: 'locatario_ecivil', label: 'Estado civil', type: 'select', options: ['','Soltero/a','Casado/a','Divorciado/a','Viudo/a','Unión convivencial'] },
+        { id: 'locatario_causes', label: 'En virtud de', placeholder: 'Ej: su matrimonio con...' },
         { id: 'locatario_nac', label: 'Nacionalidad', placeholder: 'Argentino/a' },
         { id: 'locatario_nacimiento', label: 'Fecha de nacimiento', type: 'date' },
+        { id: 'locatario_lugar_nacimiento', label: 'Lugar de nacimiento', placeholder: 'Ej: Ciudad de Buenos Aires', full: true },
         { id: 'locatario_domicilio', label: 'Domicilio real <span class="req">*</span>', placeholder: 'Calle, número, ciudad', full: true },
         { id: 'locatario_email', label: 'Email', placeholder: 'email@ejemplo.com' },
       ]},
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Calle, número, piso, dpto., barrio, ciudad', full: true },
         { id: 'inmueble_matricula', label: 'Matrícula (FR/FRE)', placeholder: 'Ej: FR-12-34567' },
-        { id: 'inmueble_desc', label: 'Descripción del inmueble', placeholder: 'Ambientes, m², etc.', full: true },
+        { id: 'inmueble_superficie', label: 'Superficie (m²)', placeholder: 'Ej: 65' },
+        { id: 'inmueble_ambientes', label: 'Ambientes', placeholder: 'Ej: 3' },
+        { id: 'inmueble_desc', label: 'Descripción del inmueble', placeholder: 'Detalles adicionales', full: true },
       ]},
       { title: '💰 Condiciones económicas', fields: [
         { id: 'monto_alquiler', label: 'Monto mensual del alquiler <span class="req">*</span>', placeholder: 'Ej: $350.000' },
@@ -736,12 +741,15 @@ const TEMPLATES_COMPLETOS = [
         { id: 'periodo_ajuste', label: 'Período de ajuste', type: 'select', options: ['Cada 3 meses','Cada 6 meses','Anual'] },
         { id: 'garantia_tipo', label: 'Tipo de garantía <span class="req">*</span>', type: 'select', options: ['Título de propiedad','Seguro de caución','Garantía personal','Cesión de crédito','A convenir'] },
         { id: 'garantia_monto', label: 'Monto / detalle de la garantía', placeholder: 'Ej: $1.400.000 (4 meses)' },
+        { id: 'anticipo_deposito', label: 'Depósito en garantía ($)', placeholder: 'Ej: $350.000' },
+        { id: 'honorarios_monto', label: 'Honorarios ($)', placeholder: 'Ej: $105.000' },
       ]},
       { title: '📅 Plazos', fields: [
         { id: 'fecha_inicio', label: 'Fecha de inicio <span class="req">*</span>', type: 'date' },
         { id: 'duracion_meses', label: 'Duración (meses) <span class="req">*</span>', placeholder: 'Ej: 36' },
         { id: 'fecha_fin', label: 'Fecha de finalización', type: 'date' },
-        { id: 'anticipo_meses', label: 'Anticipo de meses', placeholder: 'Ej: 1' },
+        { id: 'anticipo_meses', label: 'Anticipo (meses)', placeholder: 'Ej: 1' },
+        { id: 'anticipo_dias', label: 'Días para depositar anticipo', placeholder: 'Ej: 5' },
       ]},
       { title: '🧑‍💼 Agente', fields: [
         { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
@@ -767,17 +775,22 @@ const TEMPLATES_COMPLETOS = [
       ]},
       { title: '👤 Locatario', fields: [
         { id: 'locatario_nombre', label: 'Nombre y apellido <span class="req">*</span>', placeholder: 'Nombre completo' },
-        { id: 'locatario_dni', label: 'DNI / CUIT', placeholder: '00.000.000' },
+        { id: 'locatario_dni', label: 'DNI', placeholder: '00.000.000' },
+        { id: 'locatario_cuit', label: 'CUIT', placeholder: '00-00000000-0' },
         { id: 'locatario_ecivil', label: 'Estado civil', type: 'select', options: ['','Soltero/a','Casado/a','Divorciado/a','Viudo/a','Unión convivencial'] },
+        { id: 'locatario_causes', label: 'En virtud de', placeholder: 'Ej: su matrimonio con...' },
         { id: 'locatario_nac', label: 'Nacionalidad', placeholder: 'Argentino/a' },
         { id: 'locatario_nacimiento', label: 'Fecha de nacimiento', type: 'date' },
+        { id: 'locatario_lugar_nacimiento', label: 'Lugar de nacimiento', placeholder: 'Ej: Ciudad de Buenos Aires', full: true },
         { id: 'locatario_domicilio', label: 'Domicilio real <span class="req">*</span>', placeholder: 'Calle, número, ciudad', full: true },
         { id: 'locatario_email', label: 'Email', placeholder: 'email@ejemplo.com' },
       ]},
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Calle, número, piso, dpto., barrio, ciudad', full: true },
         { id: 'inmueble_matricula', label: 'Matrícula (FR/FRE)', placeholder: 'Ej: FR-12-34567' },
-        { id: 'inmueble_desc', label: 'Descripción del inmueble', placeholder: 'Ambientes, m², etc.', full: true },
+        { id: 'inmueble_superficie', label: 'Superficie (m²)', placeholder: 'Ej: 65' },
+        { id: 'inmueble_ambientes', label: 'Ambientes', placeholder: 'Ej: 3' },
+        { id: 'inmueble_desc', label: 'Descripción del inmueble', placeholder: 'Detalles adicionales', full: true },
       ]},
       { title: '💰 Condiciones económicas', fields: [
         { id: 'monto_alquiler', label: 'Monto mensual en USD <span class="req">*</span>', placeholder: 'Ej: USD 1.200' },
@@ -786,12 +799,15 @@ const TEMPLATES_COMPLETOS = [
         { id: 'periodo_ajuste', label: 'Período de ajuste', type: 'select', options: ['Cada 3 meses','Cada 6 meses','Anual'] },
         { id: 'garantia_tipo', label: 'Tipo de garantía <span class="req">*</span>', type: 'select', options: ['Título de propiedad','Seguro de caución','Garantía personal','Cesión de crédito','A convenir'] },
         { id: 'garantia_monto', label: 'Monto / detalle de la garantía', placeholder: 'Ej: USD 4.800 (4 meses)' },
+        { id: 'anticipo_deposito', label: 'Depósito en garantía (USD)', placeholder: 'Ej: USD 1.200' },
+        { id: 'honorarios_monto', label: 'Honorarios ($)', placeholder: 'Ej: $105.000' },
       ]},
       { title: '📅 Plazos', fields: [
         { id: 'fecha_inicio', label: 'Fecha de inicio <span class="req">*</span>', type: 'date' },
         { id: 'duracion_meses', label: 'Duración (meses) <span class="req">*</span>', placeholder: 'Ej: 36' },
         { id: 'fecha_fin', label: 'Fecha de finalización', type: 'date' },
-        { id: 'anticipo_meses', label: 'Anticipo de meses', placeholder: 'Ej: 1' },
+        { id: 'anticipo_meses', label: 'Anticipo (meses)', placeholder: 'Ej: 1' },
+        { id: 'anticipo_dias', label: 'Días para depositar anticipo', placeholder: 'Ej: 5' },
       ]},
       { title: '🧑‍💼 Agente', fields: [
         { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
@@ -817,17 +833,21 @@ const TEMPLATES_COMPLETOS = [
       ]},
       { title: '👤 Locatario', fields: [
         { id: 'locatario_nombre', label: 'Nombre y apellido <span class="req">*</span>', placeholder: 'Nombre completo' },
-        { id: 'locatario_dni', label: 'DNI / CUIT', placeholder: '00.000.000' },
+        { id: 'locatario_dni', label: 'DNI', placeholder: '00.000.000' },
+        { id: 'locatario_cuit', label: 'CUIT', placeholder: '00-00000000-0' },
         { id: 'locatario_ecivil', label: 'Estado civil', type: 'select', options: ['','Soltero/a','Casado/a','Divorciado/a','Viudo/a','Unión convivencial'] },
+        { id: 'locatario_causes', label: 'En virtud de', placeholder: 'Ej: su matrimonio con...' },
         { id: 'locatario_nac', label: 'Nacionalidad', placeholder: 'Argentino/a' },
-        { id: 'locatario_nacimiento', label: 'Fecha de nacimiento', type: 'date' },
         { id: 'locatario_domicilio', label: 'Domicilio real <span class="req">*</span>', placeholder: 'Calle, número, ciudad', full: true },
         { id: 'locatario_email', label: 'Email', placeholder: 'email@ejemplo.com' },
       ]},
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Calle, número, piso, dpto., barrio, ciudad', full: true },
         { id: 'inmueble_matricula', label: 'Matrícula (FR/FRE)', placeholder: 'Ej: FR-12-34567' },
-        { id: 'inmueble_desc', label: 'Descripción del inmueble', placeholder: 'Ambientes, m², etc.', full: true },
+        { id: 'inmueble_superficie', label: 'Superficie (m²)', placeholder: 'Ej: 80' },
+        { id: 'inmueble_ambientes', label: 'Ambientes', placeholder: 'Ej: 2' },
+        { id: 'inmueble_destino', label: 'Destino comercial', placeholder: 'Ej: gastronomía, oficina, comercio', full: true },
+        { id: 'inmueble_desc', label: 'Descripción del inmueble', placeholder: 'Detalles adicionales', full: true },
       ]},
       { title: '💰 Condiciones económicas', fields: [
         { id: 'monto_alquiler', label: 'Monto mensual del alquiler <span class="req">*</span>', placeholder: 'Ej: $600.000' },
@@ -835,12 +855,15 @@ const TEMPLATES_COMPLETOS = [
         { id: 'periodo_ajuste', label: 'Período de ajuste', type: 'select', options: ['Cada 3 meses','Cada 6 meses','Anual'] },
         { id: 'garantia_tipo', label: 'Tipo de garantía <span class="req">*</span>', type: 'select', options: ['Título de propiedad','Seguro de caución','Garantía personal','Cesión de crédito','A convenir'] },
         { id: 'garantia_monto', label: 'Monto / detalle de la garantía', placeholder: 'Ej: $2.400.000 (4 meses)' },
+        { id: 'anticipo_deposito', label: 'Depósito en garantía ($)', placeholder: 'Ej: $600.000' },
+        { id: 'honorarios_monto', label: 'Honorarios ($)', placeholder: 'Ej: $180.000' },
       ]},
       { title: '📅 Plazos', fields: [
         { id: 'fecha_inicio', label: 'Fecha de inicio <span class="req">*</span>', type: 'date' },
         { id: 'duracion_meses', label: 'Duración (meses) <span class="req">*</span>', placeholder: 'Ej: 36' },
         { id: 'fecha_fin', label: 'Fecha de finalización', type: 'date' },
-        { id: 'anticipo_meses', label: 'Anticipo de meses', placeholder: 'Ej: 1' },
+        { id: 'anticipo_meses', label: 'Anticipo (meses)', placeholder: 'Ej: 1' },
+        { id: 'anticipo_dias', label: 'Días para depositar anticipo', placeholder: 'Ej: 5' },
       ]},
       { title: '🧑‍💼 Agente', fields: [
         { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
@@ -863,22 +886,31 @@ const TEMPLATES_COMPLETOS = [
       { title: '👤 Huesped', fields: [
         { id: 'locatario_nombre', label: 'Nombre y apellido <span class="req">*</span>', placeholder: 'Nombre completo' },
         { id: 'locatario_dni', label: 'DNI / Pasaporte', placeholder: '00.000.000' },
+        { id: 'locatario_nac', label: 'Nacionalidad', placeholder: 'Argentino/a' },
+        { id: 'locatario_ecivil', label: 'Estado civil', type: 'select', options: ['','Soltero/a','Casado/a','Divorciado/a','Viudo/a','Unión convivencial'] },
+        { id: 'locatario_causes', label: 'En virtud de', placeholder: 'Ej: su matrimonio con...' },
       ]},
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Calle, número, piso, dpto., localidad', full: true },
+        { id: 'inmueble_superficie', label: 'Superficie (m²)', placeholder: 'Ej: 65' },
+        { id: 'inmueble_ambientes', label: 'Ambientes', placeholder: 'Ej: 3' },
         { id: 'inmueble_desc', label: 'Descripción y comodidades', placeholder: 'Ambientes, m², equipamiento', full: true },
       ]},
       { title: '💰 Condiciones económicas', fields: [
         { id: 'precio_noche', label: 'Precio por noche <span class="req">*</span>', placeholder: 'Ej: $45.000' },
+        { id: 'precio_total', label: 'Precio total de la estadía', placeholder: 'Ej: $315.000' },
+        { id: 'forma_pago', label: 'Forma de pago', placeholder: 'Ej: Transferencia bancaria / Efectivo' },
         { id: 'precio_semana', label: 'Precio por semana', placeholder: 'Ej: $270.000' },
         { id: 'precio_mes', label: 'Precio por mes', placeholder: 'Ej: $850.000' },
         { id: 'servicios_incluidos', label: 'Servicios incluidos', type: 'select', options: ['Wifi, agua, luz, gas','Wifi, agua, luz, gas, limpieza','A convenir'] },
+        { id: 'honorarios_monto', label: 'Honorarios ($)', placeholder: 'Ej: $31.500' },
       ]},
       { title: '📅 Plazos', fields: [
         { id: 'fecha_inicio', label: 'Fecha de llegada <span class="req">*</span>', type: 'date' },
+        { id: 'duracion_noches', label: 'Noches de estadía', placeholder: 'Ej: 7' },
         { id: 'fecha_fin', label: 'Fecha de salida <span class="req">*</span>', type: 'date' },
-        { id: 'hora_llegada', label: 'Hora de llegada', placeholder: 'Ej: 14:00' },
-        { id: 'hora_salida', label: 'Hora de salida', placeholder: 'Ej: 10:00' },
+        { id: 'hora_llegada', label: 'Hora de llegada (check-in)', placeholder: 'Ej: 14:00' },
+        { id: 'hora_salida', label: 'Hora de salida (check-out)', placeholder: 'Ej: 10:00' },
       ]},
       { title: '🧑‍💼 Agente', fields: [
         { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
@@ -901,22 +933,31 @@ const TEMPLATES_COMPLETOS = [
       { title: '👤 Huesped', fields: [
         { id: 'locatario_nombre', label: 'Nombre y apellido <span class="req">*</span>', placeholder: 'Nombre completo' },
         { id: 'locatario_dni', label: 'DNI / Pasaporte', placeholder: '00.000.000' },
+        { id: 'locatario_nac', label: 'Nacionalidad', placeholder: 'Argentino/a' },
+        { id: 'locatario_ecivil', label: 'Estado civil', type: 'select', options: ['','Soltero/a','Casado/a','Divorciado/a','Viudo/a','Unión convivencial'] },
+        { id: 'locatario_causes', label: 'En virtud de', placeholder: 'Ej: su matrimonio con...' },
       ]},
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Calle, número, piso, dpto., localidad', full: true },
+        { id: 'inmueble_superficie', label: 'Superficie (m²)', placeholder: 'Ej: 65' },
+        { id: 'inmueble_ambientes', label: 'Ambientes', placeholder: 'Ej: 3' },
         { id: 'inmueble_desc', label: 'Descripción y comodidades', placeholder: 'Ambientes, m², equipamiento', full: true },
       ]},
       { title: '💰 Condiciones económicas', fields: [
         { id: 'precio_noche', label: 'Precio por noche <span class="req">*</span>', placeholder: 'Ej: $45.000' },
+        { id: 'precio_total', label: 'Precio total de la estadía', placeholder: 'Ej: $315.000' },
+        { id: 'forma_pago', label: 'Forma de pago', placeholder: 'Ej: Transferencia bancaria / Efectivo' },
         { id: 'precio_semana', label: 'Precio por semana', placeholder: 'Ej: $270.000' },
         { id: 'precio_mes', label: 'Precio por mes', placeholder: 'Ej: $850.000' },
         { id: 'servicios_excluidos', label: 'Servicios excluidos (detalle)', placeholder: 'Ej: Electricidad y gas a cargo del huésped', full: true },
+        { id: 'honorarios_monto', label: 'Honorarios ($)', placeholder: 'Ej: $31.500' },
       ]},
       { title: '📅 Plazos', fields: [
         { id: 'fecha_inicio', label: 'Fecha de llegada <span class="req">*</span>', type: 'date' },
+        { id: 'duracion_noches', label: 'Noches de estadía', placeholder: 'Ej: 7' },
         { id: 'fecha_fin', label: 'Fecha de salida <span class="req">*</span>', type: 'date' },
-        { id: 'hora_llegada', label: 'Hora de llegada', placeholder: 'Ej: 14:00' },
-        { id: 'hora_salida', label: 'Hora de salida', placeholder: 'Ej: 10:00' },
+        { id: 'hora_llegada', label: 'Hora de llegada (check-in)', placeholder: 'Ej: 14:00' },
+        { id: 'hora_salida', label: 'Hora de salida (check-out)', placeholder: 'Ej: 10:00' },
       ]},
       { title: '🧑‍💼 Agente', fields: [
         { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
@@ -1124,7 +1165,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'rtmp_plazo': {
     titulo: 'TERCERA: PLAZO',
-    texto: `Que el presente contrato de locación temporaria se celebrará por el término de {{duracion_noches}} noches, computados a partir del día {{fecha_inicio}} (check-in a las {{hora_checkin}}) hasta el día {{fecha_fin}} (check-out a las {{hora_checkout}}).`
+    texto: `Que el presente contrato de locación temporaria se celebrará por el término de {{duracion_noches}} noches, computados a partir del día {{fecha_inicio}} (check-in a las {{hora_llegada}}) hasta el día {{fecha_fin}} (check-out a las {{hora_salida}}).`
   },
   'rtmp_precio': {
     titulo: 'CUARTA: PRECIO',
@@ -1733,7 +1774,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'ctc_plazo': {
     titulo: 'TERCERA: PLAZO',
-    texto: `Que el presente contrato de locación temporaria se celebrará por el término de {{duracion_noches}} noches, computados a partir del día {{fecha_inicio}} (check-in a las {{hora_checkin}}) hasta el día {{fecha_fin}} (check-out a las {{hora_checkout}}).`
+    texto: `Que el presente contrato de locación temporaria se celebrará por el término de {{duracion_noches}} noches, computados a partir del día {{fecha_inicio}} (check-in a las {{hora_llegada}}) hasta el día {{fecha_fin}} (check-out a las {{hora_salida}}).`
   },
   'ctc_precio': {
     titulo: 'CUARTA: PRECIO',
@@ -1771,7 +1812,7 @@ const CLAUSULAS_COMPLETAS = {
   },
   'cts_plazo': {
     titulo: 'TERCERA: PLAZO',
-    texto: `Que el presente contrato de locación temporaria se celebrará por el término de {{duracion_noches}} noches, computados a partir del día {{fecha_inicio}} (check-in a las {{hora_checkin}}) hasta el día {{fecha_fin}} (check-out a las {{hora_checkout}}).`
+    texto: `Que el presente contrato de locación temporaria se celebrará por el término de {{duracion_noches}} noches, computados a partir del día {{fecha_inicio}} (check-in a las {{hora_llegada}}) hasta el día {{fecha_fin}} (check-out a las {{hora_salida}}).`
   },
   'cts_precio': {
     titulo: 'CUARTA: PRECIO',
