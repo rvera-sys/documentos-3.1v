@@ -149,30 +149,15 @@ async function saveDraft() {
 async function generatePDF() {
     if (!currentDocument) { showToast('⚠️ Guardá el documento primero'); return; }
     try {
-        const content = document.getElementById('preview-content').cloneNode(true);
-        const win = window.open('', '_blank');
-        if (!win) { showToast('❌ Permití ventanas emergentes para generar PDF'); return; }
-        win.document.write(`<!DOCTYPE html><html><head>
-            <style>
-                * { margin: 0; padding: 0; box-sizing: border-box; }
-                body { font-family: 'Times New Roman', Times, serif; padding: 30px 40px; background: white; line-height: 1.8; }
-                h1 { font-size: 18px; font-weight: 700; color: #CC0000; margin-bottom: 4px; text-align: center; }
-                hr { border: none; border-top: 2px solid #CC0000; margin: 10px 0 30px; }
-                p { margin-bottom: 16px; text-align: justify; font-size: 13px; white-space: pre-wrap; }
-                .footer { margin-top: 30px; padding-top: 16px; border-top: 1px solid #ddd; text-align: center; font-size: 11px; color: #666; }
-            </style>
-        </head><body>${content.innerHTML}</body></html>`);
-        win.document.close();
-        await new Promise(resolve => setTimeout(resolve, 500));
+        const el = document.getElementById('preview-content');
         const opt = {
-            margin: [10, 10, 10, 10],
+            margin: 10,
             filename: (currentDocument.title || 'documento') + '.pdf',
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
+            html2canvas: { scale: 2, scrollY: 0, windowHeight: el.scrollHeight },
             jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
         };
-        await html2pdf().set(opt).from(win.document.body).save();
-        win.close();
+        await html2pdf().set(opt).from(el).save();
         await api.exportPDF(currentDocument.id, currentDocument.title + '.pdf');
         showToast('✅ PDF generado');
     } catch (e) { console.error('Error:', e); showToast('❌ Error generando PDF'); }
