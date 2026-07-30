@@ -964,6 +964,554 @@ const TEMPLATES_COMPLETOS = [
       ]},
     ],
     clausulas_default: ['cts_encabezado','cts_objeto','cts_plazo','cts_precio','cts_servicios_excl','cts_honorarios','cts_proteccion','cts_jurisdiccion','cts_firma']
+  },
+  // ════════════════════════════════════════════════════════════════
+  // BOLETOS DE COMPRAVENTA (2 templates)
+  // ════════════════════════════════════════════════════════════════
+  {
+    id: 'boleto_compraventa', nombre: 'Boleto de Compraventa', icon: '📋', categoria: 'contrato', descripcion: 'Estándar - 70 días',
+    sections: [
+      { title: '📋 Encabezado y Partes', fields: [
+        { id: 'fecha_ciudad', label: 'Ciudad', placeholder: 'Ej: San Isidro' },
+        { id: 'fecha_dia', label: 'Día', placeholder: 'Ej: 15' },
+        { id: 'fecha_mes', label: 'Mes', placeholder: 'Ej: Enero' },
+        { id: 'fecha_anio', label: 'Año', placeholder: 'Ej: 2026' },
+        { id: 'vendedor_1_nombre', label: 'Vendedor 1 - Nombre <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'vendedor_1_cuit', label: 'Vendedor 1 - CUIT/DNI', placeholder: '00.000.000' },
+        { id: 'vendedor_1_estado_civil', label: 'Vendedor 1 - Estado civil', placeholder: 'Soltero/a, Casado/a, etc.' },
+        { id: 'vendedor_1_domicilio', label: 'Vendedor 1 - Domicilio', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'vendedor_2_nombre', label: 'Vendedor 2 - Nombre (opcional)', placeholder: 'Nombre completo', full: true },
+        { id: 'vendedor_2_cuit', label: 'Vendedor 2 - CUIT/DNI', placeholder: '00.000.000' },
+        { id: 'vendedor_2_estado_civil', label: 'Vendedor 2 - Estado civil', placeholder: 'Soltero/a, Casado/a, etc.' },
+        { id: 'vendedor_2_domicilio', label: 'Vendedor 2 - Domicilio', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'comprador_nombre', label: 'Comprador - Nombre <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'comprador_cuit', label: 'Comprador - CUIT/DNI', placeholder: '00.000.000' },
+        { id: 'comprador_estado_civil', label: 'Comprador - Estado civil', placeholder: 'Soltero/a, Casado/a, etc.' },
+        { id: 'comprador_domicilio', label: 'Comprador - Domicilio', placeholder: 'Calle, número, ciudad', full: true },
+      ]},
+      { title: '📍 Inmueble', fields: [
+        { id: 'inmueble_ubicacion', label: 'Ubicación <span class="req">*</span>', placeholder: 'Ej: Ciudad Autónoma de Buenos Aires', full: true },
+        { id: 'inmueble_calle', label: 'Calle', placeholder: 'Nombre de la calle' },
+        { id: 'inmueble_numero', label: 'Número', placeholder: 'Ej: 1234' },
+        { id: 'inmueble_entre_calles', label: 'Entre calles', placeholder: 'Calle 1 y Calle 2' },
+        { id: 'inmueble_uf', label: 'Unidad Funcional Nº', placeholder: 'Ej: 5' },
+        { id: 'inmueble_piso', label: 'Piso', placeholder: 'Ej: 3°' },
+        { id: 'inmueble_circ', label: 'Circunscripción', placeholder: 'Ej: 12' },
+        { id: 'inmueble_seccion', label: 'Sección', placeholder: 'Ej: 3' },
+        { id: 'inmueble_manzana', label: 'Manzana', placeholder: 'Ej: 45' },
+        { id: 'inmueble_parcela', label: 'Parcela', placeholder: 'Ej: 12A' },
+        { id: 'inmueble_matricula', label: 'Matrícula', placeholder: 'Ej: FR-12-34567' },
+      ]},
+      { title: '💰 Precio y Forma de Pago', fields: [
+        { id: 'precio_letras', label: 'Precio total en letras <span class="req">*</span>', placeholder: 'Ej: Doscientos mil dólares', full: true },
+        { id: 'precio_num', label: 'Precio total en números (U$S)', placeholder: 'Ej: 200.000' },
+        { id: 'senal_letras', label: 'Seña en letras <span class="req">*</span>', placeholder: 'Ej: Diez mil dólares', full: true },
+        { id: 'senal_num', label: 'Seña en números (U$S)', placeholder: 'Ej: 10.000' },
+        { id: 'saldo_letras', label: 'Saldo en letras <span class="req">*</span>', placeholder: 'Ej: Ciento noventa mil dólares', full: true },
+        { id: 'saldo_num', label: 'Saldo en números (U$S)', placeholder: 'Ej: 190.000' },
+        { id: 'plazo_dias', label: 'Plazo en días para el saldo', placeholder: '70' },
+        { id: 'partido_pago', label: 'Partido / lugar de pago y escrituración', placeholder: 'Ej: San Isidro', full: true },
+      ]},
+      { title: '🏦 Hipoteca (si aplica)', fields: [
+        { id: 'escritura_hipoteca_nro', label: 'Escritura de cancelación Nº', placeholder: 'Ej: 123' },
+        { id: 'escribano_hipoteca_nombre', label: 'Escribano que certificó cancelación', placeholder: 'Nombre del escribano', full: true },
+        { id: 'escribano_hipoteca_matricula', label: 'Matrícula del escribano', placeholder: 'Ej: 4567' },
+      ]},
+      { title: '📦 Incluye / Equipamiento', fields: [
+        { id: 'inmueble_incluye_1', label: 'Incluye (item 1)', placeholder: 'Ej: Cocina' },
+        { id: 'inmueble_incluye_2', label: 'Incluye (item 2)', placeholder: 'Ej: Lavarropas' },
+        { id: 'inmueble_incluye_3', label: 'Incluye (item 3)', placeholder: 'Ej: Aire acondicionado' },
+        { id: 'inmueble_incluye_4', label: 'Incluye (item 4)', placeholder: 'Ej: Muebles de cocina' },
+        { id: 'inmueble_incluye_5', label: 'Incluye (item 5)', placeholder: 'Ej: Cortinas' },
+      ]},
+      { title: '✍️ Escribanía', fields: [
+        { id: 'escribano_nombre', label: 'Escribano interviniente <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'escribano_domicilio', label: 'Domicilio del escribano', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'partido_escribania', label: 'Partido de la escribanía', placeholder: 'Ej: San Isidro' },
+      ]},
+      { title: '📜 Títulos e Inhibiciones', fields: [
+        { id: 'ciudad_rpi', label: 'Ciudad del Registro Propiedad Inmueble', placeholder: 'Ej: San Isidro' },
+        { id: 'informe_dominio_fecha', label: 'Fecha informe de dominio', type: 'date' },
+        { id: 'informe_dominio_numero', label: 'Nº informe de dominio', placeholder: 'Ej: 12345' },
+        { id: 'anotaciones_personales_fecha', label: 'Fecha anotaciones personales', type: 'date' },
+        { id: 'anotaciones_personales_numeros', label: 'Números anotaciones personales', placeholder: 'Ej: 123456' },
+      ]},
+      { title: '👰 Cónyuge del Vendedor', fields: [
+        { id: 'conyuge_nombre', label: 'Nombre del cónyuge', placeholder: 'Nombre completo', full: true },
+        { id: 'conyuge_dni', label: 'DNI del cónyuge', placeholder: '00.000.000' },
+      ]},
+      { title: '🔑 Usufructo (si aplica)', fields: [
+        { id: 'usufructuario_nombre', label: 'Nombre del usufructuario', placeholder: 'Nombre completo', full: true },
+        { id: 'usufructuario_dni', label: 'DNI del usufructuario', placeholder: '00.000.000' },
+        { id: 'usufructuario_domicilio', label: 'Domicilio del usufructuario', placeholder: 'Calle, número, ciudad', full: true },
+      ]},
+      { title: '📄 Cesión de Locación (si aplica)', fields: [
+        { id: 'locatario_nombre', label: 'Nombre del locatario (inquilino)', placeholder: 'Nombre completo', full: true },
+        { id: 'locatario_dni', label: 'DNI del locatario', placeholder: '00.000.000' },
+        { id: 'locatario_domicilio', label: 'Domicilio del locatario', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'fiador_nombre', label: 'Nombre del fiador', placeholder: 'Nombre completo', full: true },
+        { id: 'fiador_dni', label: 'DNI del fiador', placeholder: '00.000.000' },
+        { id: 'fiador_domicilio', label: 'Domicilio del fiador', placeholder: 'Calle, número, ciudad', full: true },
+      ]},
+    ],
+    clausulas_default: ['bcv_encabezado','bcv_primera_inmueble','bcv_segunda_precio','bcv_tercera_titulos','bcv_cuarta_hipoteca','bcv_quinta_entrega','bcv_sexta_incumplimiento','bcv_septima_titularidad','bcv_octava_escribania','bcv_novena_fallecimiento','bcv_decima_acceso','bcv_decimaprimera_documentos','bcv_decimasegunda_llaves','bcv_decimatercera_conyuge','bcv_decimacuarta_domicilios','bcv_decimaquinta_usufructo','bcv_decimasexta_locacion','bcv_cierre']
+  },
+  {
+    id: 'boleto_compraventa_con_posesion', nombre: 'Boleto Compraventa c/Posesión', icon: '📑', categoria: 'contrato', descripcion: 'Con entrega de posesión en el acto',
+    sections: [
+      { title: '📋 Encabezado y Partes', fields: [
+        { id: 'fecha_ciudad', label: 'Ciudad', placeholder: 'Ej: San Isidro' },
+        { id: 'fecha_dia', label: 'Día', placeholder: 'Ej: 15' },
+        { id: 'fecha_mes', label: 'Mes', placeholder: 'Ej: Enero' },
+        { id: 'fecha_anio', label: 'Año', placeholder: 'Ej: 2026' },
+        { id: 'vendedor_nombre', label: 'Vendedor - Nombre <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'vendedor_cuit', label: 'Vendedor - CUIT/DNI', placeholder: '00.000.000' },
+        { id: 'vendedor_estado_civil', label: 'Vendedor - Estado civil', placeholder: 'Soltero/a, Casado/a, etc.' },
+        { id: 'vendedor_domicilio', label: 'Vendedor - Domicilio', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'vendedor_2_nombre', label: 'Vendedor 2 - Nombre (opcional)', placeholder: 'Nombre completo', full: true },
+        { id: 'comprador_nombre', label: 'Comprador - Nombre <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'comprador_cuit', label: 'Comprador - CUIT/DNI', placeholder: '00.000.000' },
+        { id: 'comprador_estado_civil', label: 'Comprador - Estado civil', placeholder: 'Soltero/a, Casado/a, etc.' },
+        { id: 'comprador_domicilio', label: 'Comprador - Domicilio', placeholder: 'Calle, número, ciudad', full: true },
+      ]},
+      { title: '📍 Inmueble', fields: [
+        { id: 'inmueble_ubicacion', label: 'Ubicación <span class="req">*</span>', placeholder: 'Ej: Ciudad Autónoma de Buenos Aires', full: true },
+        { id: 'inmueble_entre_calles', label: 'Entre calles', placeholder: 'Calle 1 y Calle 2' },
+        { id: 'inmueble_uf', label: 'Unidad Funcional Nº', placeholder: 'Ej: 5' },
+        { id: 'inmueble_circ', label: 'Circunscripción', placeholder: 'Ej: 12' },
+        { id: 'inmueble_seccion', label: 'Sección', placeholder: 'Ej: 3' },
+        { id: 'inmueble_frac', label: 'Fracción', placeholder: 'Ej: I' },
+        { id: 'inmueble_parcela', label: 'Parcela', placeholder: 'Ej: 12A' },
+        { id: 'inmueble_subparcela', label: 'Subparcela', placeholder: 'Ej: a' },
+        { id: 'inmueble_matricula', label: 'Matrícula', placeholder: 'Ej: FR-12-34567' },
+      ]},
+      { title: '💰 Precio y Forma de Pago', fields: [
+        { id: 'precio_letras', label: 'Precio total en letras <span class="req">*</span>', placeholder: 'Ej: Doscientos mil dólares', full: true },
+        { id: 'precio_num', label: 'Precio total en números (U$S)', placeholder: 'Ej: 200.000' },
+        { id: 'senal_letras', label: 'Seña en letras <span class="req">*</span>', placeholder: 'Ej: Diez mil dólares', full: true },
+        { id: 'senal_num', label: 'Seña en números (U$S)', placeholder: 'Ej: 10.000' },
+        { id: 'saldo_letras', label: 'Saldo en letras <span class="req">*</span>', placeholder: 'Ej: Ciento noventa mil dólares', full: true },
+        { id: 'saldo_num', label: 'Saldo en números (U$S)', placeholder: 'Ej: 190.000' },
+        { id: 'fecha_tope_dia', label: 'Fecha tope - día', placeholder: 'Ej: 30' },
+        { id: 'fecha_tope_mes', label: 'Fecha tope - mes', placeholder: 'Ej: Junio' },
+        { id: 'fecha_tope_anio', label: 'Fecha tope - año', placeholder: 'Ej: 2026' },
+      ]},
+      { title: '✍️ Escribanía', fields: [
+        { id: 'escribano_nombre', label: 'Escribano interviniente <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'escribano_domicilio', label: 'Domicilio del escribano', placeholder: 'Calle, número, ciudad', full: true },
+      ]},
+      { title: '📜 Títulos e Inhibiciones', fields: [
+        { id: 'ciudad_rpi', label: 'Ciudad del Registro Propiedad Inmueble', placeholder: 'Ej: San Isidro' },
+        { id: 'informe_dominio_fecha', label: 'Fecha informe de dominio', type: 'date' },
+        { id: 'informe_dominio_numero', label: 'Nº informe de dominio', placeholder: 'Ej: 12345' },
+        { id: 'anotaciones_personales_fecha', label: 'Fecha anotaciones personales', type: 'date' },
+        { id: 'anotaciones_personales_numeros', label: 'Números anotaciones personales', placeholder: 'Ej: 123456' },
+      ]},
+      { title: '📬 Domicilios constituidos', fields: [
+        { id: 'vendedor_domicilio_constitucion', label: 'Domicilio constituido del vendedor <span class="req">*</span>', placeholder: 'Calle, número, ciudad', full: true },
+      ]},
+    ],
+    clausulas_default: ['bcp_encabezado','bcp_primera_inmueble','bcp_segunda_precio','bcp_tercera_posesion','bcp_cuarta_titulos','bcp_quinta_entrega','bcp_sexta_incumplimiento','bcp_septima_titularidad','bcp_octava_escribania','bcp_novena_fallecimiento','bcp_decima_domicilios','bcp_decimaprimera_documentos','bcp_decimasegunda_llaves','bcp_cierre']
+  },
+  // ════════════════════════════════════════════════════════════════
+  // CESIONES (2 templates)
+  // ════════════════════════════════════════════════════════════════
+  {
+    id: 'cesion_boleto_compraventa', nombre: 'Cesión de Boleto', icon: '🔄', categoria: 'gestion', descripcion: 'Cesión de derechos y obligaciones de boleto de compraventa',
+    sections: [
+      { title: '📋 Fecha y Lugar de Firma', fields: [
+        { id: 'fecha_dia', label: 'Día', placeholder: 'Ej: 15' },
+        { id: 'fecha_mes', label: 'Mes', placeholder: 'Ej: Enero' },
+        { id: 'fecha_anio', label: 'Año', placeholder: 'Ej: 26' },
+        { id: 'lugar', label: 'Lugar de firma', placeholder: 'Ej: San Isidro' },
+      ]},
+      { title: '👤 Cedente', fields: [
+        { id: 'cedente_nombre', label: 'Nombre del cedente <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'cedente_dni', label: 'CUIT/DNI del cedente', placeholder: '00.000.000' },
+        { id: 'cedente_estado_civil', label: 'Estado civil del cedente', placeholder: 'Soltero/a, Casado/a, etc.' },
+        { id: 'cedente_domicilio', label: 'Domicilio del cedente', placeholder: 'Calle, número, ciudad', full: true },
+      ]},
+      { title: '👤 Cesionario', fields: [
+        { id: 'cesionario_nombre', label: 'Nombre del cesionario <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'cesionario_dni', label: 'CUIT/DNI del cesionario', placeholder: '00.000.000' },
+        { id: 'cesionario_estado_civil', label: 'Estado civil del cesionario', placeholder: 'Soltero/a, Casado/a, etc.' },
+        { id: 'cesionario_domicilio', label: 'Domicilio del cesionario', placeholder: 'Calle, número, ciudad', full: true },
+      ]},
+      { title: '📄 Boleto de Compraventa Original', fields: [
+        { id: 'boleto_fecha_dia', label: 'Día del boleto original', placeholder: 'Ej: 10' },
+        { id: 'boleto_fecha_mes', label: 'Mes del boleto original', placeholder: 'Ej: Marzo' },
+        { id: 'boleto_fecha_anio', label: 'Año del boleto original', placeholder: 'Ej: 2025' },
+        { id: 'vendedor_nombre', label: 'Vendedor original (nombre)', placeholder: 'Nombre completo', full: true },
+        { id: 'vendedor_dni', label: 'DNI del vendedor original', placeholder: '00.000.000' },
+      ]},
+      { title: '📍 Inmueble', fields: [
+        { id: 'inmueble_ubicacion', label: 'Dirección del inmueble <span class="req">*</span>', placeholder: 'Calle, número, localidad', full: true },
+        { id: 'inmueble_partido', label: 'Partido', placeholder: 'Ej: San Isidro' },
+        { id: 'inmueble_uf', label: 'Unidad Funcional Nº', placeholder: 'Ej: 5' },
+        { id: 'inmueble_circ', label: 'Circunscripción', placeholder: 'Ej: 12' },
+        { id: 'inmueble_seccion', label: 'Sección', placeholder: 'Ej: 3' },
+        { id: 'inmueble_manzana', label: 'Manzana', placeholder: 'Ej: 45' },
+        { id: 'inmueble_parcela', label: 'Parcela', placeholder: 'Ej: 12A' },
+        { id: 'inmueble_matricula', label: 'Matrícula', placeholder: 'Ej: FR-12-34567' },
+      ]},
+      { title: '💰 Precio de la Cesión', fields: [
+        { id: 'precio_total_letras', label: 'Precio total en letras <span class="req">*</span>', placeholder: 'Ej: Cien mil dólares', full: true },
+        { id: 'precio_total_numero', label: 'Precio total en números (U$S)', placeholder: 'Ej: 100.000' },
+        { id: 'precio_inicial_letras', label: 'Pago inicial en letras', placeholder: 'Ej: Veinte mil dólares', full: true },
+        { id: 'precio_inicial_numero', label: 'Pago inicial en números (U$S)', placeholder: 'Ej: 20.000' },
+        { id: 'precio_saldo_letras', label: 'Saldo en letras', placeholder: 'Ej: Ochenta mil dólares', full: true },
+        { id: 'precio_saldo_numero', label: 'Saldo en números (U$S)', placeholder: 'Ej: 80.000' },
+      ]},
+      { title: '✍️ Escribanía', fields: [
+        { id: 'escribania_nombre', label: 'Nombre de la escribanía', placeholder: 'Nombre completo', full: true },
+        { id: 'escribania_domicilio', label: 'Domicilio de la escribanía', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'escribania_partido', label: 'Partido de la escribanía', placeholder: 'Ej: San Isidro' },
+        { id: 'escribania_registro', label: 'Número de registro', placeholder: 'Ej: 123' },
+        { id: 'escribania_folio', label: 'Folio', placeholder: 'Ej: 456' },
+      ]},
+      { title: '⏱️ Plazos', fields: [
+        { id: 'plazo_notificacion_dias', label: 'Anticipación de notificación (días)', placeholder: 'Ej: 10' },
+        { id: 'plazo_escrituracion_dias', label: 'Plazo para escriturar (días)', placeholder: 'Ej: 60' },
+        { id: 'inmueble_uso', label: 'Destino / uso del inmueble', placeholder: 'Ej: Vivienda', full: true },
+        { id: 'domicilio_cedente', label: 'Domicilio contractual del cedente', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'domicilio_cesionario', label: 'Domicilio contractual del cesionario', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'boleto_firma_dia', label: 'Día del boleto firmado adjunto', placeholder: 'Ej: 10' },
+        { id: 'boleto_firma_mes', label: 'Mes del boleto firmado adjunto', placeholder: 'Ej: Marzo' },
+        { id: 'boleto_firma_anio', label: 'Año del boleto firmado adjunto', placeholder: 'Ej: 25' },
+      ]},
+    ],
+    clausulas_default: ['cbc_primera_objeto','cbc_segunda_precio','cbc_tercera_reglamento','cbc_cuarta_garantias','cbc_quinta_escrituracion','cbc_sexta_plazos','cbc_septima_mora','cbc_octava_transferencia','cbc_novena_destino','cbc_decima_impuestos','cbc_decimoprimera_domicilios','cbc_decimosegunda_jurisdiccion','cbc_decimotercera_ejemplares','cbc_decimocuarta_fecha']
+  },
+  {
+    id: 'cesion_contrato_locacion', nombre: 'Cesión de Locación', icon: '📝', categoria: 'gestion', descripcion: 'Cesión de contrato de locación por compraventa del inmueble',
+    sections: [
+      { title: '📋 Fecha y Lugar de Firma', fields: [
+        { id: 'lugar_firma', label: 'Lugar de firma', placeholder: 'Ej: San Isidro' },
+        { id: 'fecha_firma_dia', label: 'Día', placeholder: 'Ej: 15' },
+        { id: 'fecha_firma_mes', label: 'Mes', placeholder: 'Ej: Enero' },
+        { id: 'fecha_firma_anio', label: 'Año', placeholder: 'Ej: 26' },
+      ]},
+      { title: '👤 Cedentes', fields: [
+        { id: 'cedente1_nombre', label: 'Cedente 1 - Nombre <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'cedente1_dni', label: 'Cedente 1 - DNI', placeholder: '00.000.000' },
+        { id: 'cedente2_nombre', label: 'Cedente 2 - Nombre (opcional)', placeholder: 'Nombre completo', full: true },
+        { id: 'cedente2_dni', label: 'Cedente 2 - DNI', placeholder: '00.000.000' },
+        { id: 'cedente_domicilio', label: 'Domicilio de los cedentes', placeholder: 'Calle, número', full: true },
+        { id: 'cedente_localidad', label: 'Localidad de los cedentes', placeholder: 'Ej: Olivos' },
+        { id: 'cedente_partido', label: 'Partido de los cedentes', placeholder: 'Ej: Vicente López' },
+      ]},
+      { title: '👤 Cesionarios', fields: [
+        { id: 'cesionario1_nombre', label: 'Cesionario 1 - Nombre <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'cesionario1_dni', label: 'Cesionario 1 - DNI', placeholder: '00.000.000' },
+        { id: 'cesionario2_nombre', label: 'Cesionario 2 - Nombre (cónyuge, opcional)', placeholder: 'Nombre completo', full: true },
+        { id: 'cesionario2_dni', label: 'Cesionario 2 - DNI', placeholder: '00.000.000' },
+        { id: 'cesionario_domicilio', label: 'Domicilio de los cesionarios', placeholder: 'Calle, número', full: true },
+        { id: 'cesionario_ciudad', label: 'Ciudad de los cesionarios', placeholder: 'Ej: CABA' },
+      ]},
+      { title: '📄 Contrato de Locación Original', fields: [
+        { id: 'locacion_fecha_dia', label: 'Día del contrato original', placeholder: 'Ej: 1' },
+        { id: 'locacion_fecha_mes', label: 'Mes del contrato original', placeholder: 'Ej: Abril' },
+        { id: 'locacion_fecha_anio', label: 'Año del contrato original', placeholder: 'Ej: 2024' },
+        { id: 'inmueble_calle', label: 'Calle del inmueble locado', placeholder: 'Nombre de la calle', full: true },
+        { id: 'inmueble_piso', label: 'Piso', placeholder: 'Ej: 3°' },
+        { id: 'inmueble_depto', label: 'Departamento', placeholder: 'Ej: B' },
+        { id: 'inmueble_ciudad', label: 'Ciudad del inmueble', placeholder: 'Ej: CABA' },
+        { id: 'locatario_nombre', label: 'Nombre del locatario', placeholder: 'Nombre completo', full: true },
+        { id: 'locatario_dni', label: 'DNI del locatario', placeholder: '00.000.000' },
+        { id: 'fiador_nombre', label: 'Nombre del fiador', placeholder: 'Nombre completo', full: true },
+      ]},
+      { title: '📅 Vigencia de la Locación', fields: [
+        { id: 'locacion_vigencia_desde_dia', label: 'Vigencia desde - día', placeholder: 'Ej: 1' },
+        { id: 'locacion_vigencia_desde_mes', label: 'Vigencia desde - mes', placeholder: 'Ej: Mayo' },
+        { id: 'locacion_vigencia_hasta_dia', label: 'Vigencia hasta - día', placeholder: 'Ej: 30' },
+        { id: 'locacion_vigencia_hasta_mes', label: 'Vigencia hasta - mes', placeholder: 'Ej: Abril' },
+        { id: 'locacion_vigencia_hasta_anio', label: 'Vigencia hasta - año', placeholder: 'Ej: 26' },
+      ]},
+      { title: '🏛️ Escritura de Compraventa', fields: [
+        { id: 'escritura_fecha_dia', label: 'Día de la escritura', placeholder: 'Ej: 15' },
+        { id: 'escritura_fecha_mes', label: 'Mes de la escritura', placeholder: 'Ej: Enero' },
+        { id: 'escritura_fecha_anio', label: 'Año de la escritura', placeholder: 'Ej: 26' },
+      ]},
+    ],
+    clausulas_default: ['ccl_antecedentes_locacion','ccl_antecedentes_compraventa','ccl_primera_cesion','ccl_primera_subrogacion','ccl_segunda_aceptacion','ccl_tercera_precio','ccl_cuarta_notificacion']
+  },
+  // ════════════════════════════════════════════════════════════════
+  // CONVENIOS (1 template)
+  // ════════════════════════════════════════════════════════════════
+  {
+    id: 'convenio_desocupacion', nombre: 'Convenio de Desocupación', icon: '📄', categoria: 'gestion', descripcion: 'Desocupación voluntaria de inmueble locado',
+    sections: [
+      { title: '📋 Fecha y Lugar de Firma', fields: [
+        { id: 'lugar_firma', label: 'Lugar de firma', placeholder: 'Ej: CABA' },
+        { id: 'fecha_firma_dia', label: 'Día', placeholder: 'Ej: 15' },
+        { id: 'fecha_firma_mes', label: 'Mes', placeholder: 'Ej: Enero' },
+        { id: 'fecha_firma_anio', label: 'Año', placeholder: 'Ej: 26' },
+      ]},
+      { title: '👤 Locador', fields: [
+        { id: 'locador_nombre', label: 'Nombre del locador <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'locador_dni', label: 'DNI del locador', placeholder: '00.000.000' },
+        { id: 'locador_domicilio', label: 'Domicilio del locador', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'locador_email', label: 'Email del locador', placeholder: 'email@ejemplo.com' },
+      ]},
+      { title: '👤 Locatario', fields: [
+        { id: 'locatario_nombre', label: 'Nombre del locatario <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'locatario_dni', label: 'DNI del locatario', placeholder: '00.000.000' },
+        { id: 'locatario_domicilio', label: 'Domicilio del locatario', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'locatario_email', label: 'Email del locatario', placeholder: 'email@ejemplo.com' },
+      ]},
+      { title: '📍 Inmueble', fields: [
+        { id: 'inmueble_ubicacion', label: 'Ubicación del inmueble <span class="req">*</span>', placeholder: 'Dirección completa', full: true },
+      ]},
+      { title: '📄 Contrato de Locación', fields: [
+        { id: 'contrato_fecha_dia', label: 'Día del contrato', placeholder: 'Ej: 1' },
+        { id: 'contrato_fecha_mes', label: 'Mes del contrato', placeholder: 'Ej: Abril' },
+        { id: 'contrato_fecha_anio', label: 'Año del contrato', placeholder: 'Ej: 2024' },
+        { id: 'locacion_fin_dia', label: 'Día de finalización del vínculo', placeholder: 'Ej: 30' },
+        { id: 'locacion_fin_mes', label: 'Mes de finalización del vínculo', placeholder: 'Ej: Abril' },
+      ]},
+      { title: '📅 Desocupación', fields: [
+        { id: 'desocupacion_fecha_dia', label: 'Día de entrega', placeholder: '15' },
+        { id: 'desocupacion_fecha_mes', label: 'Mes de desocupación', placeholder: 'Ej: Mayo' },
+      ]},
+    ],
+    clausulas_default: ['cvd_primera_compromiso','cvd_segunda_sentencia','cvd_tercera_penalidades','cvd_cuarta_incumplimiento','cvd_quinta_homologacion']
+  },
+  // ════════════════════════════════════════════════════════════════
+  // CONTRATOS VARIOS (2 templates)
+  // ════════════════════════════════════════════════════════════════
+  {
+    id: 'contrato_comodato', nombre: 'Comodato', icon: '📄', categoria: 'contrato', descripcion: 'Comodato gratuito de inmueble por enajenación',
+    sections: [
+      { title: '📋 Fecha de Firma', fields: [
+        { id: 'fecha_firma_dia', label: 'Día', placeholder: 'Ej: 15' },
+        { id: 'fecha_firma_mes', label: 'Mes', placeholder: 'Ej: Enero' },
+        { id: 'fecha_firma_anio', label: 'Año', placeholder: 'Ej: 2026' },
+      ]},
+      { title: '👤 Comodatario (ex titular)', fields: [
+        { id: 'comodatario_nombre', label: 'Nombre del comodatario <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'comodatario_dni', label: 'DNI del comodatario', placeholder: '00.000.000' },
+        { id: 'comodatario_domicilio', label: 'Domicilio del comodatario', placeholder: 'Calle, número, ciudad', full: true },
+      ]},
+      { title: '👤 Comodante (nuevo titular)', fields: [
+        { id: 'comodante_nombre', label: 'Nombre del comodante <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'comodante_dni', label: 'DNI del comodante', placeholder: '00.000.000' },
+        { id: 'comodante_domicilio', label: 'Domicilio del comodante', placeholder: 'Calle, número, ciudad', full: true },
+      ]},
+      { title: '📍 Inmueble', fields: [
+        { id: 'inmueble_uf', label: 'Unidad Funcional Nº', placeholder: 'Ej: 5' },
+        { id: 'inmueble_piso', label: 'Piso', placeholder: 'Ej: 3°' },
+        { id: 'inmueble_calle', label: 'Calle', placeholder: 'Nombre de la calle' },
+        { id: 'inmueble_numero', label: 'Número', placeholder: 'Ej: 1234' },
+        { id: 'inmueble_entre1', label: 'Entre calle 1', placeholder: 'Ej: Calle A' },
+        { id: 'inmueble_entre2', label: 'Entre calle 2', placeholder: 'Ej: Calle B' },
+        { id: 'inmueble_circ', label: 'Circunscripción', placeholder: 'Ej: 12' },
+        { id: 'inmueble_seccion', label: 'Sección', placeholder: 'Ej: 3' },
+        { id: 'inmueble_manzana', label: 'Manzana', placeholder: 'Ej: 45' },
+        { id: 'inmueble_parcela', label: 'Parcela', placeholder: 'Ej: 12A' },
+        { id: 'inmueble_partida', label: 'Partida inmobiliaria', placeholder: 'Ej: 123456' },
+      ]},
+      { title: '📜 Escritura de Enajenación', fields: [
+        { id: 'escritura_numero', label: 'Número de escritura', placeholder: 'Ej: 123' },
+        { id: 'escribano_nombre', label: 'Nombre del escribano', placeholder: 'Nombre completo', full: true },
+        { id: 'escritura_folio', label: 'Folio', placeholder: 'Ej: 456' },
+        { id: 'registro_notarial', label: 'Registro notarial', placeholder: 'Ej: 789' },
+      ]},
+      { title: '⏱️ Plazo', fields: [
+        { id: 'plazo_vencimiento_dia', label: 'Día de vencimiento', placeholder: '15' },
+        { id: 'plazo_vencimiento_mes', label: 'Mes de vencimiento', placeholder: 'Ej: Julio' },
+        { id: 'plazo_vencimiento_anio', label: 'Año de vencimiento', placeholder: 'Ej: 2026' },
+        { id: 'multa_diaria_letras', label: 'Multa diaria en letras (USD)', placeholder: 'Ej: Cien dólares', full: true },
+        { id: 'multa_diaria_numero', label: 'Multa diaria en números (USD)', placeholder: 'Ej: 100' },
+      ]},
+    ],
+    clausulas_default: ['cmd_primero_objeto','cmd_segundo_plazo','cmd_tercero_acceso','cmd_cuarto_sentencia','cmd_quinto_responsabilidad','cmd_sexto_gastos','cmd_septimo_jurisdiccion']
+  },
+  {
+    id: 'contrato_mutuo', nombre: 'Contrato de Mutuo', icon: '💰', categoria: 'contrato', descripcion: 'Préstamo con garantía de pagarés en USD',
+    sections: [
+      { title: '📋 Fecha de Firma', fields: [
+        { id: 'fecha_firma_dia', label: 'Día', placeholder: 'Ej: 15' },
+        { id: 'fecha_firma_mes', label: 'Mes', placeholder: 'Ej: Enero' },
+        { id: 'fecha_firma_anio', label: 'Año', placeholder: 'Ej: 2026' },
+      ]},
+      { title: '👤 Acreedor', fields: [
+        { id: 'acreedor_nombre', label: 'Nombre del acreedor <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'acreedor_dni', label: 'DNI del acreedor', placeholder: '00.000.000' },
+        { id: 'acreedor_domicilio_calle', label: 'Domicilio - calle', placeholder: 'Nombre de la calle', full: true },
+        { id: 'acreedor_domicilio_piso', label: 'Piso', placeholder: 'Ej: 3°' },
+        { id: 'acreedor_domicilio_depto', label: 'Depto', placeholder: 'Ej: A' },
+      ]},
+      { title: '👤 Deudor', fields: [
+        { id: 'deudor_nombre', label: 'Nombre del deudor (presidente) <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'deudor_dni', label: 'DNI del deudor', placeholder: '00.000.000' },
+        { id: 'deudor_sociedad_nombre', label: 'Nombre de la sociedad', placeholder: 'Razón social', full: true },
+        { id: 'deudor_sociedad_cuit', label: 'CUIT de la sociedad', placeholder: '00-00000000-0' },
+        { id: 'deudor_domicilio_calle', label: 'Domicilio de la sociedad - calle', placeholder: 'Nombre de la calle', full: true },
+        { id: 'deudor_domicilio_piso', label: 'Piso', placeholder: 'Ej: 5°' },
+        { id: 'deudor2_nombre', label: 'Deudor 2 - Nombre (opcional)', placeholder: 'Nombre completo', full: true },
+        { id: 'deudor2_dni', label: 'Deudor 2 - DNI', placeholder: '00.000.000' },
+      ]},
+      { title: '💰 Préstamo', fields: [
+        { id: 'monto_prestamo_letras', label: 'Monto del préstamo en letras (USD) <span class="req">*</span>', placeholder: 'Ej: Cien mil dólares', full: true },
+        { id: 'monto_prestamo_numero', label: 'Monto del préstamo en números (USD)', placeholder: 'Ej: 100.000' },
+        { id: 'cuotas_cantidad', label: 'Cantidad de cuotas', placeholder: '36' },
+        { id: 'cuota_monto_numero', label: 'Monto de cada cuota (USD)', placeholder: 'Ej: 3.500' },
+        { id: 'cuota_vencimiento_dia', label: 'Día de vencimiento de cuotas', placeholder: '5' },
+        { id: 'cuota_vencimiento_mes', label: 'Mes de vencimiento primera cuota', placeholder: 'Ej: Febrero' },
+        { id: 'cuota_vencimiento_anio', label: 'Año de vencimiento primera cuota', placeholder: 'Ej: 2026' },
+        { id: 'lugar_pago', label: 'Lugar de pago', placeholder: 'Ej: CABA', full: true },
+        { id: 'interes_punitorio', label: 'Interés punitorio mensual', placeholder: '1%' },
+      ]},
+    ],
+    clausulas_default: ['mtu_primera_prestamo','mtu_segunda_lugar_pago','mtu_tercera_mora','mtu_cuarta_moneda','mtu_quinta_ley25345','mtu_sexta_jurisdiccion']
+  },
+  // ════════════════════════════════════════════════════════════════
+  // ACEPTACION / CONTRAOFERTA / RECHAZO (2 templates)
+  // ════════════════════════════════════════════════════════════════
+  {
+    id: 'aceptacion_compraventa', nombre: 'Aceptación / Contraoferta', icon: '✅', categoria: 'gestion', descripcion: 'Compraventa',
+    sections: [
+      { title: '📋 Encabezado', fields: [
+        { id: 'fecha_ciudad', label: 'Ciudad', placeholder: 'Ej: Buenos Aires' },
+        { id: 'fecha_dia', label: 'Día', placeholder: 'Ej: 15' },
+        { id: 'fecha_mes', label: 'Mes', placeholder: 'Ej: Enero' },
+        { id: 'fecha_anio', label: 'Año', placeholder: 'Ej: 2026' },
+        { id: 'vendedor_nombre', label: 'Nombre del vendedor <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'vendedor_dni', label: 'DNI del vendedor', placeholder: '00.000.000' },
+        { id: 'vendedor_domicilio', label: 'Domicilio real del vendedor', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'vendedor_email', label: 'Email del vendedor', placeholder: 'email@ejemplo.com' },
+        { id: 'comprador_nombre', label: 'Nombre del comprador', placeholder: 'Nombre completo', full: true },
+        { id: 'reserva_fecha', label: 'Fecha de la reserva', type: 'date' },
+        { id: 'comision_pct', label: 'Comisión del corredor (%)', placeholder: 'Ej: 3' },
+      ]},
+    ],
+    clausulas_default: ['acv_aceptacion','acv_contraoferta','acv_aceptacion_contraoferta','acv_rechazo']
+  },
+  {
+    id: 'aceptacion_locacion', nombre: 'Aceptación / Contraoferta', icon: '✅', categoria: 'gestion', descripcion: 'Locación',
+    sections: [
+      { title: '📋 Encabezado', fields: [
+        { id: 'fecha_ciudad', label: 'Ciudad', placeholder: 'Ej: Buenos Aires' },
+        { id: 'fecha_dia', label: 'Día', placeholder: 'Ej: 15' },
+        { id: 'fecha_mes', label: 'Mes', placeholder: 'Ej: Enero' },
+        { id: 'fecha_anio', label: 'Año', placeholder: 'Ej: 2026' },
+        { id: 'locador_nombre', label: 'Nombre del locador <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'locador_dni', label: 'DNI del locador', placeholder: '00.000.000' },
+        { id: 'locador_domicilio', label: 'Domicilio del locador', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'locatario_nombre', label: 'Nombre del locatario', placeholder: 'Nombre completo', full: true },
+        { id: 'reserva_fecha', label: 'Fecha de la reserva', type: 'date' },
+        { id: 'comision_pct', label: 'Comisión del corredor (%)', placeholder: 'Ej: 1 mes' },
+      ]},
+    ],
+    clausulas_default: ['alc_aceptacion','alc_contraoferta','alc_aceptacion_contraoferta','alc_rechazo']
+  },
+  // ════════════════════════════════════════════════════════════════
+  // RECIBOS Y SEÑAS (3 templates)
+  // ════════════════════════════════════════════════════════════════
+  {
+    id: 'recibo_reserva', nombre: 'Recibo de Reserva', icon: '🧾', categoria: 'gestion', descripcion: 'Recibo por cuenta y orden del corredor',
+    sections: [
+      { title: '📋 Datos del Recibo', fields: [
+        { id: 'monto_letras', label: 'Monto en letras <span class="req">*</span>', placeholder: 'Ej: Cinco mil dólares', full: true },
+        { id: 'monto_num', label: 'Monto en números', placeholder: 'Ej: USD 5.000' },
+        { id: 'moneda', label: 'Moneda', type: 'select', options: ['Dólares (USD)','Pesos argentinos (ARS)'] },
+        { id: 'dador_nombre', label: 'Nombre del dador (comprador/locatario)', placeholder: 'Nombre completo', full: true },
+        { id: 'inmueble_dir', label: 'Inmueble sito en', placeholder: 'Dirección completa', full: true },
+        { id: 'localidad', label: 'Localidad', placeholder: 'Ej: Buenos Aires' },
+        { id: 'fecha_dia', label: 'Día', placeholder: 'Ej: 15' },
+        { id: 'fecha_mes', label: 'Mes', placeholder: 'Ej: Enero' },
+        { id: 'fecha_anio', label: 'Año', placeholder: 'Ej: 2026' },
+        { id: 'agente', label: 'Nombre del agente', placeholder: 'Nombre completo', full: true },
+      ]},
+    ],
+    clausulas_default: ['rec_texto']
+  },
+  {
+    id: 'sena', nombre: 'Seña de Compraventa', icon: '💵', categoria: 'compra', descripcion: 'Contrato de seña a cuenta de precio',
+    sections: [
+      { title: '📋 Encabezado y Partes', fields: [
+        { id: 'vendedor_nombre', label: 'Vendedor - Nombre <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'vendedor_dni', label: 'Vendedor - CUIT/DNI', placeholder: '00.000.000' },
+        { id: 'vendedor_ecivil', label: 'Vendedor - Estado civil', placeholder: 'Soltero/a, Casado/a, etc.' },
+        { id: 'vendedor_domicilio', label: 'Vendedor - Domicilio', placeholder: 'Calle, número, localidad', full: true },
+        { id: 'vendedor_localidad', label: 'Vendedor - Localidad', placeholder: 'Ej: San Isidro' },
+        { id: 'vendedor_partido', label: 'Vendedor - Partido', placeholder: 'Ej: San Isidro' },
+        { id: 'comprador_nombre', label: 'Comprador - Nombre <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'comprador_dni', label: 'Comprador - CUIT/DNI', placeholder: '00.000.000' },
+        { id: 'comprador_ecivil', label: 'Comprador - Estado civil', placeholder: 'Soltero/a, Casado/a, etc.' },
+        { id: 'comprador_domicilio', label: 'Comprador - Domicilio', placeholder: 'Calle, número, localidad', full: true },
+        { id: 'comprador_localidad', label: 'Comprador - Localidad', placeholder: 'Ej: San Isidro' },
+        { id: 'comprador_partido', label: 'Comprador - Partido', placeholder: 'Ej: San Isidro' },
+      ]},
+      { title: '📍 Inmueble', fields: [
+        { id: 'inmueble_calle', label: 'Calle', placeholder: 'Nombre de la calle' },
+        { id: 'inmueble_localidad', label: 'Localidad', placeholder: 'Ej: Olivos' },
+        { id: 'inmueble_partido', label: 'Partido', placeholder: 'Ej: Vicente López' },
+        { id: 'inmueble_circ', label: 'Circunscripción', placeholder: 'Ej: 12' },
+        { id: 'inmueble_seccion', label: 'Sección', placeholder: 'Ej: 3' },
+        { id: 'inmueble_manzana', label: 'Manzana', placeholder: 'Ej: 45' },
+        { id: 'inmueble_parcela', label: 'Parcela', placeholder: 'Ej: 12A' },
+        { id: 'inmueble_matricula', label: 'Matrícula', placeholder: 'Ej: FR-12-34567' },
+      ]},
+      { title: '💰 Condiciones Económicas', fields: [
+        { id: 'precio_letras', label: 'Precio total en letras <span class="req">*</span>', placeholder: 'Ej: Doscientos mil dólares', full: true },
+        { id: 'precio_num', label: 'Precio total en números (U$S)', placeholder: 'Ej: 200.000' },
+        { id: 'senal_letras', label: 'Seña en letras <span class="req">*</span>', placeholder: 'Ej: Diez mil dólares', full: true },
+        { id: 'senal_num', label: 'Seña en números (U$S)', placeholder: 'Ej: 10.000' },
+        { id: 'saldo_letras', label: 'Saldo en letras', placeholder: 'Ej: Ciento noventa mil dólares', full: true },
+        { id: 'saldo_num', label: 'Saldo en números (U$S)', placeholder: 'Ej: 190.000' },
+      ]},
+      { title: '✍️ Escrituración', fields: [
+        { id: 'fecha_tope_dia', label: 'Fecha tope - día', placeholder: 'Ej: 30' },
+        { id: 'fecha_tope_mes', label: 'Fecha tope - mes', placeholder: 'Ej: Junio' },
+        { id: 'fecha_tope_anio', label: 'Fecha tope - año', placeholder: 'Ej: 2026' },
+        { id: 'fecha_tope_hora', label: 'Hora', placeholder: 'Ej: 10:00' },
+        { id: 'escribania_domicilio', label: 'Domicilio de la escribanía', placeholder: 'Calle, número, localidad', full: true },
+        { id: 'escribano_nombre', label: 'Escribano interviniente', placeholder: 'Nombre completo', full: true },
+        { id: 'escribano_partido', label: 'Partido del escribano', placeholder: 'Ej: San Isidro' },
+      ]},
+      { title: '📦 Incluye', fields: [
+        { id: 'inmueble_incluye_1', label: 'Incluye (item 1)', placeholder: 'Ej: Cocina' },
+        { id: 'inmueble_incluye_2', label: 'Incluye (item 2)', placeholder: 'Ej: Lavarropas' },
+        { id: 'inmueble_incluye_3', label: 'Incluye (item 3)', placeholder: 'Ej: Aire acondicionado' },
+        { id: 'inmueble_incluye_4', label: 'Incluye (item 4)', placeholder: 'Ej: Muebles' },
+        { id: 'inmueble_incluye_5', label: 'Incluye (item 5)', placeholder: 'Ej: Cortinas' },
+        { id: 'inmueble_telefono', label: 'Teléfono', placeholder: 'Número de línea telefónica' },
+      ]},
+      { title: '📜 Títulos', fields: [
+        { id: 'ciudad_rpi', label: 'Ciudad del RPI', placeholder: 'Ej: San Isidro' },
+        { id: 'informe_dominio_fecha_dia', label: 'Informe de dominio - día', placeholder: 'Ej: 10' },
+        { id: 'informe_dominio_fecha_mes', label: 'Informe de dominio - mes', placeholder: 'Ej: Enero' },
+        { id: 'informe_dominio_fecha_anio', label: 'Informe de dominio - año', placeholder: 'Ej: 2026' },
+        { id: 'informe_dominio_numero', label: 'Nº informe de dominio', placeholder: 'Ej: 12345' },
+        { id: 'anotaciones_fecha_dia', label: 'Anotaciones personales - día', placeholder: 'Ej: 10' },
+        { id: 'anotaciones_fecha_mes', label: 'Anotaciones personales - mes', placeholder: 'Ej: Enero' },
+        { id: 'anotaciones_fecha_anio', label: 'Anotaciones personales - año', placeholder: 'Ej: 2026' },
+        { id: 'anotaciones_numero', label: 'Nº anotaciones personales', placeholder: 'Ej: 123456' },
+      ]},
+    ],
+    clausulas_default: ['sen_encabezado','sen_sena','sen_escrituracion','sen_titulos','sen_entrega','sen_incumplimiento','sen_titularidad','sen_fallecimiento','sen_acceso','sen_documentos','sen_llaves','sen_jurisdiccion','sen_cierre']
+  },
+  {
+    id: 'refuerzo_reserva', nombre: 'Refuerzo de Reserva', icon: '💵', categoria: 'compra', descripcion: 'Refuerzo de reserva de compra',
+    sections: [
+      { title: '📋 Datos del Refuerzo', fields: [
+        { id: 'comprador_nombre', label: 'Nombre del comprador <span class="req">*</span>', placeholder: 'Nombre completo', full: true },
+        { id: 'comprador_dni', label: 'DNI', placeholder: '00.000.000' },
+        { id: 'comprador_cuit', label: 'CUIT', placeholder: '00-00000000-0' },
+        { id: 'comprador_ecivil', label: 'Estado civil', placeholder: 'Soltero/a, Casado/a, etc.' },
+        { id: 'comprador_domicilio', label: 'Domicilio', placeholder: 'Calle, número, ciudad', full: true },
+        { id: 'refuerzo_letras', label: 'Monto refuerzo en letras <span class="req">*</span>', placeholder: 'Ej: Cinco mil dólares', full: true },
+        { id: 'refuerzo_num', label: 'Monto refuerzo en números (USD)', placeholder: 'Ej: 5.000' },
+        { id: 'inmueble_dir', label: 'Inmueble', placeholder: 'Dirección completa', full: true },
+        { id: 'reserva_fecha', label: 'Fecha de la reserva original', type: 'date' },
+        { id: 'aceptacion_fecha', label: 'Fecha de aceptación por el vendedor', type: 'date' },
+        { id: 'fecha_dia', label: 'Día de firma', placeholder: 'Ej: 15' },
+        { id: 'fecha_mes', label: 'Mes de firma', placeholder: 'Ej: Enero' },
+        { id: 'fecha_anio', label: 'Año de firma', placeholder: 'Ej: 2026' },
+      ]},
+    ],
+    clausulas_default: ['rfr_texto']
   }
 ];
 const CLAUSULAS_COMPLETAS = {
@@ -2321,6 +2869,526 @@ const CLAUSULAS_COMPLETAS = {
   'rtmp_cierre': {
     titulo: 'CIERRE Y FIRMAS',
     texto: `En prueba de conformidad, se firman dos (2) ejemplares.\n\nCORREDOR INMOBILIARIO: René Alejandro Vera (CSI 5848 / CPI 6778), en representación de RE/MAX CREA, con domicilio en Concepción Arenal 2712 PB, Palermo, CABA.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // BOLETO DE COMPRAVENTA (boleto_compraventa)
+  // ──────────────────────────────────────────────────────────────
+  'bcv_encabezado': {
+    titulo: 'ENCABEZADO',
+    texto: `En la ciudad {{fecha_ciudad}}, a los {{fecha_dia}} días del mes de {{fecha_mes}} de {{fecha_anio}}, entre el/la Sr./Sra. {{vendedor_1_nombre}} C.U.I.T./D.N.I. {{vendedor_1_cuit}}, estado civil {{vendedor_1_estado_civil}}, argentino/a con domicilio en la calle {{vendedor_1_domicilio}} y el/la Sr./Sra. {{vendedor_2_nombre}} C.U.I.T./D.N.I. {{vendedor_2_cuit}} estado civil {{vendedor_2_estado_civil}}, argentino/a con domicilio en la calle {{vendedor_2_domicilio}} en adelante denominado la parte VENDEDORA y por el otro lado el/la Sr./Sra. {{comprador_nombre}}, argentino/a, C.U.I.T./D.N.I. {{comprador_cuit}}, estado civil {{comprador_estado_civil}}, argentino/a, con domicilio en {{comprador_domicilio}} de la Ciudad Autónoma de Buenos Aires, en adelante denominado la parte COMPRADORA, convienen en celebrar el presente BOLETO DE COMPRA-VENTA, que se regirá por las cláusulas y condiciones que a continuación se expresan:`
+  },
+  'bcv_primera_inmueble': {
+    titulo: 'PRIMERA: Objeto - Inmueble',
+    texto: `PRIMERA: La VENDEDORA vende el inmueble de su exclusiva propiedad \"ad corpus\" ubicada en {{inmueble_ubicacion}} de esta Ciudad con frente en calle {{inmueble_calle}} números {{inmueble_numero}} entre {{inmueble_entre_calles}}. Unidad Funcional Nº {{inmueble_uf}} ubicada en el {{inmueble_piso}} Piso y cuya NOMENCLATURA CATASTRAL: Circ.: {{inmueble_circ}}; Sección: {{inmueble_seccion}}; Manzana: {{inmueble_manzana}}; Parcela: {{inmueble_parcela}}. Inscripto en el REGISTRO DE LA PROPIEDAD INMUEBLE bajo matricula Nro. {{inmueble_matricula}}.`
+  },
+  'bcv_segunda_precio': {
+    titulo: 'SEGUNDA: Precio y forma de pago',
+    texto: `SEGUNDA: Esta venta se realiza por el precio total y convenido por las partes de DOLARES ESTADOUNIDENSES BILLETE {{precio_letras}} (U$S {{precio_num}}), pagaderos de la siguiente forma: en este acto entrega a cuenta de precio y como principio de ejecución de este contrato, la COMPRADORA a la VENDEDORA y esta última acepta de total conformidad, la cantidad de DOLARES ESTADOUNIDENSES BILLETE {{senal_letras}} (U$S {{senal_num}}), en moneda de igual denominación, sirviendo el presente de suficiente y formal recibo. El saldo total restante, o sea la suma de DOLARES ESTADOUNIDENSES {{saldo_letras}} (U$S {{saldo_num}}) serán abonados por la COMPRADORA dentro del plazo de SETENTA (70) días corridos a contar de la fecha del presente Boleto de Compraventa en lugar y horario a designar por la VENDEDORA en el Partido de {{partido_pago}} en el cual se firmará la respectiva escritura traslativa de dominio y tomará la COMPRADORA la posesión real, total y definitiva del inmueble que por este acto se vende, siendo condición esencial de este contrato el pago el billete estadounidense, dado que el comprador renuncia expresamente a la aplicación del art. 765 del Código Civil y Comercial de la Nación y manifiesta poseer en su poder el monto total pactado en dicha moneda extranjera.`
+  },
+  'bcv_tercera_titulos': {
+    titulo: 'TERCERA: Títulos perfectos',
+    texto: `TERCERA: Esta venta se realiza en base a títulos perfectos, libre de toda deuda o gravamen, totalmente desocupada, con todas sus expensas, impuestos y servicios pagos hasta el día de la firma de la escritura traslativa de dominio y toma de posesión, libre de ocupantes, intrusos o inquilinos. El presente boleto es intransferible salvo expresa conformidad otorgada por escrito del vendedor.`
+  },
+  'bcv_cuarta_hipoteca': {
+    titulo: 'CUARTA: Hipoteca cancelada',
+    texto: `CUARTA: Se deja constancia que el presente inmueble será transmitido libre de todo gravamen, habiéndose cancelado íntegramente la hipoteca que gravaba el mismo en el día de la fecha por escritura pública Nro. {{escritura_hipoteca_nro}} por ante el Escribano {{escribano_hipoteca_nombre}} con Matricula {{escribano_hipoteca_matricula}} de la cual se entrega copia.`
+  },
+  'bcv_quinta_entrega': {
+    titulo: 'QUINTA: Estado de entrega',
+    texto: `QUINTA: La propiedad se entrega con: {{inmueble_incluye_1}}, {{inmueble_incluye_2}}, {{inmueble_incluye_3}}, {{inmueble_incluye_4}}, {{inmueble_incluye_5}}, con todos sus vidrios, herrajes y llaves, todo en el estado general en que se encuentra, el cual la COMPRADORA conoce y acepta por haberla visitado con anterioridad.`
+  },
+  'bcv_sexta_incumplimiento': {
+    titulo: 'SEXTA: Incumplimiento',
+    texto: `SEXTA: Para el supuesto que cualquiera de las partes incumpliera con las obligaciones que para ellas emergen del presente, la parte cumplidora podrá optar por: a) Exigir el cumplimiento de la operación por vía judicial con más una suma diaria de dólares estadounidenses cien (U$S 100) que se pacta en concepto de cláusula penal por la simple demora y que comenzará a devengarse desde que se produzca la mora sin necesidad de interpelación judicial o extrajudicial alguna o notificación de ninguna índole, b) Considerar rescindida la operación y resuelta en todos sus efectos de pleno derecho y sin necesidad de interpelación o notificación alguna, quedando en tal caso en poder de la VENDEDORA, en el supuesto de ser la incumplidora la COMPRADORA, el cien por ciento de las sumas recibidas hasta ese momento. Y de ser la incumplidora la VENDEDORA deberá ésta reintegrar a la COMPRADORA la totalidad de lo que hubiera percibido hasta entonces, con más el cien por ciento de dicho importe, lo que se conviene entre las partes desde ahora y como única indemnización de los daños y perjuicios que se pudieran irrogar a la parte cumplidora.`
+  },
+  'bcv_septima_titularidad': {
+    titulo: 'SEPTIMA: Titularidad e inhibiciones',
+    texto: `SEPTIMA: La VENDEDORA declara ser titular del inmueble inscripto en el Registro de la Propiedad Inmueble de la Ciudad de {{ciudad_rpi}} conforme se desenvuelve del informe de dominio expedido en fecha {{informe_dominio_fecha}} bajo el numero {{informe_dominio_numero}}. Responde aquél por evicción conforme a derecho declarando que no existe tercero alguno que posea derechos sobre la finca que se enajena que puedan obstaculizar la presente operación. Así mismo, ambas partes contratantes no registran ningún tipo de inhibición para disponer del inmueble, conforme surge de los informes de Anotaciones Personales expedidos con fecha {{anotaciones_personales_fecha}}, números {{anotaciones_personales_numeros}}.`
+  },
+  'bcv_octava_escribania': {
+    titulo: 'OCTAVA: Escrituración y gastos',
+    texto: `OCTAVA: La escritura traslativa de dominio se realizará por ante el escribano {{escribano_nombre}} con domicilio en {{escribano_domicilio}} Partido de {{partido_escribania}}, Provincia de Buenos Aires, y se firmará en lugar y horario a designar por la VENDEDORA en el Partido de {{partido_escribania}} señalado supra, corriendo los gastos que demande la misma a cargo de cada parte, de acuerdo a usos y costumbres que rigen en materia notarial.`
+  },
+  'bcv_novena_fallecimiento': {
+    titulo: 'NOVENA: Fallecimiento o incapacidad',
+    texto: `NOVENA: En caso de fallecimiento, o incapacidad física o legal de alguna de las partes, sus herederos o representantes legales, se obligan a comunicar éste hecho a la otra parte dentro de los 5 días de producido el hecho y a iniciar el correspondiente juicio sucesorio o el trámite judicial que corresponda según el tipo de incapacidad, dentro de los 30 días siguientes a la notificación anterior, a los fines de obtener la orden para otorgar la respectiva escritura traslativa de dominio, de no ser así, la parte que no lo cumpliera con esta obligación, caerá automáticamente en mora de pleno derecho, sin que sea necesario ningún tipo de interpelación judicial o extrajudicial, debiendo abonar a la otra parte, que estuviera en cumplimiento, una multa diaria de DOLARES ESTADOUNIDENSES CIEN (U$S 100), hasta su efectivo cumplimiento.`
+  },
+  'bcv_decima_acceso': {
+    titulo: 'DECIMA: Acceso previo',
+    texto: `DECIMA: La VENDEDORA dará acceso a la unidad a la parte compradora con 24 horas de anterioridad a la firma de la escritura traslativa de dominio a fin de verificar las condiciones del bien raíz conforme a lo ya examinado en visitas anteriores.`
+  },
+  'bcv_decimaprimera_documentos': {
+    titulo: 'DECIMA PRIMERA: Documentación',
+    texto: `DECIMA PRIMERA: La VENDEDORA se obliga a entregar dentro de las setenta y dos (72) horas del día de la fecha a la Escribanía designada: 1) titulo de propiedad, 2) Reglamento de Copropiedad y Administración; 3) una Boleta de A.B.L., ARBA, A.yS.A., Luz, Gas, Teléfono y expensas con última liquidación, 4) Constancia de C.U.I.T./C.U.I.L. y fotocopia DNI (1era. y 2da. hoja).`
+  },
+  'bcv_decimasegunda_llaves': {
+    titulo: 'DECIMA SEGUNDA: Entrega de llaves',
+    texto: `DECIMA SEGUNDA: La VENDEDORA se compromete a entregar en el momento de la firma de la escritura traslativa de dominio las llaves de entrada al edificio y la UF.`
+  },
+  'bcv_decimatercera_conyuge': {
+    titulo: 'DECIMA TERCERA: Conformidad del cónyuge',
+    texto: `DECIMA TERCERA: presente en este acto la Señora {{conyuge_nombre}}, titular del D.N.I. nº {{conyuge_dni}}, en su carácter de cónyuge del vendedor presta su conformidad el cual comprende acabadamente, extendiendo su consentimiento a todos los términos y condiciones del acuerdo enunciado en las cláusulas precedentes a la realización de la presente venta, comprometiendo su comparecencia al acto de otorgamiento de la escritura traslativa de dominio.`
+  },
+  'bcv_decimacuarta_domicilios': {
+    titulo: 'DECIMA CUARTA: Domicilios y jurisdicción',
+    texto: `DECIMA CUARTA: Para todos los efectos legales del presente boleto de compraventa, las partes constituyen domicilios legales y especiales en los ya designados y se someten para dirimir cualquier divergencia que pudiera surgir de la aplicación e interpretación del presente, a la jurisdicción de los Tribunales Civiles y Ordinarios de la Ciudad Autónoma de Buenos Aires.`
+  },
+  'bcv_decimaquinta_usufructo': {
+    titulo: 'DECIMA QUINTA: Usufructo vitalicio',
+    texto: `DECIMA QUINTA: Conforme surge del informe de dominio referenciado vide supra pesa sobre el inmueble que se vende por el presente la constitución de un usufructo vitalicio a favor del señor {{usufructuario_nombre}}, titular del D.N.I. nº {{usufructuario_dni}} con domicilio en {{usufructuario_domicilio}}. Por ello, presente el usufructuario en este acto ratifica su total voluntad de proceder al levantamiento del beneficio expresado del cual es titular y se compromete a comparecer al acto de la firma de la escritura traslativa de dominio con el objeto de hacer efectiva la desafectación en tratamiento, firmando este instrumento al pie a tales efectos.`
+  },
+  'bcv_decimasexta_locacion': {
+    titulo: 'DECIMA SEXTA: Cesión de locación',
+    texto: `DECIMA SEXTA: Existiendo un contrato de locación suscripto en fecha {{locacion_fecha}} entre el vendedor y el señor {{locatario_nombre}}, titular del D.N.I. nº {{locatario_dni}} con domicilio en {{locatario_domicilio}}, las partes suscribientes (locador y locatario) de común acuerdo deciden ceder al aquí comprador los derechos locativos del acuerdo de marras, tomando aquél el lugar del locador y asumiendo la totalidad de los derechos y obligaciones que en tal carácter le competen. El comprador recibe en este acto el contrato de locación original y acepta la cesión comentada ratificando su contenido. A tales fines, comprador, vendedor y locatario han suscripto también en la fecha el anexo nº 1 al contrato de locación en estudio que da cuenta del alcance de esta cláusula conjuntamente con el señor {{fiador_nombre}}, titular del D.N.I. nº {{fiador_dni}}, con domicilio en {{fiador_domicilio}}, quien lo hace en su carácter de fiador. Firmando todos los aquí nombrados al pie en prueba de plena conformidad.`
+  },
+  'bcv_cierre': {
+    titulo: 'CIERRE',
+    texto: `Redactado de acuerdo a lo convenido y para su fiel cumplimiento, leído por y ante las partes presentes en este acto y declarando las mismas el haber interpretado todas y cada unas de sus cláusulas, ellas dan su conformidad y aceptación y en prueba de lo cual lo ratifican firmando en dos ejemplares de un mismo tenor y a un solo efecto en el lugar y fecha antes indicadas.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // BOLETO DE COMPRAVENTA CON POSESIÓN (boleto_compraventa_con_posesion)
+  // ──────────────────────────────────────────────────────────────
+  'bcp_encabezado': {
+    titulo: 'ENCABEZADO',
+    texto: `En la Ciudad de {{fecha_ciudad}}, a los {{fecha_dia}} días del mes de {{fecha_mes}} de {{fecha_anio}}, entre el/la Sr./Sra. {{vendedor_nombre}} CUIT/D.N.I {{vendedor_cuit}}, estado civil {{vendedor_estado_civil}}, argentino/a con domicilio en la calle {{vendedor_domicilio}} en adelante denominado la parte VENDEDORA y por la otra parte, el/la Sr./Sra. {{comprador_nombre}}, CUIT/D.N.I {{comprador_cuit}}, estado civil {{comprador_estado_civil}} argentino/a, con domicilio en {{comprador_domicilio}} en adelante denominado la parte COMPRADORA, convienen en celebrar el presente BOLETO DE COMPRA-VENTA, que se regirá por las cláusulas y condiciones que a continuación se expresan:`
+  },
+  'bcp_primera_inmueble': {
+    titulo: 'PRIMERA: Objeto - Inmueble',
+    texto: `PRIMERA: La VENDEDORA vende el inmueble de su exclusiva propiedad \"ad corpus\" ubicada en {{inmueble_ubicacion}} entre {{inmueble_entre_calles}} Unidad Funcional Nº {{inmueble_uf}} cuya NOMENCLATURA CATASTRAL: Circ.: {{inmueble_circ}}; Sección: {{inmueble_seccion}}; Fracción {{inmueble_frac}}; Parcela: {{inmueble_parcela}}; subparcela {{inmueble_subparcela}}. Inscripto en el REGISTRO DE LA PROPIEDAD INMUEBLE bajo matricula Nro {{inmueble_matricula}}.`
+  },
+  'bcp_segunda_precio': {
+    titulo: 'SEGUNDA: Precio y forma de pago',
+    texto: `SEGUNDA: Esta venta se realiza por el precio total y convenido por las partes de DOLARES ESTADOUNIDENSES BILLETE {{precio_letras}} (U$S {{precio_num}}), pagaderos de la siguiente forma: en este acto entrega a cuenta de precio y como principio de ejecución de este contrato, la COMPRADORA a la VENDEDORA y esta última acepta de total conformidad, la cantidad de DOLARES ESTADOUNIDENSES BILLETE {{senal_letras}} (U$S {{senal_num}}), en moneda de igual denominación, sirviendo el presente de suficiente y formal recibo. El saldo total restante, o sea la suma de DOLARES ESTADOUNIDENSES BILLETE (U$S {{saldo_num}}) serán abonados por la COMPRADORA con fecha tope el {{fecha_tope_dia}} de {{fecha_tope_mes}} del {{fecha_tope_anio}} en lugar y horario a designar por la VENDEDORA, en el cual se firmará la respectiva escritura traslativa de dominio; siendo condición esencial de este contrato el pago el billete estadounidense, dado que el comprador renuncia expresamente a la aplicación del art. 765 del Código Civil y Comercial de la Nación y manifiesta poseer en su poder el monto total pactado en dicha moneda extranjera.`
+  },
+  'bcp_tercera_posesion': {
+    titulo: 'TERCERA: Posesión en el acto',
+    texto: `TERCERA: La posesión real y efectiva del bien es entregada en este acto, en la forma y en el estado en que se encuentra, con el inmueble totalmente libre de inquilinos, intrusos u ocupantes, sin oposición de terceros. El presente boleto es intransferible salvo expresa conformidad otorgada por escrito de la VENDEDORA.`
+  },
+  'bcp_cuarta_titulos': {
+    titulo: 'CUARTA: Títulos perfectos',
+    texto: `CUARTA: Esta venta se realiza en base a títulos perfectos, libre de toda deuda o gravamen hasta el día de la firma de la escritura traslativa de dominio y totalmente desocupada, con todos sus impuestos y servicios pagos hasta la toma de posesión que luego estarán a cargo del comprador.`
+  },
+  'bcp_quinta_entrega': {
+    titulo: 'QUINTA: Estado de entrega',
+    texto: `QUINTA: La propiedad se entrega con todos sus vidrios, herrajes y llaves en el estado general en que se encuentra, el cual la COMPRADORA conoce y acepta por haberla visitado con anterioridad.`
+  },
+  'bcp_sexta_incumplimiento': {
+    titulo: 'SEXTA: Incumplimiento',
+    texto: `SEXTA: para el supuesto que cualquiera de las partes incumpliera con las obligaciones que para ellas emergen del presente, la parte cumplidora podrá optar por: a) Exigir el cumplimiento de la operación por vía judicial con más una suma diaria de dólares estadounidenses cien (U$S 100) que se pacta en concepto de cláusula penal por la simple demora y que comenzará a devengarse desde que se produzca la mora sin necesidad de interpelación judicial o extrajudicial alguna o notificación de ninguna índole, b) Considerar rescindida la operación y resuelta en todos sus efectos de pleno derecho y sin necesidad de interpelación o notificación alguna, quedando en tal caso en poder de la VENDEDORA, en el supuesto de ser la incumplidora la COMPRADORA, el cien por ciento de las sumas recibidas hasta ese momento. Y de ser la incumplidora la VENDEDORA deberá ésta, reintegrar a la COMPRADORA la totalidad de lo que hubiera percibido hasta entonces, con más el cien por ciento de dicho importe, lo que se conviene entre las partes desde ahora y como única indemnización de los daños y perjuicios que se pudieran irrogar a la parte cumplidora.`
+  },
+  'bcp_septima_titularidad': {
+    titulo: 'SEPTIMA: Titularidad e inhibiciones',
+    texto: `SEPTIMA: La VENDEDORA declara ser titular del inmueble inscripto en el Registro de la Propiedad Inmueble de la Ciudad de {{ciudad_rpi}} conforme se desenvuelve del informe de dominio expedido en fecha {{informe_dominio_fecha}} bajo el número {{informe_dominio_numero}}. Responde aquél por evicción conforme a derecho declarando que no existe tercero alguno que posea derechos sobre la finca que se enajena que puedan obstaculizar la presente operación. Así mismo, ambas partes contratantes no registran ningún tipo de inhibición para disponer del inmueble, conforme surge de los informes de Anotaciones Personales expedidos con fecha {{anotaciones_personales_fecha}}, números {{anotaciones_personales_numeros}}.`
+  },
+  'bcp_octava_escribania': {
+    titulo: 'OCTAVA: Escrituración y gastos',
+    texto: `OCTAVA: La escritura traslativa de dominio se realizará por ante la escribana {{escribano_nombre}} con domicilio en {{escribano_domicilio}} Ciudad Autónoma de Buenos Aires y se firmará en lugar y horario a designar por la VENDEDORA, corriendo los gastos que demande la misma a cargo de cada parte, de acuerdo a usos y costumbres que rigen en materia notarial.`
+  },
+  'bcp_novena_fallecimiento': {
+    titulo: 'NOVENA: Fallecimiento o incapacidad',
+    texto: `NOVENA: En caso de fallecimiento, o incapacidad física o legal de alguna de las partes, sus herederos o representantes legales, se obligan a comunicar éste hecho a la otra parte dentro de los 5 días de producido el hecho y a iniciar el correspondiente juicio sucesorio o el trámite judicial que corresponda según el tipo de incapacidad, dentro de los 30 días siguientes a la notificación anterior, a los fines de obtener la orden para otorgar la respectiva escritura traslativa de dominio, de no ser así, la parte que no lo cumpliera con esta obligación, caerá automáticamente en mora de pleno derecho, sin que sea necesario ningún tipo de interpelación judicial o extrajudicial, debiendo abonar a la otra parte, que estuviera en cumplimiento, una multa diaria de DOLARES BILLETES ESTADOUNIDENSES CIEN (U$S 100), hasta su efectivo cumplimiento.`
+  },
+  'bcp_decima_domicilios': {
+    titulo: 'DECIMA: Domicilios y jurisdicción',
+    texto: `DECIMA: Para todos los efectos legales del presente boleto de compraventa, la VENDEDORA constituye domicilio legal y especial en {{vendedor_domicilio_constitucion}}, haciendo lo propio la COMPRADORA en el inmueble objeto del presente boleto de compraventa. Asimismo, se someten para dirimir cualquier divergencia que pudiera surgir de la aplicación e interpretación del presente, a la jurisdicción de los Tribunales Civiles y Ordinarios de la Ciudad Autónoma de Buenos Aires.`
+  },
+  'bcp_decimaprimera_documentos': {
+    titulo: 'DECIMA PRIMERA: Documentación',
+    texto: `DECIMA PRIMERA: La VENDEDORA se obliga a entregar dentro de las setenta y dos (72) horas del día de la fecha a la Escribanía designada: 1) titulo de propiedad, 2) Reglamento de Copropiedad y Administración; 3) una Boleta de A.B.L., A.R.B.A A.yS.A., Luz, Gas, Teléfono y expensas con última liquidación, 4) Constancia de C.U.I.T./C.U.I.L. y fotocopia DNI (1era. y 2da. hoja).`
+  },
+  'bcp_decimasegunda_llaves': {
+    titulo: 'DECIMA SEGUNDA: Entrega de llaves',
+    texto: `DECIMA SEGUNDA: La VENDEDORA entrega en este acto las llaves de entrada al edificio y la UF.`
+  },
+  'bcp_cierre': {
+    titulo: 'CIERRE',
+    texto: `Redactado de acuerdo a lo convenido y para su fiel cumplimiento, leído por y ante las partes presentes en este acto y declarando las mismas el haber interpretado todas y cada unas de sus cláusulas, ellas dan su conformidad y aceptación y en prueba de lo cual lo ratifican firmando en tres ejemplares de un mismo tenor y a un solo efecto en el lugar y fecha antes indicadas.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // CESIÓN DE BOLETO DE COMPRAVENTA (cesion_boleto_compraventa)
+  // ──────────────────────────────────────────────────────────────
+  'cbc_primera_objeto': {
+    titulo: 'PRIMERA: Objeto',
+    texto: `PRIMERA: La CEDENTE cede a la CESIONARIA y éste adquiere de conformidad, la totalidad de los derechos, acciones y obligaciones que le corresponden del boleto de compraventa celebrado el día {{boleto_fecha_dia}} de {{boleto_fecha_mes}} del año {{boleto_fecha_anio}} con el/la Sr./Sra. {{vendedor_nombre}}, DNI {{vendedor_dni}}, en adelante el "VENDEDOR" del inmueble ubicado en {{inmueble_ubicacion}}, Partido de {{inmueble_partido}}, Provincia de Buenos Aires, designada como UF nro. {{inmueble_uf}}. NOMENCLATURA CATASTRAL del lote de terreno donde se encuentra construido el edificio: Circ.: {{inmueble_circ}}; Sección: {{inmueble_seccion}}; Manzana: {{inmueble_manzana}}; Parcela: {{inmueble_parcela}}. Inscripto en el REGISTRO DE LA PROPIEDAD INMUEBLE bajo matrícula Nro. {{inmueble_matricula}}, en adelante denominada "UNIDAD FUNCIONAL".`
+  },
+  'cbc_segunda_precio': {
+    titulo: 'SEGUNDA: Precio',
+    texto: `SEGUNDA: Esta cesión se realiza por el precio único total, convenido y definitivo de DOLARES ESTADOUNIDENSES BILLETES {{precio_total_letras}} (U$S {{precio_total_numero}}), pagaderos en la siguiente forma: a) La suma de DOLARES ESTADOUNIDENSES BILLETES {{precio_inicial_letras}} (U$S {{precio_inicial_numero}}), la abona la CESIONARIA a la CEDENTE en este acto, en dinero efectivo, a cuenta de precio y como principio de ejecución de contrato, sirviendo el presente como suficiente recibo y formal carta de pago; b) El saldo de precio, o sea la suma de DOLARES ESTADOUNIDENSES {{precio_saldo_letras}} (U$S {{precio_saldo_numero}}), la abonará la CESIONARIA en el momento de la firma de la escritura traslativa de dominio y posesión del inmueble, siendo condición esencial de este contrato el pago el billete estadounidense, dado que el comprador renuncia expresamente a la aplicación del art. 765 del Código Civil y Comercial de la Nación y manifiesta poseer en su poder el monto total pactado en dicha moneda extranjera. El comprador ha ponderado detenidamente todas las alternativas y variantes del mercado cambiario e inmobiliario y renuncia expresamente a alegar la teoría de la imprevisión en los términos del art. 1091 del código citado.`
+  },
+  'cbc_tercera_reglamento': {
+    titulo: 'TERCERA: Reglamento de copropiedad',
+    texto: `TERCERA: La CESIONARIA se obliga a cumplir el reglamento de copropiedad y administración que el escribano propuesto por el VENDEDOR identificado en la cláusula primera con relación al boleto de compraventa sustento de la presente operación celebrado el {{boleto_fecha_dia}} de {{boleto_fecha_mes}} del año {{boleto_fecha_anio}}, redacte y los gastos que origine su redacción, protocolización e inscripción, deberá pagarlos en la proporción que corresponda a su UNIDAD FUNCIONAL.`
+  },
+  'cbc_cuarta_garantias': {
+    titulo: 'CUARTA: Garantías',
+    texto: `CUARTA: LA CEDENTE declara y garantiza a la CESIONARIA que: (i) todos los derechos, créditos y acciones emergentes del Boleto de Compraventa son de su exclusiva propiedad y no han sido, ni serán cedidos, vendidos, ni de cualquier otro modo transferidos a favor de tercero alguno, (ii) que ha cumplido en tiempo y forma con todas las obligaciones a su cargo emergentes del Boleto de Compraventa y que ha pagado el saldo de precio previsto en la cláusula del Boleto de Compraventa, por lo que el precio de la UNIDAD FUNCIONAL se encuentra pagado en su totalidad al día de la fecha.`
+  },
+  'cbc_quinta_escrituracion': {
+    titulo: 'QUINTA: Escrituración',
+    texto: `QUINTA: La escritura se otorgará y firmará ante la escribanía {{escribania_nombre}}, domicilio {{escribania_domicilio}}, Partido de {{escribania_partido}}, número de registro {{escribania_registro}}, folio {{escribania_folio}}, una vez obtenidas las autorizaciones y recaudos de las oficinas públicas respectivas y despachados los certificados que habiliten a tal fin, sobre base de títulos perfectos.`
+  },
+  'cbc_sexta_plazos': {
+    titulo: 'SEXTA: Plazos y penalidad',
+    texto: `SEXTA: LAS PARTES deberán presentarse a firmar la escritura el día y hora que fije el escribano, quién deberá notificarlo con una anticipación superior a {{plazo_notificacion_dias}} días corridos, la cual se realizará dentro de los {{plazo_escrituracion_dias}} días corridos y luego de despachados los certificados que habiliten para tal fin. Para el caso de demora por cualquiera de LAS PARTES, en el cumplimiento de la presente, deberá pagar una multa como Cláusula Penal de DOLARES ESTADOUNIDENSES CIEN (U$S 100), por cada día de atraso en esta obligación. Las PARTES acuerdan que los gastos y honorarios que erogue la Escritura Traslativa de Dominio serán liquidadas según usos y costumbres.`
+  },
+  'cbc_septima_mora': {
+    titulo: 'SEPTIMA: Mora automática',
+    texto: `SEPTIMA: En todos los casos de mora se producirá por el mero vencimiento del plazo o término de la obligación y sin necesidad de interpelación alguna.`
+  },
+  'cbc_octava_transferencia': {
+    titulo: 'OCTAVA: Transferencia',
+    texto: `OCTAVA: La presente cesión de boleto se puede transferir, gratuita u onerosamente, asumiendo la CESIONARIA la obligación de notificar a la CEDENTE la cesión del presente contrato dentro de las 48hs de cedido el mismo.`
+  },
+  'cbc_novena_destino': {
+    titulo: 'NOVENA: Destino del inmueble',
+    texto: `NOVENA: Se establece como condición inexcusable de venta que la UNIDAD FUNCIONAL deberá destinarse exclusivamente para el uso de {{inmueble_uso}}, no pudiendo dársele otro destino.`
+  },
+  'cbc_decima_impuestos': {
+    titulo: 'DECIMA: Impuestos',
+    texto: `DECIMA: Cuando el impuesto de sellos o timbres gravare el presente contrato, o el de transferencia de inmuebles, correrá por cuenta de la CESIONARIA.`
+  },
+  'cbc_decimoprimera_domicilios': {
+    titulo: 'DECIMA PRIMERA: Domicilios',
+    texto: `DECIMA PRIMERA: Para cualesquiera notificaciones derivadas de este acto, LAS PARTES constituyen los domicilios contractuales: la CEDENTE en la calle {{domicilio_cedente}} y la CESIONARIA en la calle {{domicilio_cesionario}}; donde tendrán eficacia todas las que se realizaren.`
+  },
+  'cbc_decimosegunda_jurisdiccion': {
+    titulo: 'DECIMO SEGUNDA: Jurisdicción',
+    texto: `DECIMO SEGUNDA: Para el caso de litigio, LAS PARTES se someterán exclusivamente a la jurisdicción de tribunales ordinarios de la Ciudad Autónoma de Buenos Aires, renunciando a cualesquier otros que pudiesen eventualmente corresponderles.`
+  },
+  'cbc_decimotercera_ejemplares': {
+    titulo: 'DECIMO TERCERA: Ejemplares',
+    texto: `DECIMO TERCERA: Se firman dos (2) ejemplares de este contrato de un mismo tenor y a un solo efecto, recibiendo un juego cada parte y adjuntándose al de la CESIONARIA el boleto de compra venta original, firmado con fecha {{boleto_firma_dia}} de {{boleto_firma_mes}} de 20{{boleto_firma_anio}}, que forma parte integral del presente acuerdo.`
+  },
+  'cbc_decimocuarta_fecha': {
+    titulo: 'DECIMO CUARTA: Fecha',
+    texto: `DECIMO CUARTA: Dado en la Provincia de Buenos Aires, {{lugar}}, a los {{fecha_dia}} días del mes de {{fecha_mes}} del año 20{{fecha_anio}}.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // CESIÓN DE CONTRATO DE LOCACIÓN (cesion_contrato_locacion)
+  // ──────────────────────────────────────────────────────────────
+  'ccl_encabezado': {
+    titulo: 'ENCABEZADO',
+    texto: `Entre los señores {{cedente1_nombre}}, argentino, con D.N.I. nº {{cedente1_dni}} y {{cedente2_nombre}}, argentina, D.N.I. nº {{cedente2_dni}}, ambos constituyendo domicilio en la calle {{cedente_domicilio}}, de la Localidad de {{cedente_localidad}}, Partido de {{cedente_partido}}, Provincia de Buenos Aires, en adelante los CEDENTES, por un lado; y por el otro los cónyuges {{cesionario1_nombre}}, argentino, mayor de edad, D.N.I. {{cesionario1_dni}} y {{cesionario2_nombre}}, argentina, DNI n° {{cesionario2_dni}}, ambos constituyendo domicilio a este efecto en la calle {{cesionario_domicilio}}, de la Ciudad de {{cesionario_ciudad}}, Provincia de Buenos Aires, en adelante la CESIONARIA y junto con los CEDENTES denominadas "LAS PARTES", convienen en celebrar la presente cesión de contrato de locación:`
+  },
+  'ccl_antecedentes_locacion': {
+    titulo: 'ANTECEDENTES: Contrato de locación',
+    texto: `ANTECEDENTES:\n\nEl día {{locacion_fecha_dia}} de {{locacion_fecha_mes}} del año {{locacion_fecha_anio}}, los CEDENTES, firmaron un contrato de locación en carácter de propietarios del inmueble sito en la calle {{inmueble_calle}}, piso {{inmueble_piso}}, dpto. {{inmueble_depto}}, de la Ciudad de {{inmueble_ciudad}}, con el señor {{locatario_nombre}}, DNI {{locatario_dni}}, en carácter de locatario y la señora {{fiador_nombre}}, en su carácter de Fiador solidario, liso y llano pagador. La vigencia de dicho contrato se estipuló desde el {{locacion_vigencia_desde_dia}} de {{locacion_vigencia_desde_mes}} del año {{locacion_fecha_anio}} venciendo en forma indefectible el día {{locacion_vigencia_hasta_dia}} de {{locacion_vigencia_hasta_mes}} del 20{{locacion_vigencia_hasta_anio}}. Se acompaña al presente como ANEXO I original del mencionado contrato de locación.`
+  },
+  'ccl_antecedentes_compraventa': {
+    titulo: 'ANTECEDENTES: Compraventa',
+    texto: `Que el día {{escritura_fecha_dia}} de {{escritura_fecha_mes}} de 20{{escritura_fecha_anio}}, por compraventa realizada entre la CEDENTE y la CESIONARIA, el segundo ha adquirido de la primera el inmueble objeto del contrato de locación mencionado en el considerando anterior, conforme copia de la escritura pública que se agrega al presente como ANEXO II.\n\nEs en razón de lo expuesto precedentemente que LAS PARTES acuerdan celebrar la presente cesión de contrato de locación, conforme los siguientes términos, cláusulas y condiciones:`
+  },
+  'ccl_primera_cesion': {
+    titulo: 'PRIMERA: Cesión de derechos',
+    texto: `PRIMERA: La CEDENTE cede y transfiere a la CESIONARIA todos y cada uno de los derechos y obligaciones que tiene y le corresponden conforme contrato de locación del inmueble sito en la calle {{inmueble_calle}}, de la Ciudad {{inmueble_ciudad}}, Provincia de Buenos Aires, suscripto el día {{locacion_fecha_dia}} de {{locacion_fecha_mes}} de 20{{locacion_fecha_anio}} con el señor {{locatario_nombre}}, en el carácter de LOCATARIO y la señora {{fiador_nombre}}, en su carácter de Fiador solidario, liso y llano pagador. Todo ello conforme ejemplar original de contrato que se acompaña al presente como ANEXO I.`
+  },
+  'ccl_primera_subrogacion': {
+    titulo: 'PRIMERA (cont.): Subrogación',
+    texto: `La CEDENTE coloca a la CESIONARIA en el mismo grado y prelación que sobre lo cedido tenía y lo subroga en todos los derechos y acciones que le correspondían por el contrato citado, con facultad para ejercitar las acciones que a él competen, declarando bajo juramento que los derechos y acciones mencionados, no los tiene cedidos, vendidos, renunciados o gravados en forma alguna. La CEDENTE manifiesta no encontrarse inhibida para disponer de sus bienes, manifestación que acepta la CESIONARIA.`
+  },
+  'ccl_segunda_aceptacion': {
+    titulo: 'SEGUNDA: Aceptación',
+    texto: `SEGUNDA: Impuesta la CESIONARIA, de los términos de esta cesión efectuada a su favor, manifiesta su conformidad y aceptación de la misma por estar de acuerdo a lo convenido, agregando que conoce y acepta el estado y condiciones de la locación acordada, asumiendo a partir del día de la fecha, a su cargo los derechos y obligaciones que del contrato de locación se derivan.`
+  },
+  'ccl_tercera_precio': {
+    titulo: 'TERCERA: Precio compensado',
+    texto: `TERCERA: LAS PARTES declaran que el precio de la presente cesión ha sido debidamente compensado en la compraventa inmobiliaria referida en los antecedentes, siendo que la CEDENTE declara haber sido satisfecha, no teniendo nada que reclamar a la CESIONARIA por ningún concepto, presente o futuro.`
+  },
+  'ccl_cuarta_notificacion': {
+    titulo: 'CUARTA: Notificación al locatario',
+    texto: `CUARTA: Presentes el Señor {{locatario_nombre}}, en el carácter de LOCATARIO del contrato cedido y la señora {{fiador_nombre}} en su carácter de Garante y Fiador, se notifican expresamente de la cesión aquí instrumentada, prestando conformidad con la misma y anoticiándose del nombre y domicilio de la CESIONARIA, donde realizarán el pago de los cánones locativos que en el futuro se devenguen, dejando constancia junto con LAS PARTES de la plena vigencia del contrato de locación oportunamente suscripto, y de los derechos y obligaciones que de él emanan. Se deja constancia, además que el locatario se encuentra al día en el pago de los cánones locativos, no adeudando suma alguna al CEDENTE, por ningún concepto.\nDe conformidad entre las partes, se firman tres (3) ejemplares de un mismo tenor y un mismo efecto, conservando uno el CEDENTE, uno el CESIONARIO y uno los LOCATARIOS, en {{lugar_firma}} el día {{fecha_firma_dia}} de {{fecha_firma_mes}} de 20{{fecha_firma_anio}}.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // CONVENIO DE DESOCUPACIÓN (convenio_desocupacion)
+  // ──────────────────────────────────────────────────────────────
+  'cvd_encabezado': {
+    titulo: 'ENCABEZADO',
+    texto: `Entre el Señor {{locador_nombre}} con documento de identidad DNI Nº {{locador_dni}}, con domicilio en la calle {{locador_domicilio}} y domicilio electrónico en {{locador_email}}, en su carácter de LOCADOR por una parte y el Señor {{locatario_nombre}}, con documento de identidad DNI Nº {{locatario_dni}}, con domicilio en la calle {{locatario_domicilio}} y domicilio electrónico en {{locatario_email}} en su condición de LOCATARIO por la otra parte, convienen celebrar el presente convenio de desocupación con relación al contrato de locación de un inmueble, ubicado en la calle {{inmueble_ubicacion}}, Ciudad Autónoma de Buenos Aires, sujeto a las siguientes cláusulas:`
+  },
+  'cvd_primera_compromiso': {
+    titulo: 'PRIMERA: Compromiso de desocupación',
+    texto: `PRIMERA: Las condiciones contractuales oportunamente pactadas en el contrato de locación suscripto entre las partes el día {{contrato_fecha_dia}} de {{contrato_fecha_mes}} de {{contrato_fecha_anio}}, estipulaban que el vínculo locativo finalizaría el día {{locacion_fin_dia}} de {{locacion_fin_mes}}. Sin perjuicio de lo establecido en el mencionado contrato, el LOCATARIO se compromete en forma efectiva, lisa y llana a entregar totalmente desocupado de bienes y personas el inmueble antes mencionado a más tardar el día {{desocupacion_fecha_dia}} de {{desocupacion_fecha_mes}}, fecha en la cual le hará entrega al LOCADOR de las llaves respectivas, contra documento escrito emanado del LOCADOR, no admitiéndose otro medio de prueba, y en las condiciones de conservación oportunamente pactadas en el contrato.`
+  },
+  'cvd_segunda_sentencia': {
+    titulo: 'SEGUNDA: Sentencia de desalojo',
+    texto: `SEGUNDA: Las partes acuerdan en otorgar al presente contrato de desocupación el valor de una sentencia de desalojo basada en autoridad de cosa juzgada, razón esta que de no cumplirse con la obligación de desocupar y desalojar en el término establecido facultará al LOCADOR a exigir el liso y llano lanzamiento del LOCATARIO quedando a favor de este último las costas que surjan del mismo.`
+  },
+  'cvd_tercera_penalidades': {
+    titulo: 'TERCERA: Penalidades',
+    texto: `TERCERA: En caso de incumplimiento de la obligación de desocupar, regirán las penalidades pactadas en el contrato.`
+  },
+  'cvd_cuarta_incumplimiento': {
+    titulo: 'CUARTA: Incumplimiento y lanzamiento',
+    texto: `CUARTA: El incumplimiento por parte del LOCATARIO, en la restitución del inmueble objeto del presente, en la fecha convenida en la cláusula Primera, así como la falta de pago de uno de los alquileres convenidos, previa intimación que se realizará conforme lo estipula el art. 1222 del Código Civil y Comercial de la Nación modificado por Ley 27.551, autorizará al LOCADOR, a solicitar el inmediato lanzamiento con habilitación de días y horas inhábiles.`
+  },
+  'cvd_quinta_homologacion': {
+    titulo: 'QUINTA: Homologación y jurisdicción',
+    texto: `QUINTA: Cualquiera de las partes, en forma conjunta o individual podrá homologar el presente CONVENIO, para lo cual se pacta la jurisdicción de los Tribunales de la Justicia de la Ciudad Autónoma de Buenos Aires. Asimismo se deja establecido que las partes constituyen domicilios especiales en los nombrados anteriormente donde serán válidas todas las notificaciones, tanto judiciales como extrajudiciales, referentes al presente convenio. EN PRUEBA DE CONFORMIDAD y autorizándose los abajo firmantes en forma recíproca a presentar el presente convenio ante la justicia a efectos de su correspondiente homologación, se ratifican los domicilios consignados en el contrato de locación y se firman dos ejemplares de un mismo tenor y a un solo efecto en {{lugar_firma}} a los {{fecha_firma_dia}} días del mes de {{fecha_firma_mes}} del año 20{{fecha_firma_anio}}.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // COMODATO (contrato_comodato)
+  // ──────────────────────────────────────────────────────────────
+  'cmd_encabezado': {
+    titulo: 'ENCABEZADO',
+    texto: `Entre el señor/a {{comodatario_nombre}}, D.N.I. {{comodatario_dni}}, domiciliado en la calle {{comodatario_domicilio}}, de la Ciudad Autónoma de Buenos Aires; en adelante "EL COMODATARIO", y como ex - titular de dominio del inmueble que más adelante se describirá; y el señor/a {{comodante_nombre}}, D.N.I. {{comodante_dni}}, domiciliado en la calle {{comodante_domicilio}}, de la Ciudad Autónoma de Buenos Aires, en adelante "EL COMODANTE", en su carácter de adquirente y actual titular de dominio del inmueble que más adelante se describirá; han convenido en celebrar el siguiente contrato de comodato, sujeto a las siguientes cláusulas:`
+  },
+  'cmd_primero_objeto': {
+    titulo: 'PRIMERO: Objeto',
+    texto: `PRIMERO: EL COMODANTE cede a EL COMODATARIO en comodato gratuito y al solo efecto de ocuparlo para vivienda de su grupo familiar, la UNIDAD FUNCIONAL Nº {{inmueble_uf}}, ubicada en el piso {{inmueble_piso}} del edificio con frente a la calle {{inmueble_calle}} número {{inmueble_numero}}, entre {{inmueble_entre1}} y {{inmueble_entre2}}; NOMENCLATURA CATASTRAL: Circunscripción {{inmueble_circ}}; Sección {{inmueble_seccion}}; Manzana {{inmueble_manzana}}; Parcela {{inmueble_parcela}}.- Partida Inmobiliaria: {{inmueble_partida}}.- (en adelante el "Inmueble").- Dicho Inmueble fue enajenado en el día de la fecha, según escritura número {{escritura_numero}}, otorgada ante el Escribano de esta Ciudad {{escribano_nombre}}, al folio {{escritura_folio}} del Registro Notarial {{registro_notarial}} a su cargo.-`
+  },
+  'cmd_segundo_plazo': {
+    titulo: 'SEGUNDO: Plazo y restitución',
+    texto: `SEGUNDO: El plazo máximo de este comodato vence el día {{plazo_vencimiento_dia}} de {{plazo_vencimiento_mes}} de {{plazo_vencimiento_anio}}, fecha en que el comodato se extingue de pleno derecho, e indefectiblemente EL COMODATARIO deberá restituir la tenencia del Inmueble a EL COMODANTE, libre de muebles y libre de ocupantes, en el mismo estado en que fuera dado en comodato, y en perfectas condiciones de aseo. Para el supuesto que no se verificara el cumplimiento de esta obligación dentro del término establecido, EL COMODANTE se reserva la facultad de ubicar los efectos de EL COMODATARIO en un depósito, el que será abonado por éste último en su totalidad. EL COMODATARIO podrá no obstante el plazo pactado rescindir el comodato y restituir la tenencia del Inmueble a EL COMODANTE en forma anticipada.-`
+  },
+  'cmd_tercero_acceso': {
+    titulo: 'TERCERO: Acceso',
+    texto: `TERCERO: EL COMODATARIO se obliga a permitir el acceso al Inmueble recibido en comodato a EL COMODANTE o a las personas que fueran autorizadas expresamente por dicha parte cuantas veces esta última estime necesario.-`
+  },
+  'cmd_cuarto_sentencia': {
+    titulo: 'CUARTO: Sentencia firme y lanzamiento',
+    texto: `CUARTO: Ambas partes están contestes en otorgar al presente el carácter de sentencia firme con autoridad de cosa juzgada, razón por la cual EL COMODATARIO renuncia a todo tipo de excepción, y EL COMODANTE, una vez vencido el plazo establecido, podrá pedir sin necesidad de trámite alguno el lanzamiento pertinente con el uso de la fuerza pública, con más los daños y perjuicios ocasionados. La mora se considerará operada automáticamente, y en caso de incumplimiento, EL COMODATARIO incurrirá en una multa diaria a favor de EL COMODANTE, de DOLARES ESTADOUNIDENSES {{multa_diaria_letras}} (U$S {{multa_diaria_numero}}), que se devengará hasta la efectiva desocupación y entrega del Inmueble, totalmente desocupado.-`
+  },
+  'cmd_quinto_responsabilidad': {
+    titulo: 'QUINTO: Responsabilidad y reglamento',
+    texto: `QUINTO: EL COMODANTE no se responsabiliza de los daños y perjuicios que pudieren producirle a EL COMODATARIO o a sus familiares las inundaciones, filtraciones y desprendimientos provenientes de roturas o desperfectos de caños o techos o cualquier otro accidente producido en el Inmueble. EL COMODATARIO se obliga a respetar en un todo las disposiciones que surgen del Reglamento de Copropiedad y Administración que rige sobre la totalidad del edificio, deslindando de toda responsabilidad a EL COMODANTE, ya sea por reclamos del Consorcio de la unidad y/o por terceros.`
+  },
+  'cmd_sexto_gastos': {
+    titulo: 'SEXTO: Gastos y servicios',
+    texto: `SEXTO: EL COMODATARIO se hace cargo del pago de todos los servicios e impuestos correspondientes al Inmueble, hasta la efectiva restitución de su tenencia a EL COMODANTE. En particular, EL COMODATARIO se obliga a abonar mensualmente los importes correspondientes a expensas comunes, ABL, y todo otro impuesto o gravamen en general que pese sobre el Inmueble, como así también abonar el consumo de energía eléctrica, gas natural, teléfono y demás que contrate la unidad. Asimismo EL COMODATARIO deberá realizar a su costo las reparaciones necesarias para el mantenimiento adecuado del Inmueble.`
+  },
+  'cmd_septimo_jurisdiccion': {
+    titulo: 'SEPTIMO: Jurisdicción',
+    texto: `SEPTIMO: Para todos los efectos legales emergentes de este comodato, las partes se someten a la jurisdicción de los Tribunales Ordinarios de la Ciudad Autónoma de Buenos Aires, con renuncia expresa a cualquier otro fuero o jurisdicción, constituyendo domicilios especiales en los indicados en el comienzo del presente.\nEN PRUEBA DE CONFORMIDAD, se firman dos ejemplares de un mismo tenor y a un solo efecto en la Ciudad Autónoma de Buenos Aires, a los {{fecha_firma_dia}} días del mes de {{fecha_firma_mes}} de {{fecha_firma_anio}}.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // MUTUO (contrato_mutuo)
+  // ──────────────────────────────────────────────────────────────
+  'mtu_encabezado': {
+    titulo: 'ENCABEZADO',
+    texto: `Entre la Sra. {{acreedor_nombre}} D.N.I Nº {{acreedor_dni}}, domiciliada en la calle {{acreedor_domicilio_calle}}, Piso {{acreedor_domicilio_piso}}, Depto. {{acreedor_domicilio_depto}}, de la CABA en adelante llamado "EL ACREEDOR" por una parte, y {{deudor_nombre}}, DNI {{deudor_dni}}, en su carácter de presidente de "{{deudor_sociedad_nombre}}" CUIT {{deudor_sociedad_cuit}}, con domicilio en la calle {{deudor_domicilio_calle}}, Piso {{deudor_domicilio_piso}} de la Ciudad Autónoma de Buenos Aires, y {{deudor2_nombre}} DNI {{deudor2_dni}}, con domicilio en {{deudor2_domicilio_calle}}, Piso {{deudor2_domicilio_piso}}, Depto. {{deudor2_domicilio_depto}}, de la Ciudad Autónoma de Buenos Aires, en adelante llamados "EL DEUDOR" por la otra parte, todos mayores de edad y hábiles para contratar han convenido en celebrar el presente contrato de mutuo sujeto a las siguientes condiciones y cláusulas.-`
+  },
+  'mtu_primera_prestamo': {
+    titulo: 'PRIMERA: Préstamo',
+    texto: `PRIMERA: "EL ACREEDOR" da en préstamo a "EL DEUDOR" y este acepta la suma de Dólares estadounidenses {{monto_prestamo_letras}} (USD {{monto_prestamo_numero}}), que "EL DEUDOR" recibe en este acto de conformidad sirviendo el presente de suficiente recibo y carta de adeudo en forma, obligándose "EL DEUDOR" a devolver la suma prestada en {{cuotas_cantidad}} cuotas mensuales y consecutivas de los siguientes importes: USD {{cuota_monto_numero}} cada una, con vencimiento la primera cuota el {{cuota_vencimiento_dia}} de {{cuota_vencimiento_mes}} de {{cuota_vencimiento_anio}} y las cuotas restantes todos los días {{cuota_vencimiento_dia}} de cada mes. En garantía del referido préstamo se firman {{cuotas_cantidad}} pagarés por los montos correspondientes a cada cuota y con los vencimientos en las fechas indicadas precedentemente.-`
+  },
+  'mtu_segunda_lugar_pago': {
+    titulo: 'SEGUNDA: Lugar de pago',
+    texto: `SEGUNDA: Todos los pagos deberán verificarse en {{lugar_pago}} de la CABA, o donde "EL ACREEDOR" más adelante lo indique, dentro de la Ciudad de Buenos Aires.-`
+  },
+  'mtu_tercera_mora': {
+    titulo: 'TERCERA: Mora e intereses',
+    texto: `TERCERA: La falta de pago del capital adeudado en la fecha establecidas y en el domicilio indicado, hará incurrir en mora automática a "EL DEUDOR", por el mero transcurso del tiempo, sin necesidad de interpelación alguna, judicial o extrajudicial, produciendo consecuentemente la resolución del mutuo acordado, con la inmediata posibilidad para "EL ACREEDOR" de iniciar el juicio ejecutivo, sin perjuicio de comenzar a devengarse también automáticamente en favor de la parte acreedora un interés punitorio del {{interes_punitorio}}% mensual, el que se aplicará sobre toda suma exigible y hasta su efectivo pago por la parte deudora.-`
+  },
+  'mtu_cuarta_moneda': {
+    titulo: 'CUARTA: Moneda extranjera',
+    texto: `CUARTA: Las partes manifiestan que el cumplimiento de la obligación de devolución del capital e intereses en la moneda pactada, es decir, DOLARES ESTADOUNIDENSES, es un elemento esencial del acuerdo de voluntad que otorgan, de conformidad a los artículos 281 y 1012 del Código Civil y Comercial de la Nación. La parte deudora se obliga atento el principio de identidad de pago, y los requisitos de integridad, puntualidad y localización, a cumplir con lo expresado en este contrato el cual integra el derecho de propiedad de los contratantes y por ende tiene protección y garantía Constitucional. Además, la parte deudora declara su solvencia para cumplir con sus obligaciones, y RENUNCIA A LIBERARSE DE SU OBLIGACIÓN DANDO EL EQUIVALENTE EN MONEDA LEGAL dispuesta en el artículo 765 del Código Civil y Comercial de la Nación. En virtud de lo expuesto, la parte deudora toma a su cargo en forma expresa el riesgo cambiario de la presente operación, por ser de su conocimiento el régimen de control de cambios vigente, y asume los eventuales agravamientos de las condiciones cambiarias, la contingencia de futuras restricciones adicionales, la imposibilidad de adquirir moneda extranjera en el mercado argentino y/o la alteración del tipo de cambio vigente, renunciando desde ya a invocar la imposibilidad de cumplimiento, caso fortuito o fuerza mayor por dichas razones.`
+  },
+  'mtu_quinta_ley25345': {
+    titulo: 'QUINTA: Ley 25.345',
+    texto: `QUINTA: Se deja constancia que las partes conocen los términos de la ley 25.345 que regula las formas de pago aceptadas y a pesar de ello resuelven contratar en dinero efectivo, renunciando a reclamar nuevamente las sumas entregadas en este acto invocando la ley citada.-`
+  },
+  'mtu_sexta_jurisdiccion': {
+    titulo: 'SEXTA: Jurisdicción',
+    texto: `SEXTA: Todas las partes se someten a la jurisdicción de los Tribunales de CABA, con exclusión del fuero federal, en caso de ser procedente, constituyendo domicilios especiales en los citados anteriormente, donde cada una de las partes tendrá por validas las notificaciones judiciales y/o extrajudiciales, aún cuando no viviesen mas en ellos y hasta tanto no comuniquen fehacientemente sus nuevos domicilios, renunciando además al derecho a recusar sin causa al Juzgado y/o Tribunal interviniente.-\nEn prueba de conformidad se firman dos (3) ejemplares de un mismo tenor y a un solo efecto en CABA, a los {{fecha_firma_dia}} días del mes de {{fecha_firma_mes}} de {{fecha_firma_anio}}.-`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // ACEPTACIÓN / CONTRAOFERTA / RECHAZO COMPRAVENTA (aceptacion_compraventa)
+  // ──────────────────────────────────────────────────────────────
+  'acv_aceptacion': {
+    titulo: 'ACEPTACIÓN DE LA OFERTA',
+    texto: `ACEPTACIÓN DE LA OFERTA\n{{fecha_ciudad}}, {{fecha_dia}} de {{fecha_mes}} de {{fecha_anio}}.\n\nPresente en este acto el Sr/a {{vendedor_nombre}}, con DNI {{vendedor_dni}}, con domicilio real en {{vendedor_domicilio}} y constituyendo domicilio electrónico en la dirección de correo {{vendedor_email}} en su carácter de parte vendedora del inmueble objeto de la reserva de compra y condiciones de pago emitida por sr. {{comprador_nombre}}, con fecha {{reserva_fecha}}, manifiesta no tener impedimento alguno para efectivizar la transferencia del dominio, presentando su plena y expresa conformidad con la oferta efectuada y demás condiciones pactadas que acepta en todos sus términos. La vendedora se obliga a entregar dentro de los cinco días hábiles (5) de la fecha de la firma del presente: 1) Copia de título de propiedad, 2) Boletas de ARBA, Municipal, AySA, Luz, Gas, Teléfono, Expensas 3) Constancia de Cuit/Cuil y fotocopia DNI (1era y 2da hoja). Asimismo me notifico que en caso de incomparecencia de mi parte, deberé reintegrar al oferente la suma recibida (en poder del corredor público René Alejandro Vera (CSI 5848 / CPI 6778), en representación de "RE/MAX CREA") en concepto de reserva, con más un importe equivalente a ese valor, en concepto de indemnización. Abonaré al corredor público René Alejandro Vera (CSI 5848 / CPI 6778), en representación de "RE/MAX CREA", en concepto de comisión y honorarios profesionales el {{comision_pct}}% más IVA del total de la Operación en la firma del Boleto de Compra-Venta o en la firma de la escritura traslativa de dominio, lo que ocurra primero. Dichos honorarios deberé abonarlos aun cuando esta firma no se realice por mi culpa o desistimiento, en cuyo caso también deberé abonar los honorarios que hubieren correspondido a la parte compradora. A los efectos legales que correspondieren las partes prorrogan su jurisdicción a los Tribunales Ordinarios de la Capital Federal.`
+  },
+  'acv_contraoferta': {
+    titulo: 'CONTRAOFERTA',
+    texto: `CONTRAOFERTA\n{{fecha_ciudad}}, {{fecha_dia}} de {{fecha_mes}} de {{fecha_anio}}.\n\nPresente en este acto el Sr/a {{vendedor_nombre}}, con DNI {{vendedor_dni}}, con domicilio real en {{vendedor_domicilio}} y constituyendo domicilio electrónico en la dirección de correo {{vendedor_email}}, CABA/Provincia de Buenos Aires, en su carácter de parte vendedora del inmueble objeto de la reserva de compra y condiciones de pago emitida por Sr. {{comprador_nombre}}, con fecha {{reserva_fecha}}, manifiesta NO aceptar la totalidad de las condiciones de la reserva descripta ut supra, contra ofertando por su parte.\n\nSe deja expresa constancia que la presente contraoferta se encuentra sujeta a la aceptación por parte del DADOR DE LA RESERVA por el plazo de 3 días corridos. Para el caso de que en ese término no aprobase la operación se devolverá al DADOR DE LA RESERVA la suma recibida en concepto de reserva sin indemnización alguna.\n\nEn caso de ser aceptada la presente contraoferta por la parte oferente, el vendedor declara no tener impedimento alguno para efectivizar la transferencia del dominio. A los efectos legales que correspondieren las partes prorrogan su jurisdicción a los Tribunales Ordinarios de la Capital Federal.`
+  },
+  'acv_aceptacion_contraoferta': {
+    titulo: 'ACEPTACIÓN DE CONTRAOFERTA',
+    texto: `ACEPTACIÓN DE CONTRAOFERTA\n{{fecha_ciudad}}, {{fecha_dia}} de {{fecha_mes}} de {{fecha_anio}}.\n\nPresente en este acto el Sr/a {{comprador_nombre}}, con DNI {{comprador_dni}}, con domicilio en la calle {{comprador_domicilio}}, CABA/Provincia de Buenos Aires, en su carácter de parte compradora del inmueble objeto de la reserva de compra y condiciones de pago emitida por si y con fecha {{reserva_fecha}}, manifiesta aceptar la totalidad de los términos y condiciones de la presente contraoferta emitida por el propietario, declarando no tener impedimento alguno para efectivizar la transferencia del dominio a su nombre. A los efectos legales que correspondieren las partes prorrogan su jurisdicción a los Tribunales Ordinarios de la Capital Federal.`
+  },
+  'acv_rechazo': {
+    titulo: 'RECHAZO OFERTA',
+    texto: `RECHAZO OFERTA\n{{fecha_ciudad}}, {{fecha_dia}} de {{fecha_mes}} de {{fecha_anio}}.\n\nPresente en este acto el Sr/a {{vendedor_nombre}}, con DNI {{vendedor_dni}}, con domicilio real en {{vendedor_domicilio}} y constituyendo domicilio electrónico en la dirección de correo {{vendedor_email}}, CABA/Provincia de Buenos Aires, en su carácter de parte vendedora del inmueble objeto de la reserva de compra y condiciones de pago emitida por Sr. {{comprador_nombre}}, con fecha {{reserva_fecha}}, manifiesta no aceptar las condiciones pactadas en todos sus términos.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // ACEPTACIÓN / CONTRAOFERTA / RECHAZO LOCACIÓN (aceptacion_locacion)
+  // ──────────────────────────────────────────────────────────────
+  'alc_aceptacion': {
+    titulo: 'ACEPTACIÓN DE LA OFERTA',
+    texto: `ACEPTACIÓN DE LA OFERTA\n{{fecha_ciudad}}, {{fecha_dia}} de {{fecha_mes}} de {{fecha_anio}}.\n\nPresente en este acto el Sr/a {{locador_nombre}}, con DNI {{locador_dni}}, con domicilio en la calle {{locador_domicilio}}, Provincia de Buenos Aires, en su carácter de parte locadora del inmueble objeto de la reserva de locación y condiciones emitida por Sr. {{locatario_nombre}}, con fecha {{reserva_fecha}}, manifiesta no tener impedimento alguno para efectivizar la locación, presentando su plena y expresa conformidad con la oferta efectuada y demás condiciones pactadas que acepta en todos sus términos.\n\nAsimismo me notifico que en caso de incomparecencia de mi parte, deberé reintegrar al oferente la suma recibida (en custodia del corredor público René Alejandro Vera (CSI 5848 / CPI 6778), en representación de "RE/MAX CREA") en concepto de reserva, con más un importe equivalente a ese valor, en concepto de indemnización. Abonaré al corredor público René Alejandro Vera (CSI 5848 / CPI 6778), en representación de "RE/MAX CREA", en concepto de comisión y honorarios profesionales el {{comision_pct}} + IVA del total de la Operación en la firma del Contrato de Locación. Dichos honorarios deberé abonarlos aun cuando esta firma no se realice por mi culpa o desistimiento, en cuyo caso también deberé abonar los honorarios que hubieren correspondido a la parte locataria. A los efectos legales que correspondieren las partes prorrogan su jurisdicción a los Tribunales Ordinarios de la Capital Federal.`
+  },
+  'alc_contraoferta': {
+    titulo: 'CONTRAOFERTA',
+    texto: `CONTRAOFERTA\n{{fecha_ciudad}}, {{fecha_dia}} de {{fecha_mes}} de {{fecha_anio}}.\n\nPresente en este acto el Sr/a {{locador_nombre}}, con DNI {{locador_dni}}, con domicilio en la calle {{locador_domicilio}}, Provincia de Buenos Aires, en su carácter de parte locadora del inmueble objeto de la reserva de locación y condiciones emitida por Sr. {{locatario_nombre}}, con fecha {{reserva_fecha}}, manifiesta NO aceptar la totalidad de las condiciones de la reserva descripta ut supra, contra ofertando por su parte.\n\nSe deja expresa constancia que la presente contraoferta se encuentra sujeta a la aceptación por parte del DADOR DE LA RESERVA por el plazo de 3 días corridos. Para el caso de que en ese término no aprobase la operación se devolverá al DADOR DE LA RESERVA la suma recibida en concepto de reserva sin indemnización alguna.\n\nEn caso de ser aceptada la presente contraoferta por la parte oferente, el locador declara no tener impedimento alguno para efectivizar la locación. A los efectos legales que correspondieren las partes prorrogan su jurisdicción a los Tribunales Ordinarios de la Capital Federal.`
+  },
+  'alc_aceptacion_contraoferta': {
+    titulo: 'ACEPTACIÓN DE CONTRAOFERTA',
+    texto: `ACEPTACIÓN DE CONTRAOFERTA\n{{fecha_ciudad}}, {{fecha_dia}} de {{fecha_mes}} de {{fecha_anio}}.\n\nPresente en este acto el Sr/a {{locatario_nombre}}, con DNI {{locatario_dni}}, con domicilio en la calle {{locatario_domicilio}}, Provincia de Buenos Aires, en su carácter de parte locataria del inmueble objeto de la reserva de locación y condiciones emitida por sí y con fecha {{reserva_fecha}}, manifiesta aceptar la totalidad de los términos y condiciones de la presente contraoferta emitida por el locador, declarando no tener impedimento alguno para efectivizar la locación. A los efectos legales que correspondieren las partes prorrogan su jurisdicción a los Tribunales Ordinarios de la Capital Federal.`
+  },
+  'alc_rechazo': {
+    titulo: 'RECHAZO OFERTA',
+    texto: `RECHAZO OFERTA\n{{fecha_ciudad}}, {{fecha_dia}} de {{fecha_mes}} de {{fecha_anio}}.\n\nPresente en este acto el Sr/a {{locador_nombre}}, con DNI {{locador_dni}}, con domicilio en la calle {{locador_domicilio}}, Provincia de Buenos Aires, en su carácter de parte locadora del inmueble objeto de la reserva de locación y condiciones emitida por Sr. {{locatario_nombre}}, con fecha {{reserva_fecha}}, manifiesta no aceptar las condiciones pactadas en todos sus términos.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // RECIBO DE RESERVA (recibo_reserva)
+  // ──────────────────────────────────────────────────────────────
+  'rec_texto': {
+    titulo: 'RECIBO DE RESERVA',
+    texto: `Recibo de reserva\nRecibí por cuenta y orden del corredor público René Alejandro Vera (CSI 5848/ CPI 6778), en representación de RE/MAX CREA, la suma de {{monto_letras}} ({{monto_num}}), pertenecientes al sr/sra. {{dador_nombre}} para ser aplicados y en concepto de reserva de compra/alquiler por el inmueble sito en {{inmueble_dir}} (se adjunta copia de la reserva con sus términos y condiciones) a los efectos de ser entregado para su custodia al corredor público René Alejandro Vera (CSI 5848 / CPI 6778) responsable de la firma descripta ut supra. En la localidad de {{localidad}} a los {{fecha_dia}} días del mes de {{fecha_mes}}, de 20{{fecha_anio}}.\n\n{{agente}}\nFirma agente Inmobiliario`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // SEÑA DE COMPRAVENTA (sena)
+  // ──────────────────────────────────────────────────────────────
+  'sen_encabezado': {
+    titulo: 'SEÑA DE COMPRAVENTA DE INMUEBLE',
+    texto: `SEÑA DE COMPRAVENTA DE INMUEBLE\n\nPor medio del presente el/la Sr./Sra. {{vendedor_nombre}}, CUIT/DNI {{vendedor_dni}}, argentino/a, estado civil {{vendedor_ecivil}}, con domicilio en la calle {{vendedor_domicilio}}, localidad de {{vendedor_localidad}}, partido de {{vendedor_partido}} / Ciudad Autónoma de Buenos Aires, en adelante denominado/a la parte VENDEDORA, y por la otra parte el/la Sr. Sra. {{comprador_nombre}} CUIT/DNI {{comprador_dni}}, argentino/a, estado civil {{comprador_ecivil}}, con domicilio en la calle {{comprador_domicilio}}, localidad de {{comprador_localidad}}, partido {{comprador_partido}} / Ciudad Autónoma de Buenos Aires, en adelante denominado/a la parte COMPRADORA, quien compra "ad corpus" el inmueble ubicado en la calle {{inmueble_calle}}, localidad de {{inmueble_localidad}}, partido {{inmueble_partido}} / Ciudad Autónoma de Buenos Aires, NOMENCLATURA CATASTRAL: Circunscripción: {{inmueble_circ}}; Sección: {{inmueble_seccion}}; Manzana: {{inmueble_manzana}}; Parcela: {{inmueble_parcela}}.- Matricula: {{inmueble_matricula}}, cuyo precio total, fijo e inamovible es de DOLARES ESTADOUNIDENSES BILLETES {{precio_letras}} (U$S {{precio_num}}). Las partes acuerdan las siguientes condiciones que a continuación se detallan.`
+  },
+  'sen_sena': {
+    titulo: '1 - SEÑA A CUENTA DE PRECIO',
+    texto: `1- En este acto la COMPRADORA entrega a la VENDEDORA, y este acepta de total conformidad, la suma de DÓLARES ESTADOUNIDENSES BILLETES {{senal_letras}} (U$S {{senal_num}}), en concepto de seña a cuenta de precio, por la compraventa del inmueble antes citado en efectivo sirviendo el presente de suficiente y formal recibo. El saldo restante, es decir la suma de DOLARES ESTADOUNIDENSES BILLETES {{saldo_letras}} (U$S {{saldo_num}}), serán abonados por la COMPRADORA al momento de suscripción de la escritura traslativa de dominio, acto mediante el cual tomará la posesión real y definitiva del inmueble que por este acto se vende. Es condición esencial de este contrato el pago el billete estadounidense, dado que la COMPRADORA renuncia expresamente a la aplicación del art. 765 del código civil y comercial de la nación, y manifiesta poseer en su poder el monto total pactado en dicha moneda extranjera.`
+  },
+  'sen_escrituracion': {
+    titulo: '2 - ESCRITURACIÓN',
+    texto: `2- La firma de la escritura traslativa de dominio se efectuara con fecha tope el día {{fecha_tope_dia}} de {{fecha_tope_mes}} de {{fecha_tope_anio}}, a las {{fecha_tope_hora}} hs. en el domicilio sito en la calle {{escribania_domicilio}}, ante el escribano {{escribano_nombre}} con domicilio en {{escribano_domicilio}} partido de {{escribano_partido}}, provincia/ciudad autónoma de Buenos Aires, corriendo los gastos que demande la misma a cargo de cada parte, de acuerdo a usos y costumbres que rigen en materia notarial.`
+  },
+  'sen_titulos': {
+    titulo: '3 - TÍTULOS PERFECTOS',
+    texto: `3- Esta venta se realiza en base a títulos perfectos, libre de toda deuda o gravamen, totalmente desocupada, con todas sus expensas, impuestos y servicios pagos hasta el día de la firma de la escritura traslativa de dominio y toma de posesión, libre de ocupantes, intrusos o inquilinos. El presente contrato es intransferible salvo expresa conformidad otorgada por escrito del vendedor.`
+  },
+  'sen_entrega': {
+    titulo: '4 - ESTADO DE ENTREGA',
+    texto: `4- La propiedad se entrega con: {{inmueble_incluye_1}}, {{inmueble_incluye_2}}, {{inmueble_incluye_3}}, {{inmueble_incluye_4}}, {{inmueble_incluye_5}}, con todos sus vidrios, herrajes y llaves, todo en el estado general en que se encuentra, el cual la COMPRADORA conoce y acepta por haberla visitado con anterioridad, e incluye la transferencia de la línea telefónica N° {{inmueble_telefono}} funcionando y libre de deuda, con constancia que se presentará en la firma de la escritura.`
+  },
+  'sen_incumplimiento': {
+    titulo: '5 - INCUMPLIMIENTO',
+    texto: `5- Para el supuesto que cualquiera de las partes incumpliera con las obligaciones que para ellas emergen del presente, la parte cumplidora podrá optar por: a) Exigir el cumplimiento de la operación por vía judicial con más una suma diaria de dólares estadounidenses cien (U$S 100) que se pacta en concepto de cláusula penal por la simple demora y que comenzará a devengarse desde que se produzca la mora sin necesidad de interpelación judicial o extrajudicial alguna o notificación de ninguna índole, b) Considerar rescindida la operación y resuelta en todos sus efectos de pleno derecho y sin necesidad de interpelación o notificación alguna, quedando en tal caso en poder de la VENDEDORA, en el supuesto de ser la incumplidora la COMPRADORA, el cien por ciento de las sumas recibidas hasta ese momento. Y de ser la incumplidora la VENDEDORA deberá ésta reintegrar a la COMPRADORA la totalidad de lo que hubiera percibido hasta entonces, con más el cien por ciento de dicho importe, lo que se conviene entre las partes desde ahora y como única indemnización de los daños y perjuicios que se pudieran irrogar a la parte cumplidora.`
+  },
+  'sen_titularidad': {
+    titulo: '6 - TITULARIDAD E INHIBICIONES',
+    texto: `6- La VENDEDORA declara ser titular del inmueble inscripto en el Registro de la Propiedad Inmueble de la ciudad {{ciudad_rpi}} conforme el informe de dominio con fecha {{informe_dominio_fecha_dia}} de {{informe_dominio_fecha_mes}} de {{informe_dominio_fecha_anio}} bajo el numero {{informe_dominio_numero}}, asimismo la VENDEDORA no registra ningún tipo de inhibición para disponer del inmueble, conforme informe de anotaciones personales con fecha {{anotaciones_fecha_dia}} de {{anotaciones_fecha_mes}} de {{anotaciones_fecha_anio}} y numero {{anotaciones_numero}}.`
+  },
+  'sen_fallecimiento': {
+    titulo: '7 - FALLECIMIENTO O INCAPACIDAD',
+    texto: `7- En caso de fallecimiento, o incapacidad física o legal de alguna de las partes, sus herederos o representantes legales, se obligan a comunicar éste hecho a la otra parte dentro de los 5 días de producido el hecho y a iniciar el correspondiente juicio sucesorio o el trámite judicial que corresponda según el tipo de incapacidad, dentro de los 30 días siguientes a la notificación anterior, a los fines de obtener la orden para otorgar la respectiva escritura traslativa de dominio, de no ser así, la parte que no lo cumpliera con esta obligación, caerá automáticamente en mora de pleno derecho, sin que sea necesario ningún tipo de interpelación judicial o extrajudicial, debiendo abonar a la otra parte, que estuviera en cumplimiento, una multa diaria de DOLARES ESTADOUNIDENSES BILLETES CIEN (U$S 100) hasta su efectivo cumplimiento.`
+  },
+  'sen_acceso': {
+    titulo: '8 - ACCESO PREVIO',
+    texto: `8- La VENDEDORA dará acceso a la unidad a la parte compradora con 24 horas de anterioridad a la firma de la escritura traslativa de dominio a fin de verificar las condiciones del bien raíz conforme a lo ya examinado en visitas anteriores.`
+  },
+  'sen_documentos': {
+    titulo: '9 - DOCUMENTACIÓN',
+    texto: `9- La VENDEDORA se obliga a entregar dentro de las setenta y dos (72) horas, a contar desde el día de la fecha a la Escribanía designada: 1) título de propiedad, 2) Reglamento de Copropiedad y Administración 3) una Boleta de A.B.L., A.R.B.A, A.yS.A., Luz, Gas y Teléfono 4) Constancia de C.U.I.T./C.U.I.L. y fotocopia DNI (1era. y 2da. hoja).`
+  },
+  'sen_llaves': {
+    titulo: '10 - ENTREGA DE LLAVES',
+    texto: `10- La VENDEDORA se compromete a entregar en el momento de la firma de la escritura traslativa de dominio las llaves de entrada al edificio y la UF.`
+  },
+  'sen_jurisdiccion': {
+    titulo: '11 - DOMICILIOS Y JURISDICCIÓN',
+    texto: `11- A todos los efectos legales se tendrán como válidos y especiales los domicilios nombrados ut supra, y en caso de controversia se dirimirá ante los Tribunales Ordinarios de la Ciudad Autónoma de Buenos Aires renunciando a cualquier otro fuero o Jurisdicción.`
+  },
+  'sen_cierre': {
+    titulo: '12 - CIERRE',
+    texto: `12- En fe de lo cual se firman dos ejemplares de un mismo tenor y a un solo efecto entregando uno para cada parte, en la ciudad {{ciudad_rpi}}, a los {{informe_dominio_fecha_dia}} días del mes de {{informe_dominio_fecha_mes}} de {{informe_dominio_fecha_anio}}.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // REFUERZO DE RESERVA (refuerzo_reserva)
+  // ──────────────────────────────────────────────────────────────
+  'rfr_texto': {
+    titulo: 'REFUERZO DE RESERVA',
+    texto: `REFUERZO DE RESERVA\n\n"RE/MAX CREA", representada en este acto por René Alejandro Vera, CSI 5848/CPI 6778, con domicilio en Concepción Arenal 2712, CABA, en carácter de autorizado del Propietario, RECIBE: del Sr. {{comprador_nombre}}, Nacionalidad Argentina, DNI {{comprador_dni}}, CUIT {{comprador_cuit}}, Estado civil {{comprador_ecivil}}, con domicilio en {{comprador_domicilio}}, quien comparece en calidad de comprador y entrega la suma de dólares billetes estadounidenses {{refuerzo_letras}} (USD {{refuerzo_num}}) para aplicar a la compra de un inmueble situado en la calle {{inmueble_dir}} CABA/PBA por el precio total y convenido de dólares billetes estadounidenses {{refuerzo_letras}} (USD {{refuerzo_num}}).\n\nDicha suma se recibe como Refuerzo de la Reserva de Compra, firmada el día {{reserva_fecha}}, y ACEPTADA (CONFORMADA) por el Vendedor con fecha {{aceptacion_fecha}} del inmueble mencionado, manteniéndose todas sus cláusulas y condiciones. La escritura traslativa de dominio se firmará ante el/la escribano/o a designar por la parte compradora, en una entidad bancaria u oficina a designarse por el vendedor.\n\nA los {{fecha_dia}} días del mes de {{fecha_mes}} de {{fecha_anio}} en CABA, se firman 2 ejemplares del mismo tenor y efecto.`
+  },
+
+  // ──────────────────────────────────────────────────────────────
+  // CLAUSULAS ACCESORIAS
+  // ──────────────────────────────────────────────────────────────
+  'acc_hipoteca_cancelada': {
+    titulo: 'AC - HIPOTECA CANCELADA',
+    texto: `Se deja constancia que el presente inmueble será transmitido libre de todo gravamen, habiéndose cancelado íntegramente la hipoteca que gravaba el mismo en el día de la fecha por escritura pública Nro. {{escritura_hipoteca_nro}} por ante el Escribano {{escribano_hipoteca_nombre}} con Matricula {{escribano_hipoteca_matricula}} de la cual se entrega copia.`
+  },
+  'acc_hipoteca_cancelar': {
+    titulo: 'AC - HIPOTECA PENDIENTE DE CANCELACIÓN',
+    texto: `Se deja constancia de que para el momento de firmarse la escritura traslativa de dominio, las hipotecas que gravan el inmueble estarán canceladas. Las partes declaran que esta es condición esencial y fundamental para la compra del inmueble. En caso de que las hipotecas no se encuentren canceladas e inscriptas sus cancelaciones en el registro de la propiedad inmueble, se considerará que la parte vendedora incumplió con una de las obligaciones a su cargo, en consecuencia será de aplicación la cláusula de incumplimiento del presente contrato.`
+  },
+  'acc_usufructo': {
+    titulo: 'AC - USUFRUCTO VITALICIO',
+    texto: `Conforme surge del informe de dominio referenciado vide supra pesa sobre el inmueble que se vende por el presente la constitución de un usufructo vitalicio a favor del señor {{usufructuario_nombre}}, titular del D.N.I. nº {{usufructuario_dni}} con domicilio en {{usufructuario_domicilio}}. Por ello, presente el usufructuario en este acto ratifica su total voluntad de proceder al levantamiento del beneficio expresado del cual es titular y se compromete a comparecer al acto de la firma de la escritura traslativa de dominio con el objeto de hacer efectiva la desafectación en tratamiento, firmando este instrumento al pie a tales efectos.`
+  },
+  'acc_venta_con_renta': {
+    titulo: 'AC - VENTA CON RENTA (CESIÓN LOCACIÓN)',
+    texto: `Existiendo un contrato de locación suscripto en fecha {{locacion_fecha}} entre el vendedor y el señor {{locatario_nombre}}, titular del D.N.I. nº {{locatario_dni}} con domicilio en {{locatario_domicilio}}, las partes suscribientes (locador y locatario) de común acuerdo deciden ceder al aquí comprador los derechos locativos del acuerdo de marras, tomando aquél el lugar del locador y asumiendo la totalidad de los derechos y obligaciones que en tal carácter le competen. El comprador recibe en este acto el contrato de locación original y acepta la cesión comentada ratificando su contenido. A tales fines, comprador, vendedor y locatario han suscripto también en la fecha el anexo nº 1 al contrato de locación en estudio que da cuenta del alcance de esta cláusula conjuntamente con el señor {{fiador_nombre}}, titular del D.N.I. nº {{fiador_dni}}, con domicilio en {{fiador_domicilio}}, quien lo hace en su carácter de fiador. Firmando todos los aquí nombrados al pie en prueba de plena conformidad.`
+  },
+  'acc_locacion_con_venta': {
+    titulo: 'AC - LOCACIÓN CON VENTA',
+    texto: `Las partes suscribientes (locador y locatario) de común acuerdo deciden respetar el derecho del locador a enajenar la propiedad locada, asumiendo el locatario la responsabilidad de acceder a las muestras de la propiedad de potenciales compradores y tomando conocimiento de la posible transacción. Queda establecido entre ambas partes, que de transmitirse el dominio de la propiedad que por este acto se renta, el vendedor/locador cederá al futuro comprador, en caso de realizarse la operación de compra venta, los derechos locativos del presente acuerdo de marras, tomando aquél el lugar del locador y asumiendo la totalidad de los derechos y obligaciones que en tal carácter le competen.`
+  },
+  'acc_asentimiento_conyugal': {
+    titulo: 'AC - ASENTIMIENTO CONYUGAL',
+    texto: `De acuerdo a que la titularidad del bien raíz a transmitir, ha sido adquirido por herencia y es privativo de las personas que lo reciben, por lo tanto, no alcanza los términos de lo establecido por el art. 1277 del Código Civil.`
+  },
+  'acc_acuerdo_partes': {
+    titulo: 'AC - ACUERDO ENTRE PARTES',
+    texto: `De común acuerdo las partes contratantes eximen de toda responsabilidad a las vendedoras por la falta de modificación del reglamento de copropiedad y administración y por la eventual diferencia que pudiera existir en la cantidad de metros semi-cubiertos consignados en el plano de mensura y deslinde y del título de propiedad antecedente. Esta clausula será expresamente incluida en la escritura traslativa de dominio a celebrarse, formando parte esencial de la misma.`
+  },
+  'acc_representacion': {
+    titulo: 'AC - REPRESENTACIÓN',
+    texto: `El vendedor, {{vendedor_nombre}}, en calidad de mandatario, representa a doña {{representada_nombre}}, titular del Documento Nacional de Identidad número {{representada_dni}} bajo folio de actuación notarial números {{actuacion_notarial_nro}} expedido por la notaria {{notaria_nombre}}.`
+  },
+  'acc_comodato_uso_gratuito': {
+    titulo: 'AC - COMODATO DE USO GRATUITO',
+    texto: `Las partes acuerdan que en el acto de la firma de la escritura traslativa de dominio, firmarán entre sí, un contrato de comodato en cual la vendedora tomará la tenencia en forma gratuita por 72 hs a partir de la firma de la escritura traslativa de dominio del bien raíz que por este acto de vende, con el fin de poder realizar la mudanza al bien inmueble que a su vez esta última compra, en el cual firmará la escritura traslativa de dominio y tendrá la posesión real, total y definitiva en el plazo ut supra mencionado. Por tal motivo y para agilizar el bueno curso de los plazos a fin de realizar dicha operación, las partes pactan entre sí firmar en forma privada el mencionado contrato, sometiéndose a las penalidades que del mismo se desprenden en caso de incumplimiento por alguna de ellas.`
+  },
+  'acc_levantamiento_inhibicion': {
+    titulo: 'AC - LEVANTAMIENTO DE INHIBICIÓN',
+    texto: `Las partes toman conocimiento del pedido de levantamiento de la inhibición general de bienes en relación a los autos caratulados "{{autos_caratula}}", ordenada en autos y anotada con fecha {{inhibicion_fecha}} bajo el N° {{inhibicion_numero}}, del cual se adjunta copia del mismo, y al momento de la escritura traslativa de dominio la parte vendedora se compromete a presentar el informe de inhibición correspondiente donde no consten anotaciones de ninguna índole por parte de la mencionada ut supra.`
+  },
+  'acc_compra_bien_propio_sucesion': {
+    titulo: 'AC - COMPRA CON DINERO DE SUCESIÓN',
+    texto: `El comprador deja expresamente establecido que adquiere en su totalidad el bien objeto de este contrato, con dinero recibido de la sucesión {{sucesion_caratula}} que se tramitó ante el Juzgado {{juzgado_sucesion}}.`
+  },
+  'acc_compra_bien_propio_venta': {
+    titulo: 'AC - COMPRA CON DINERO DE VENTA DE BIEN PROPIO',
+    texto: `El comprador deja expresamente establecido que adquiere en su totalidad el bien objeto de este contrato con dinero obtenido de la venta del {{bien_vendido_descripcion}}, cuya propiedad adquirió siendo de estado civil soltero según escritura suscripta el {{escritura_adquisicion_fecha}} ante el Escribano {{escribano_adquisicion_nombre}}, titular del Registro Nro {{registro_adquisicion_nro}} de {{registro_adquisicion_ciudad}}.`
+  },
+  'acc_venta_autorizacion_judicial': {
+    titulo: 'AC - VENTA CON AUTORIZACIÓN JUDICIAL',
+    texto: `El vendedor manifiesta que el consentimiento conyugal ha sido sustituido por la autorización otorgada por el Juez {{juez_nombre}}, a cargo del Juzgado Nacional de Primera Instancia en lo Civil Nro {{juzgado_civil_nro}}, Secretaría {{secretaria_nro}} de acuerdo al auto de fecha {{auto_fecha}}, cuya copia debidamente certificada se adjunta al presente instrumento, formando parte del mismo.`
+  },
+  'acc_venta_inhabilitado': {
+    titulo: 'AC - VENTA POR INHABILITADO JUDICIALMENTE',
+    texto: `Se deja expresa constancia de que el vendedor se encuentra comprendido dentro del art. 48 del Código Civil y Comercial, por lo que es asistido en este acto por su apoyo {{apoyo_nombre}}, DNI {{apoyo_dni}}, domiciliado en {{apoyo_domicilio}}, quien acredita el carácter invocado con testimonio de la sentencia recaída en el juicio por inhabilitación del vendedor, que se tramitó ante el Juzgado {{juzgado_inhabilitacion_nro}} a cargo del Dr. {{juez_inhabilitacion}}, Secretaría a cargo del Dr. {{secretario_inhabilitacion}}, expresando el apoyo su conformidad con la venta realizada, quien firma en prueba de ello al final del presente contrato.`
+  },
+  'acc_venta_herederos': {
+    titulo: 'AC - VENTA POR HEREDEROS',
+    texto: `Los vendedores manifiestan que esta venta la realizan en el carácter de herederos universales de {{causante_nombre}}, cuya sucesión abintestato se tramitó ante el Juzgado {{juzgado_sucesion_nro}} a cargo del Dr. {{juez_sucesion}}, Secretaría a cargo del Dr. {{secretario_sucesion}}, habiéndose dictado la correspondiente declaratoria de herederos, cuya copia se acompaña, la que fue inscripta en el Registro de la Propiedad Inmueble el {{inscripcion_declaratoria_fecha}}.`
+  },
+  'acc_compra_comision': {
+    titulo: 'AC - COMPRA EN COMISIÓN',
+    texto: `El comprador adquiere el inmueble "en comisión", obligándose a la fecha de la escrituración, a identificar a su comitente, de lo contrario se lo considerará comprador definitivo. El comprador manifiesta que realiza esta operación "en comisión", no pudiendo el vendedor oponerse a que se escriture a nombre del que en definitiva resulte el comprador.`
+  },
+  'acc_venta_menores': {
+    titulo: 'AC - VENTA DE BIENES DE MENORES',
+    texto: `Siendo menor de edad el titular de dominio del inmueble que por este acto se vende, comparecen {{padre_nombre}}, argentino, mayor de edad, con DNI {{padre_dni}}, domiciliado en {{padre_domicilio}} y {{madre_nombre}}, argentina, mayor de edad, con DNI {{madre_dni}}, domiciliada en {{madre_domicilio}}, en su carácter de padres del menor citado, y en nombre y representación de su hijo exhiben el testimonio de la autorización judicial dispuesta por el señor juez {{juez_menores}}, a cargo del Juzgado {{juzgado_menores_nro}}, Secretaría {{secretaria_menores}} a los efectos de enajenar el inmueble en cuestión, cuya copia se adjunta.`
+  },
+  'acc_inmueble_ocupado': {
+    titulo: 'AC - INMUEBLE OCUPADO POR INQUILINO',
+    texto: `Se deja constancia de que la propiedad objeto de esta compraventa se encuentra alquilada al señor {{inquilino_nombre}}, según contrato de locación de fecha {{locacion_contrato_fecha}}, cuyo vencimiento se operará el día {{locacion_vencimiento_dia}} de {{locacion_vencimiento_mes}} del año {{locacion_vencimiento_anio}}, cuya copia se acompaña al presente y cuyo ejemplar original correspondiente al locador le será entregado al comprador en el acto de la posesión y escrituración. Asimismo, el vendedor se obliga a notificar en forma fehaciente al locatario la venta del inmueble.`
+  },
+  'acc_boleto_financiacion': {
+    titulo: 'AC - BOLETO CON FINANCIACIÓN',
+    texto: `Las cuotas generarán, en caso de retraso en el pago, un interés punitorio del 2% mensual, más un interés moratorio del 2% mensual, sin necesidad de interpelación de ningún tipo, puesto que se pacta la mora automática. El vendedor podrá negarse a recibir el pago de la cuota atrasada, si con la misma no son satisfechos los intereses pactados en forma integral.\n\nPor la falta de pago de dos mensualidades consecutivas o alternadas, importará la caída de todos los plazos concedidos, entendiéndose por vencido todo el saldo restante y pudiendo proceder a su ejecución por vía ejecutiva. En virtud de ello las partes reconocen al presente acuerdo el carácter de título ejecutivo en los términos del art. 523 del código de procedimientos civil y comercial.`
   }
 };
 
