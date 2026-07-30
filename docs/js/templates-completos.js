@@ -10,7 +10,7 @@ const TEMPLATES_COMPLETOS = [
   // COMPRA (5 templates)
   // ════════════════════════════════════════════════════════════════
   {
-    id: 'r_compra', nombre: 'Reserva de compra', icon: '🏠', categoria: 'compra', descripcion: 'Escritura directa',
+    id: 'r_compra', nombre: 'Reserva de Compra - Escritura Directa', icon: '🏠', categoria: 'compra', descripcion: 'Escritura directa',
     sections: [
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Ej: Gurruchaga 1234, Piso 2°, Dpto. B, CABA', full: true },
@@ -52,7 +52,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['esc_encabezado','esc_dador','esc_vendedora','esc_inmueble','esc_precio','esc_posesion','esc_estado_parcelario','esc_ad_referendum','esc_sena','esc_honorarios','esc_corredor','esc_renuncia_765','esc_billetes','esc_incumplimiento','esc_jurisdiccion','esc_agente','esc_cierre']
   },
   {
-    id: 'r_boleto_esc', nombre: 'Reserva de compra', icon: '📋', categoria: 'compra', descripcion: 'Boleto + escritura',
+    id: 'r_boleto_esc', nombre: 'Reserva de Compra - Boleto y Escritura', icon: '📋', categoria: 'compra', descripcion: 'Boleto + escritura',
     sections: [
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Dirección, piso, dpto, barrio, ciudad', full: true },
@@ -95,7 +95,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['bol_encabezado','bol_dador','bol_vendedora','bol_inmueble','bol_precio','bol_posesion','bol_estado_parcelario','bol_ad_referendum','bol_sena','bol_honorarios','bol_corredor','bol_renuncia_765','bol_billetes','bol_incumplimiento','bol_jurisdiccion','bol_agente','bol_cierre']
   },
   {
-    id: 'r_hipotecario', nombre: 'Reserva crédito', icon: '🏦', categoria: 'compra', descripcion: 'Ad referéndum hipotecario',
+    id: 'r_hipotecario', nombre: 'Reserva de Compra - Crédito Hipotecario', icon: '🏦', categoria: 'compra', descripcion: 'Ad referéndum hipotecario',
     sections: [
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Dirección completa', full: true },
@@ -139,7 +139,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['hip_encabezado','hip_comprador','hip_vendedor','hip_inmueble','hip_precio','hip_reserva','hip_condicion_suspensiva','hip_saldo','hip_ad_referendum','hip_sena','hip_renuncia_765','hip_posesion','hip_honorarios','hip_incumplimiento','hip_jurisdiccion','hip_agente','hip_cierre']
   },
   {
-    id: 'r_cesion', nombre: 'Reserva cesión', icon: '📝', categoria: 'compra', descripcion: 'Boleto / derechos',
+    id: 'r_cesion', nombre: 'Reserva de Compra - Cesión Boleto/Derechos', icon: '📝', categoria: 'compra', descripcion: 'Boleto / derechos',
     sections: [
       { title: '📍 Inmueble / Boleto cedido', fields: [
         { id: 'inmueble_dir', label: 'Descripción del inmueble / unidad <span class="req">*</span>', placeholder: 'Dirección, torre, piso, unidad', full: true },
@@ -184,7 +184,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['ces_encabezado','ces_cedente','ces_cesionario','ces_inmueble','ces_precio','ces_reserva','ces_fecha_tope','ces_ad_referendum','ces_sena','ces_renuncia_765','ces_honorarios','ces_incumplimiento','ces_jurisdiccion','ces_agente','ces_cierre']
   },
   {
-    id: 'r_emprendimiento', nombre: 'Reserva emprendimiento', icon: '🏗️', categoria: 'compra', descripcion: 'Unidad en pozo',
+    id: 'r_emprendimiento', nombre: 'Reserva de Compra - Emprendimiento', icon: '🏗️', categoria: 'compra', descripcion: 'Unidad en pozo',
     sections: [
       { title: '🏗️ Emprendimiento y unidad', fields: [
         { id: 'emp_nombre', label: 'Nombre del emprendimiento <span class="req">*</span>', placeholder: 'Ej: Torre Palermo Soho', full: true },
@@ -229,7 +229,7 @@ const TEMPLATES_COMPLETOS = [
   // ALQUILER (4 templates)
   // ════════════════════════════════════════════════════════════════
   {
-    id: 'r_loc_caba', nombre: 'Reserva locación CABA', icon: '🔑', categoria: 'alquiler', descripcion: 'Vivienda',
+    id: 'r_loc_caba', nombre: 'Reserva de Locación CABA', icon: '🔑', categoria: 'alquiler', descripcion: 'Vivienda',
     sections: [
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Calle, número, piso, dpto., CABA', full: true },
@@ -265,7 +265,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['lcab_encabezado','lcab_locatario','lcab_propietario','lcab_inmueble','lcab_condiciones','lcab_garantia','lcab_reserva','lcab_ad_referendum','lcab_condicion_reserva','lcab_honorarios','lcab_jurisdiccion','lcab_agente','lcab_cierre']
   },
   {
-    id: 'r_loc_pba', nombre: 'Reserva locación PBA', icon: '🏡', categoria: 'alquiler', descripcion: 'Vivienda',
+    id: 'r_loc_pba', nombre: 'Reserva de Locación PBA', icon: '🏡', categoria: 'alquiler', descripcion: 'Vivienda',
     sections: [
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Calle, número, localidad, Provincia de Buenos Aires', full: true },
@@ -300,7 +300,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['lpb_encabezado','lpb_locatario','lpb_propietario','lpb_inmueble','lpb_condiciones','lpb_garantia','lpb_reserva','lpb_ad_referendum','lpb_condicion','lpb_honorarios','lpb_jurisdiccion','lpb_agente','lpb_cierre']
   },
   {
-    id: 'r_loc_comercial', nombre: 'Reserva locación', icon: '🏪', categoria: 'alquiler', descripcion: 'Comercial',
+    id: 'r_loc_comercial', nombre: 'Reserva de Locación Comercial', icon: '🏪', categoria: 'alquiler', descripcion: 'Comercial',
     sections: [
       { title: '📍 Inmueble comercial', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Calle, número, ciudad', full: true },
@@ -335,7 +335,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['lcom_encabezado','lcom_locatario','lcom_propietario','lcom_inmueble','lcom_condiciones','lcom_reserva','lcom_ad_referendum','lcom_condicion','lcom_honorarios','lcom_jurisdiccion','lcom_agente','lcom_cierre']
   },
   {
-    id: 'r_temporal', nombre: 'Reserva temporario', icon: '⏱️', categoria: 'alquiler', descripcion: 'Alquiler temporario',
+    id: 'r_temporal', nombre: 'Reserva Alquiler Temporario', icon: '⏱️', categoria: 'alquiler', descripcion: 'Alquiler temporario',
     sections: [
       { title: '📍 Inmueble', fields: [
         { id: 'inmueble_dir', label: 'Dirección completa <span class="req">*</span>', placeholder: 'Calle, número, localidad', full: true },
@@ -372,7 +372,7 @@ const TEMPLATES_COMPLETOS = [
   // AUTORIZACIÓN (7 templates)
   // ════════════════════════════════════════════════════════════════
   {
-    id: 'aut_venta_exc', nombre: 'Autorización de venta', icon: '✍️', categoria: 'autorizacion', descripcion: 'Exclusiva',
+    id: 'aut_venta_exc', nombre: 'Autorización de Venta', icon: '✍️', categoria: 'autorizacion', descripcion: 'Exclusiva',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -405,7 +405,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['av_encabezado','av_precio','av_titularidad','av_percibir','av_honorarios','av_exclusividad','av_proteccion','av_publicidad','av_gastos_pub','av_conyuge','av_jurisdiccion','av_agente','av_cierre']
   },
   {
-    id: 'aut_venta_renta', nombre: 'Autorización venta c/renta', icon: '💰', categoria: 'autorizacion', descripcion: 'Inversión',
+    id: 'aut_venta_renta', nombre: 'Autorización - Venta con Renta', icon: '💰', categoria: 'autorizacion', descripcion: 'Inversión',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -440,7 +440,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['avr_encabezado','avr_precio','avr_titularidad','avr_percibir','avr_honorarios','avr_exclusividad','avr_proteccion','avr_publicidad','avr_gastos_pub','avr_contrato_locacion','avr_locatario_acceso','avr_conyuge','avr_jurisdiccion','avr_cierre']
   },
   {
-    id: 'aut_cesion', nombre: 'Autorización venta', icon: '🔄', categoria: 'autorizacion', descripcion: 'Con cesión de derechos',
+    id: 'aut_cesion', nombre: 'Autorización - Venta con Cesión de Derechos', icon: '🔄', categoria: 'autorizacion', descripcion: 'Con cesión de derechos',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -473,7 +473,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['ac_encabezado','ac_autorizante','ac_objeto','ac_precio','ac_exclusividad','ac_comision','ac_proteccion','ac_jurisdiccion','ac_agente','ac_cierre']
   },
   {
-    id: 'aut_emprendimiento', nombre: 'Autorización venta', icon: '🏗️', categoria: 'autorizacion', descripcion: 'Emprendimiento',
+    id: 'aut_emprendimiento', nombre: 'Autorización de Venta de Emprendimientos', icon: '🏗️', categoria: 'autorizacion', descripcion: 'Emprendimiento',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -518,7 +518,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['ae_encabezado','ae_precio_anexo','ae_declaracion','ae_percibir','ae_honorarios','ae_exclusividad','ae_publicidad','ae_gastos_pub','ae_jurisdiccion','ae_cierre']
   },
   {
-    id: 'aut_locacion_exc', nombre: 'Autorización de alquiler', icon: '📋', categoria: 'autorizacion', descripcion: 'Exclusiva',
+    id: 'aut_locacion_exc', nombre: 'Autorización de Locación', icon: '📋', categoria: 'autorizacion', descripcion: 'Exclusiva',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -551,7 +551,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['al_encabezado','al_autorizante','al_inmueble','al_alquiler','al_exclusividad','al_garantia','al_comision','al_obligaciones','al_proteccion','al_jurisdiccion','al_agente','al_cierre']
   },
   {
-    id: 'aut_temporal_excl', nombre: 'Autorización temporario', icon: '🌟', categoria: 'autorizacion', descripcion: 'Exclusiva',
+    id: 'aut_temporal_excl', nombre: 'Autorización Alquiler Temporario (Exclusiva)', icon: '🌟', categoria: 'autorizacion', descripcion: 'Exclusiva',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -583,7 +583,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['atex_encabezado','atex_autorizante','atex_inmueble','atex_precio_plataformas','atex_exclusividad','atex_comision','atex_obligaciones','atex_proteccion','atex_jurisdiccion','atex_agente','atex_cierre']
   },
   {
-    id: 'aut_temp_noexcl', nombre: 'Autorización temporario', icon: '📄', categoria: 'autorizacion', descripcion: 'No exclusiva',
+    id: 'aut_temp_noexcl', nombre: 'Autorización Alquiler Temporario (No Exclusiva)', icon: '📄', categoria: 'autorizacion', descripcion: 'No exclusiva',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -618,7 +618,7 @@ const TEMPLATES_COMPLETOS = [
   // GESTIÓN (4 templates)
   // ════════════════════════════════════════════════════════════════
   {
-    id: 'prorroga', nombre: 'Prórroga de contrato', icon: '📅', categoria: 'gestion', descripcion: 'Extensión de plazo',
+    id: 'prorroga', nombre: 'Prórroga de Reserva', icon: '📅', categoria: 'gestion', descripcion: 'Extensión de plazo',
     sections: [
       { title: '📋 Datos del contrato original', fields: [
         { id: 'contrato_ref', label: 'Referencia del contrato', placeholder: 'Ej: Contrato de locación del xx/xx/xxxx', full: true },
@@ -638,7 +638,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['pr_encabezado','pr_objeto','pr_plazo','pr_mensual','pr_garantia','pr_jurisdiccion','pr_firma']
   },
   {
-    id: 'reintegro', nombre: 'Reintegro de locador', icon: '💰', categoria: 'gestion', descripcion: 'Reintegro por daños',
+    id: 'reintegro', nombre: 'Reintegro de Reserva', icon: '💰', categoria: 'gestion', descripcion: 'Reintegro por daños',
     sections: [
       { title: '📋 Datos del contrato original', fields: [
         { id: 'contrato_ref', label: 'Referencia del contrato', placeholder: 'Ej: Contrato de locación del xx/xx/xxxx', full: true },
@@ -657,7 +657,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['rt_encabezado','rt_objeto','rt_monto','rt_forma_pago','rt_jurisdiccion','rt_firma']
   },
   {
-    id: 'acta_fondos', nombre: 'Acta de fondos', icon: '🧾', categoria: 'gestion', descripcion: 'Liquidación final',
+    id: 'acta_fondos', nombre: 'Entrega de Fondos / Acta', icon: '🧾', categoria: 'gestion', descripcion: 'Liquidación final',
     sections: [
       { title: '📋 Datos del contrato original', fields: [
         { id: 'contrato_ref', label: 'Referencia del contrato', placeholder: 'Ej: Contrato de locación del xx/xx/xxxx', full: true },
@@ -677,7 +677,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['af_encabezado','af_objeto','af_saldo','af_jurisdiccion','af_firma']
   },
   {
-    id: 'desistimiento', nombre: 'Desistimiento', icon: '🚫', categoria: 'gestion', descripcion: 'Renuncia anticipada',
+    id: 'desistimiento', nombre: 'Desistimiento de Compra', icon: '🚫', categoria: 'gestion', descripcion: 'Renuncia anticipada',
     sections: [
       { title: '📋 Datos del contrato original', fields: [
         { id: 'contrato_ref', label: 'Referencia del contrato', placeholder: 'Ej: Contrato de locación del xx/xx/xxxx', full: true },
@@ -701,7 +701,7 @@ const TEMPLATES_COMPLETOS = [
   // CONTRATO (5 templates)
   // ════════════════════════════════════════════════════════════════
   {
-    id: 'cont_locacion_viv', nombre: 'Contrato de locación', icon: '🏠', categoria: 'contrato', descripcion: 'Vivienda',
+    id: 'cont_locacion_viv', nombre: 'Contrato de Locación - Vivienda', icon: '🏠', categoria: 'contrato', descripcion: 'Vivienda',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -758,7 +758,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['clv_encabezado','clv_objeto','clv_plazo','clv_mensual','clv_ajuste','clv_garantia','clv_deposito','clv_honorarios','clv_gastos','clv_destino','clv_subarriendo','clv_mejoras','clv_reparaciones','clv_entrega_devolucion','clv_jurisdiccion','clv_agente','clv_firma']
   },
   {
-    id: 'cont_locacion_usd', nombre: 'Contrato de locación', icon: '💵', categoria: 'contrato', descripcion: 'Vivienda USD',
+    id: 'cont_locacion_usd', nombre: 'Contrato de Locación - Vivienda USD', icon: '💵', categoria: 'contrato', descripcion: 'Vivienda USD',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -816,7 +816,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['clv_encabezado','clv_objeto','clv_plazo','clv_mensual','clv_ajuste','clv_garantia','clv_deposito','clv_honorarios','clv_gastos','clv_destino','clv_subarriendo','clv_mejoras','clv_reparaciones','clv_entrega_devolucion','clv_jurisdiccion','clv_agente','clv_firma']
   },
   {
-    id: 'cont_locacion_com', nombre: 'Contrato de locación', icon: '🏢', categoria: 'contrato', descripcion: 'Comercio',
+    id: 'cont_locacion_com', nombre: 'Contrato de Locación - Comercial', icon: '🏢', categoria: 'contrato', descripcion: 'Comercio',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -872,7 +872,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['clc_encabezado','clc_objeto','clc_plazo','clc_mensual','clc_ajuste','clc_garantia','clc_deposito','clc_honorarios','clc_gastos','clc_destino','clc_subarriendo','clc_mejoras','clc_reparaciones','clc_entrega_devolucion','clc_jurisdiccion','clc_agente','clc_firma']
   },
   {
-    id: 'cont_temp_con', nombre: 'Contrato temporario', icon: '🌟', categoria: 'contrato', descripcion: 'Temporario con servicios',
+    id: 'cont_temp_con', nombre: 'Contrato Temporario - Con Servicios', icon: '🌟', categoria: 'contrato', descripcion: 'Temporario con servicios',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
@@ -919,7 +919,7 @@ const TEMPLATES_COMPLETOS = [
     clausulas_default: ['ctc_encabezado','ctc_objeto','ctc_plazo','ctc_precio','ctc_servicios','ctc_honorarios','ctc_proteccion','ctc_jurisdiccion','ctc_firma']
   },
   {
-    id: 'cont_temp_sin', nombre: 'Contrato temporario', icon: '📄', categoria: 'contrato', descripcion: 'Temporario sin servicios',
+    id: 'cont_temp_sin', nombre: 'Contrato Temporario - Sin Servicios', icon: '📄', categoria: 'contrato', descripcion: 'Temporario sin servicios',
     sections: [
       { title: '📋 Lugar y fecha de firma', fields: [
         { id: 'ciudad_firma', label: 'Ciudad de firma', placeholder: 'Ej: Buenos Aires' },
