@@ -149,15 +149,23 @@ async function saveDraft() {
 async function generatePDF() {
     if (!currentDocument) { showToast('⚠️ Guardá el documento primero'); return; }
     try {
-        const element = document.getElementById('preview-content');
+        const original = document.getElementById('preview-content');
+        const clone = original.cloneNode(true);
+        clone.style.position = 'fixed';
+        clone.style.left = '-9999px';
+        clone.style.top = '0';
+        clone.style.width = '210mm';
+        clone.style.zIndex = '-1';
+        document.body.appendChild(clone);
         const opt = {
             margin: 10,
             filename: (currentDocument.title || 'documento') + '.pdf',
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
             jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
         };
-        await html2pdf().set(opt).from(element).save();
+        await html2pdf().set(opt).from(clone).save();
+        document.body.removeChild(clone);
         await api.exportPDF(currentDocument.id, currentDocument.title + '.pdf');
         showToast('✅ PDF generado');
     } catch (e) { console.error('Error:', e); showToast('❌ Error generando PDF'); }
