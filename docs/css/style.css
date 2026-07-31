@@ -87,3 +87,62 @@ button {
     .header { flex-wrap: wrap; }
     .header-user { width: 100%; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CLÁUSULAS — panel lateral, catálogo y hoja del documento
+   ══════════════════════════════════════════════════════════════════════════ */
+.cl-empty { color: #999; font-size: 12px; }
+.cl-head { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #6b7280; margin-bottom: 8px; }
+.cl-chk { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.cl-chk input { width: auto; }
+
+.cl-row { display: grid; grid-template-columns: 18px 1fr auto; gap: 6px; align-items: start;
+          padding: 6px; border: 1px solid #e5e7eb; border-radius: 4px; background: #fff; margin-bottom: 5px; }
+.cl-row input[type=checkbox] { width: auto; margin-top: 3px; }
+.cl-row.cl-off { opacity: .45; background: #fafafa; }
+.cl-info { min-width: 0; }
+.cl-tit { font-size: 11.5px; font-weight: 600; line-height: 1.3; }
+.cl-meta { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: 2px; }
+.cl-meta code, .cl-cat-item code { font-size: 9.5px; color: #9ca3af; }
+.cl-tag { font-size: 9px; padding: 1px 5px; border-radius: 8px; font-weight: 700; }
+.cl-tag-edit { background: #dbeafe; color: #1e40af; }
+.cl-tag-libre { background: #dcfce7; color: #166534; }
+.cl-tag-warn { background: #fef3c7; color: #92400e; cursor: help; }
+.cl-acts { display: flex; flex-direction: column; gap: 2px; }
+.cl-acts button { background: #f3f4f6; padding: 1px 5px; font-size: 10px; line-height: 1.4; }
+.cl-acts button:hover:not(:disabled) { background: #e5e7eb; }
+.cl-acts button:disabled { opacity: .3; cursor: default; }
+.cl-foot { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+.cl-foot .btn { width: 100%; }
+.cl-aviso { margin-top: 10px; padding: 8px; background: #fffbeb; border: 1px solid #fde68a;
+            border-radius: 4px; font-size: 10.5px; color: #92400e; line-height: 1.5; }
+
+/* Modal */
+.cl-modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1500;
+            display: flex; align-items: center; justify-content: center; padding: 20px; }
+.cl-modal-box { background: #fff; border-radius: 6px; width: min(860px, 100%); max-height: 88vh;
+                overflow-y: auto; padding: 18px; }
+.cl-modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.cl-cat-item { display: flex; gap: 12px; justify-content: space-between; align-items: center;
+               padding: 8px; border-bottom: 1px solid #f0f0f0; }
+.cl-cat-item button { white-space: nowrap; }
+.cl-prev { font-size: 11px; color: #6b7280; line-height: 1.4; margin: 2px 0; }
+.cl-count { font-size: 10px; background: #f3f4f6; padding: 1px 6px; border-radius: 8px; color: #6b7280; }
+.cl-modal details > summary { cursor: pointer; font-size: 12px; font-weight: 700; padding: 8px 0;
+                             border-bottom: 1.5px solid #CC0000; margin-bottom: 4px; }
+.cl-lbl { display: block; font-size: 11px; font-weight: 700; margin: 10px 0 4px; color: #374151; }
+.cl-ed-acts { display: flex; gap: 8px; margin-top: 12px; }
+#cl-ed-txt { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-size: 12px; line-height: 1.6; }
+
+/* Hoja del documento (preview + PDF) */
+.doc-hoja { max-width: 210mm; margin: 0 auto; padding: 30px 40px; background: #fff;
+            font-family: 'Times New Roman', Times, serif; }
+.doc-header { text-align: center; margin-bottom: 26px; }
+.doc-header h1 { font-size: 18px; font-weight: 700; color: #CC0000; margin-bottom: 4px; }
+.doc-header hr { border: none; border-top: 2px solid #CC0000; margin: 10px 0; }
+.doc-cl { margin-bottom: 14px; }
+.doc-cl-tit { font-size: 12.5px; font-weight: 700; margin-bottom: 3px; }
+.doc-cl-txt { font-size: 13px; line-height: 1.8; text-align: justify; white-space: pre-wrap; margin-bottom: 0; }
+.doc-falta { background: #fee2e2; color: #991b1b; padding: 0 2px; border-radius: 2px; }
+.doc-footer { margin-top: 28px; border-top: 1px solid #ddd; padding-top: 14px; }
+.doc-footer p { font-size: 11px; color: #666; text-align: center; margin: 0; }

@@ -27,7 +27,10 @@
         
         <h3 style="font-size: 13px; font-weight: 700; margin-bottom: 12px;">📝 Datos</h3>
         <div id="form-fields" style="margin-bottom: 20px;"></div>
-        
+
+        <h3 style="font-size: 13px; font-weight: 700; margin-bottom: 12px;">📜 Cláusulas</h3>
+        <div id="clausulas-panel"></div>
+
         <button class="btn-primary" onclick="saveDraft()" style="width: 100%; margin-top: 20px;">✅ Guardar Documento</button>
     </div>
     
@@ -37,11 +40,22 @@
     </div>
 </div>
 
+<div id="cl-modal" class="cl-modal hidden">
+    <div class="cl-modal-box">
+        <div class="cl-modal-head">
+            <b>Cláusulas</b>
+            <button class="btn-logout" onclick="cerrarCatalogo()">✕</button>
+        </div>
+        <div id="cl-modal-body"></div>
+    </div>
+</div>
+
 <script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/api.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/templates-completos.js"></script>
+<script src="js/clausulas-manager.js"></script>
 <script src="js/editor.js"></script>
 </body>
 </html>

@@ -15,7 +15,7 @@ class APIClient {
 
     async listDocuments(state = 'draft') { return this.request(`/api/documents?state=${state}`); }
     async getDocument(id) { return this.request(`/api/documents/${id}`); }
-    async createDocument(templateId, title, formData) { return this.request('/api/documents', { method: 'POST', body: JSON.stringify({ template_id: templateId, title: title, form_data: formData }) }); }
+    async createDocument(templateId, title, formData, extra) { return this.request('/api/documents', { method: 'POST', body: JSON.stringify({ template_id: templateId, title: title, form_data: formData, ...(extra || {}) }) }); }
     async updateDocument(id, data) { return this.request(`/api/documents/${id}`, { method: 'PUT', body: JSON.stringify(data) }); }
     async deleteDocument(id) { return this.request(`/api/documents/${id}`, { method: 'DELETE' }); }
     async getHistory(id) { return this.request(`/api/documents/${id}/history`); }

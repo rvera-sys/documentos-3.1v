@@ -38,12 +38,12 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'POST') {
-      const { template_id, title, form_data } = req.body;
+      const { template_id, title, form_data, selected_clauses, custom_clauses } = req.body;
       if (!template_id || !title) return res.status(400).json({ error: 'Missing required fields' });
 
       const { error: insertError } = await supabase
         .from('document_instances')
-        .insert({ user_id: user.sub, template_id: template_id, title: title, form_data: form_data || {}, state: 'draft', version: 1 });
+        .insert({ user_id: user.sub, template_id: template_id, title: title, form_data: form_data || {}, selected_clauses: selected_clauses || null, custom_clauses: custom_clauses || null, state: 'draft', version: 1 });
 
       if (insertError) return res.status(500).json({ error: 'Insert error: ' + insertError.message });
 

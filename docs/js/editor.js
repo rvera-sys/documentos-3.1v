@@ -28,20 +28,30 @@ async function loadExistingDocument(docId) {
         document.getElementById('doc-title').value = currentDocument.title || '';
         document.getElementById('template-select').value = currentDocument.template_id;
         currentFormData = currentDocument.form_data || {};
-        loadTemplate();
+        loadTemplate(true);
     } catch (e) {
         console.error('Error:', e);
         showToast('❌ Error cargando documento');
     }
 }
 
-function loadTemplate() {
+function loadTemplate(preservar) {
     const templateId = document.getElementById('template-select').value;
     if (!templateId) return;
     currentTemplate = getFullTemplate(templateId);
     if (currentDocument) currentDocument.template_id = templateId;
     if (!currentDocument) currentFormData = {};
+
+    // Cláusulas: si el documento ya tenía selección guardada la respeta,
+    // si cambió el template arranca de los defaults del nuevo.
+    if (preservar && currentDocument) {
+        initClausulas(currentTemplate, currentDocument.selected_clauses, currentDocument.custom_clauses);
+    } else {
+        initClausulas(currentTemplate, null, null);
+    }
+
     renderFormFields();
+    renderClausulasPanel(currentTemplate);
     renderPreview();
 }
 
@@ -85,9 +95,12 @@ function renderFormFields() {
     document.getElementById('form-fields').innerHTML = html;
 }
 
+let _panelTimer = null;
 function updateField(key, value) {
     currentFormData[key] = value;
     renderPreview();
+    clearTimeout(_panelTimer);
+    _panelTimer = setTimeout(() => renderClausulasPanel(currentTemplate), 400);
 }
 
 function renderPreview() {
@@ -98,28 +111,17 @@ function renderPreview() {
 
     const hoy = new Date().toLocaleDateString('es-AR');
     const data = { fecha_hoy: hoy, ...currentFormData };
-
-    const clausulas = currentTemplate.clausulas_default || [];
-    const partes = clausulas.map(id => {
-        const c = typeof CLAUSULAS_COMPLETAS === 'object' && !Array.isArray(CLAUSULAS_COMPLETAS)
-            ? CLAUSULAS_COMPLETAS[id]
-            : (CLAUSULAS_COMPLETAS.find ? CLAUSULAS_COMPLETAS.find(c => c.id === id) : null);
-        if (!c) return '';
-        const texto = (c.texto || '').replace(/\{\{(\w+)\}\}/g, (_, key) => escapeHtml(data[key]) || `[${key}]`);
-        return `<div style="margin-bottom: 16px; text-align: justify;">
-            <p style="white-space: pre-wrap; font-size: 13px; line-height: 1.8;">${texto}</p>
-        </div>`;
-    }).join('');
+    const partes = construirCuerpo(data);
 
     const html = `
-        <div style="max-width: 210mm; margin: 0 auto; padding: 30px 40px; font-family: 'Times New Roman', Times, serif; background: white;">
-            <div style="text-align: center; margin-bottom: 30px;">
-                <h1 style="font-size: 18px; font-weight: 700; color: #CC0000; margin-bottom: 4px;">${escapeHtml(currentTemplate.nombre)}</h1>
-                <hr style="border: none; border-top: 2px solid #CC0000; margin: 10px 0;">
+        <div class="doc-hoja">
+            <div class="doc-header">
+                <h1>${escapeHtml(currentTemplate.nombre)}</h1>
+                <hr>
             </div>
             ${partes}
-            <div style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 16px;">
-                <p style="font-size: 11px; color: #666; text-align: center;">Generado por Documentos 3.1 — RE/MAX CREA</p>
+            <div class="doc-footer">
+                <p>Generado por Documentos 3.1 — RE/MAX CREA</p>
             </div>
         </div>`;
 
@@ -132,10 +134,10 @@ async function saveDraft() {
 
     try {
         if (currentDocument && currentDocument.id) {
-            await api.updateDocument(currentDocument.id, { title, form_data: currentFormData });
+            await api.updateDocument(currentDocument.id, { title, form_data: currentFormData, ...clausulasPayload() });
             showToast('✅ Documento guardado');
         } else {
-            const result = await api.createDocument(currentTemplate.id, title, currentFormData);
+            const result = await api.createDocument(currentTemplate.id, title, currentFormData, clausulasPayload());
             currentDocument = result.document;
             window.history.replaceState(null, '', `editor.html?id=${currentDocument.id}`);
             showToast('✅ Documento creado');
