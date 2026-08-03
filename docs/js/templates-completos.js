@@ -40,12 +40,7 @@ const TEMPLATES_COMPLETOS = [
         { id: 'fecha_esc', label: 'Fecha tope de escritura', type: 'date' },
         { id: 'escribano', label: 'Escribano designado', placeholder: 'Nombre del escribano' },
       ]},
-      { title: '📊 Comisiones', fields: [
-        { id: 'com_captador', label: 'Comisión captador (%+IVA)', placeholder: 'Ej: 3' },
-        { id: 'com_oferente', label: 'Comisión oferente (%+IVA)', placeholder: 'Ej: 4' },
-      ]},
       { title: '🧑‍💼 Agente y observaciones', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
         { id: 'ad_ref', label: 'Condiciones ad referéndum adicionales (opcional)', type: 'textarea', placeholder: 'Ej: Sujeto a revisión de títulos...', full: true },
       ]},
     ],
@@ -83,12 +78,7 @@ const TEMPLATES_COMPLETOS = [
         { id: 'fecha_esc', label: 'Fecha tope de escritura', type: 'date' },
         { id: 'escribano', label: 'Escribano designado', placeholder: 'Nombre del escribano' },
       ]},
-      { title: '📊 Comisiones', fields: [
-        { id: 'com_captador', label: 'Comisión captador (%+IVA)', placeholder: 'Ej: 3' },
-        { id: 'com_oferente', label: 'Comisión oferente (%+IVA)', placeholder: 'Ej: 4' },
-      ]},
       { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
         { id: 'ad_ref', label: 'Condiciones ad referéndum adicionales', type: 'textarea', placeholder: 'Condiciones adicionales...', full: true },
       ]},
     ],
@@ -127,12 +117,7 @@ const TEMPLATES_COMPLETOS = [
         { id: 'reserva_letras', label: 'Monto reserva (letras)', placeholder: 'Ej: Cinco mil dólares', full: true },
         { id: 'fecha_esc', label: 'Fecha tope de escritura', type: 'date' },
       ]},
-      { title: '📊 Comisiones', fields: [
-        { id: 'com_captador', label: 'Comisión captador (%+IVA)', placeholder: 'Ej: 3' },
-        { id: 'com_oferente', label: 'Comisión oferente (%+IVA)', placeholder: 'Ej: 4' },
-      ]},
       { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
         { id: 'ad_ref', label: 'Condiciones adicionales', type: 'textarea', placeholder: 'Condiciones especiales del crédito...', full: true },
       ]},
     ],
@@ -172,12 +157,7 @@ const TEMPLATES_COMPLETOS = [
         { id: 'reserva_num', label: 'Monto reserva (números) <span class="req">*</span>', placeholder: 'Ej: USD 2.000' },
         { id: 'fecha_firma_ces', label: 'Fecha tope para firma de cesión', type: 'date' },
       ]},
-      { title: '📊 Comisiones', fields: [
-        { id: 'com_captador', label: 'Comisión captador (%+IVA)', placeholder: 'Ej: 3' },
-        { id: 'com_oferente', label: 'Comisión oferente (%+IVA)', placeholder: 'Ej: 4' },
-      ]},
       { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
         { id: 'ad_ref', label: 'Condiciones adicionales', type: 'textarea', placeholder: 'Condiciones especiales...', full: true },
       ]},
     ],
@@ -214,12 +194,7 @@ const TEMPLATES_COMPLETOS = [
         { id: 'plan_pago', label: 'Plan de pago', type: 'textarea', placeholder: 'Ej: 20% al boleto, 30% en cuotas, 50% a la escritura', full: true },
         { id: 'moneda', label: 'Moneda', type: 'select', options: ['Dólares billete (USD)','Pesos argentinos (ARS)'] },
       ]},
-      { title: '📊 Comisiones', fields: [
-        { id: 'com_captador', label: 'Comisión captador (%+IVA)', placeholder: 'Ej: 3' },
-        { id: 'com_oferente', label: 'Comisión oferente (%+IVA)', placeholder: 'Ej: 4' },
-      ]},
       { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
         { id: 'ad_ref', label: 'Condiciones adicionales', type: 'textarea', placeholder: 'Condiciones especiales...', full: true },
       ]},
     ],
@@ -258,7 +233,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'reserva_num', label: 'Monto de reserva entregado', placeholder: 'Ej: $100.000' },
       ]},
       { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
         { id: 'ad_ref', label: 'Condiciones adicionales', type: 'textarea', placeholder: 'Condiciones especiales...', full: true },
       ]},
     ],
@@ -293,7 +267,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'reserva_num', label: 'Monto de reserva entregado', placeholder: 'Ej: $80.000' },
       ]},
       { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
         { id: 'ad_ref', label: 'Condiciones adicionales', type: 'textarea', placeholder: 'Condiciones especiales...', full: true },
       ]},
     ],
@@ -328,7 +301,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'reserva_num', label: 'Monto de reserva entregado', placeholder: 'Ej: $150.000' },
       ]},
       { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
         { id: 'ad_ref', label: 'Condiciones adicionales', type: 'textarea', placeholder: 'Condiciones especiales...', full: true },
       ]},
     ],
@@ -362,7 +334,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'deposito', label: 'Depósito (30% del total)', placeholder: 'Ej: $135.000' },
       ]},
       { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
         { id: 'ad_ref', label: 'Condiciones adicionales (opcional)', type: 'textarea', placeholder: 'Condiciones especiales, etc.', full: true },
       ]},
     ],
@@ -396,10 +367,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'precio_letras', label: 'Precio de venta autorizado (letras) <span class="req">*</span>', placeholder: 'Ej: Ciento cincuenta mil dólares', full: true },
         { id: 'precio_num', label: 'Precio de venta autorizado (números) <span class="req">*</span>', placeholder: 'Ej: USD 150.000' },
         { id: 'plazo_dias', label: 'Plazo de exclusividad (días hábiles)', placeholder: 'Ej: 90' },
-        { id: 'com_pct', label: 'Comisión del corredor (%+IVA)', placeholder: 'Ej: 3' },
-      ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
       ]},
     ],
     clausulas_default: ['av_encabezado','av_precio','av_titularidad','av_percibir','av_honorarios','av_exclusividad','av_proteccion','av_publicidad','av_gastos_pub','av_conyuge','av_jurisdiccion','av_agente','av_cierre']
@@ -431,10 +398,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'precio_letras', label: 'Precio de venta (letras) <span class="req">*</span>', placeholder: 'Ej: Doscientos mil dólares', full: true },
         { id: 'precio_num', label: 'Precio de venta (números) <span class="req">*</span>', placeholder: 'Ej: USD 200.000' },
         { id: 'plazo_dias', label: 'Plazo de exclusividad (días hábiles)', placeholder: 'Ej: 90' },
-        { id: 'com_pct', label: 'Comisión del corredor (%+IVA)', placeholder: 'Ej: 3' },
-      ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
       ]},
     ],
     clausulas_default: ['avr_encabezado','avr_precio','avr_titularidad','avr_percibir','avr_honorarios','avr_exclusividad','avr_proteccion','avr_publicidad','avr_gastos_pub','avr_contrato_locacion','avr_locatario_acceso','avr_conyuge','avr_jurisdiccion','avr_cierre']
@@ -464,10 +427,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'precio_letras', label: 'Precio de cesión autorizado (letras) <span class="req">*</span>', placeholder: 'Ej: Noventa mil dólares', full: true },
         { id: 'precio_num', label: 'Precio de cesión autorizado (números) <span class="req">*</span>', placeholder: 'Ej: USD 90.000' },
         { id: 'plazo_dias', label: 'Plazo de exclusividad (días hábiles)', placeholder: 'Ej: 90' },
-        { id: 'com_pct', label: 'Comisión del corredor (%+IVA)', placeholder: 'Ej: 3' },
-      ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
       ]},
     ],
     clausulas_default: ['ac_encabezado','ac_autorizante','ac_objeto','ac_precio','ac_exclusividad','ac_comision','ac_proteccion','ac_jurisdiccion','ac_agente','ac_cierre']
@@ -509,10 +468,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'precio_letras', label: 'Precio de venta (letras) <span class="req">*</span>', placeholder: 'Ej: Doscientos mil dólares', full: true },
         { id: 'precio_num', label: 'Precio de venta (números) <span class="req">*</span>', placeholder: 'Ej: USD 200.000' },
         { id: 'plazo_dias', label: 'Plazo de exclusividad (días hábiles)', placeholder: 'Ej: 90' },
-        { id: 'com_pct', label: 'Comisión del corredor (%+IVA)', placeholder: 'Ej: 3' },
-      ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
       ]},
     ],
     clausulas_default: ['ae_encabezado','ae_precio_anexo','ae_declaracion','ae_percibir','ae_honorarios','ae_exclusividad','ae_publicidad','ae_gastos_pub','ae_jurisdiccion','ae_cierre']
@@ -541,11 +496,7 @@ const TEMPLATES_COMPLETOS = [
         { id: 'precio_letras', label: 'Alquiler mensual pretendido (letras) <span class="req">*</span>', placeholder: 'Ej: Doscientos cincuenta mil pesos', full: true },
         { id: 'precio_num', label: 'Alquiler mensual pretendido (números) <span class="req">*</span>', placeholder: 'Ej: $250.000' },
         { id: 'plazo_dias', label: 'Plazo de exclusividad (días hábiles)', placeholder: 'Ej: 60' },
-        { id: 'com_pct', label: 'Comisión del corredor (%+IVA)', placeholder: 'Ej: 1 mes' },
         { id: 'garantia', label: 'Garantía requerida', type: 'select', options: ['Título de propiedad','Seguro de caución','Garantía personal','Recibo de sueldo','A convenir'] },
-      ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
       ]},
     ],
     clausulas_default: ['al_encabezado','al_autorizante','al_inmueble','al_alquiler','al_exclusividad','al_garantia','al_comision','al_obligaciones','al_proteccion','al_jurisdiccion','al_agente','al_cierre']
@@ -574,10 +525,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'precio_num', label: 'Precio diario / semanal pretendido <span class="req">*</span>', placeholder: 'Ej: USD 120/noche' },
         { id: 'plataformas', label: 'Plataformas de comercialización', type: 'select', options: ['Airbnb','Booking','Ambas','Otras'] },
         { id: 'plazo_meses', label: 'Plazo de exclusividad (meses)', placeholder: 'Ej: 6' },
-        { id: 'com_pct', label: 'Comisión del corredor (%)', placeholder: 'Ej: 20' },
-      ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
       ]},
     ],
     clausulas_default: ['atex_encabezado','atex_autorizante','atex_inmueble','atex_precio_plataformas','atex_exclusividad','atex_comision','atex_obligaciones','atex_proteccion','atex_jurisdiccion','atex_agente','atex_cierre']
@@ -606,10 +553,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'precio_num', label: 'Precio diario / semanal pretendido <span class="req">*</span>', placeholder: 'Ej: $50.000/noche' },
         { id: 'plataformas', label: 'Plataformas de comercialización', type: 'select', options: ['Airbnb','Booking','Ambas','Redes sociales','Otras'] },
         { id: 'plazo_meses', label: 'Plazo de autorización (meses)', placeholder: 'Ej: 3' },
-        { id: 'com_pct', label: 'Comisión del corredor (%)', placeholder: 'Ej: 20' },
-      ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
       ]},
     ],
     clausulas_default: ['atne_encabezado','atne_autorizante','atne_inmueble','atne_precio_plataformas','atne_autorizacion_noexcl','atne_comision','atne_jurisdiccion','atne_agente','atne_cierre']
@@ -751,9 +694,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'anticipo_meses', label: 'Anticipo (meses)', placeholder: 'Ej: 1' },
         { id: 'anticipo_dias', label: 'Días para depositar anticipo', placeholder: 'Ej: 5' },
       ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
-      ]},
     ],
     clausulas_default: ['clv_encabezado','clv_objeto','clv_plazo','clv_mensual','clv_ajuste','clv_garantia','clv_deposito','clv_honorarios','clv_gastos','clv_destino','clv_subarriendo','clv_mejoras','clv_reparaciones','clv_entrega_devolucion','clv_jurisdiccion','clv_agente','clv_firma']
   },
@@ -809,9 +749,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'anticipo_meses', label: 'Anticipo (meses)', placeholder: 'Ej: 1' },
         { id: 'anticipo_dias', label: 'Días para depositar anticipo', placeholder: 'Ej: 5' },
       ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
-      ]},
     ],
     clausulas_default: ['clv_encabezado','clv_objeto','clv_plazo','clv_mensual','clv_ajuste','clv_garantia','clv_deposito','clv_honorarios','clv_gastos','clv_destino','clv_subarriendo','clv_mejoras','clv_reparaciones','clv_entrega_devolucion','clv_jurisdiccion','clv_agente','clv_firma']
   },
@@ -865,9 +802,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'anticipo_meses', label: 'Anticipo (meses)', placeholder: 'Ej: 1' },
         { id: 'anticipo_dias', label: 'Días para depositar anticipo', placeholder: 'Ej: 5' },
       ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
-      ]},
     ],
     clausulas_default: ['clc_encabezado','clc_objeto','clc_plazo','clc_mensual','clc_ajuste','clc_garantia','clc_deposito','clc_honorarios','clc_gastos','clc_destino','clc_subarriendo','clc_mejoras','clc_reparaciones','clc_entrega_devolucion','clc_jurisdiccion','clc_agente','clc_firma']
   },
@@ -912,9 +846,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'hora_llegada', label: 'Hora de llegada (check-in)', placeholder: 'Ej: 14:00' },
         { id: 'hora_salida', label: 'Hora de salida (check-out)', placeholder: 'Ej: 10:00' },
       ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
-      ]},
     ],
     clausulas_default: ['ctc_encabezado','ctc_objeto','ctc_plazo','ctc_precio','ctc_servicios','ctc_honorarios','ctc_proteccion','ctc_jurisdiccion','ctc_firma']
   },
@@ -958,9 +889,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'fecha_fin', label: 'Fecha de salida <span class="req">*</span>', type: 'date' },
         { id: 'hora_llegada', label: 'Hora de llegada (check-in)', placeholder: 'Ej: 14:00' },
         { id: 'hora_salida', label: 'Hora de salida (check-out)', placeholder: 'Ej: 10:00' },
-      ]},
-      { title: '🧑‍💼 Agente', fields: [
-        { id: 'agente', label: 'Nombre del agente RE/MAX CREA', placeholder: 'Nombre completo', full: true },
       ]},
     ],
     clausulas_default: ['cts_encabezado','cts_objeto','cts_plazo','cts_precio','cts_servicios_excl','cts_honorarios','cts_proteccion','cts_jurisdiccion','cts_firma']
@@ -1421,7 +1349,6 @@ const TEMPLATES_COMPLETOS = [
         { id: 'fecha_dia', label: 'Día', placeholder: 'Ej: 15' },
         { id: 'fecha_mes', label: 'Mes', placeholder: 'Ej: Enero' },
         { id: 'fecha_anio', label: 'Año', placeholder: 'Ej: 2026' },
-        { id: 'agente', label: 'Nombre del agente', placeholder: 'Nombre completo', full: true },
       ]},
     ],
     clausulas_default: ['rec_texto']
